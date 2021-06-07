@@ -19,10 +19,31 @@ const ItemController = (app, db) => {
       image: req.body.image,
     };
 
+    if (!item.name || !item.description || !item.price || !item.image) {
+      res.status(400).json({ msg: "Post request data not valid" });
+    }
+
     db.collection("items")
       .add(item)
       .then((doc) => {
         res.json({ ...item, id: doc.id });
+      })
+      .catch(() => {
+        res.status(400).json({ msg: "Error creating item" });
+      });
+  });
+
+  app.delete("/items/:id", (req, res) => {
+    db.collection("items")
+      .doc(req.params.id)
+      .delete()
+      .then(() => {
+        res.json({ msg: `Item with ID ${req.params.id} deleted` });
+      })
+      .catch(() => {
+        res
+          .status(400)
+          .json({ msg: `Error deleting item with ID ${req.params.id}` });
       });
   });
 };
