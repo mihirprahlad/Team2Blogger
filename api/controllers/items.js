@@ -1,5 +1,6 @@
 const ItemController = (app, db) => {
   app.get("/items", (req, res) => {
+<<<<<<< HEAD
     const items = [];
     db.collection("items")
       .get()
@@ -45,6 +46,9 @@ const ItemController = (app, db) => {
           .status(400)
           .json({ msg: `Error deleting item with ID ${req.params.id}` });
       });
+=======
+    res.json({ msg: "test" });
+>>>>>>> main
   });
 };
 
