@@ -1,3 +1,4 @@
+import React from "react";
 import LazyHero from 'react-lazy-hero';
 
 export default function Home() {
