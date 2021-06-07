@@ -1,8 +1,7 @@
-import { useState } from "react";
-import Card from 'react-bootstrap/Card';
-import CardDeck from 'react-bootstrap/CardDeck';
+import { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button'
+import Button from 'react-bootstrap/Button';
+import DisplayItems from './DisplayItems';
 
 export default function Store() {
     // Stuff for Cart Modal ---------------
@@ -12,16 +11,47 @@ export default function Store() {
     const handleShow = () => setShow(true);
     // ------------------------------------
 
+    // Fetch request to get store items
+    const [items, setItems] = useState([]); // array of items
+
+    const getItems = () => {
+        fetch("http://localhost:5000/items")
+            .then((res) => {
+                return res.json();
+            })
+            .then((obj) => {
+                if (obj != null) {
+                    console.log("API CALL", obj);
+                    if (obj.length === 0) {
+                        obj = [{
+                            "price": 0,
+                            "name": "Items not found",
+                            "description": "Items not found",
+                            "image": "https://merchbar.imgix.net/product/43/1763/uvch442/UVCH442.JPG?w=360&h=360&quality=60&auto=compress%252Cformat",
+                            "id": "notFound"
+                        }];
+                    }
+                    setItems(obj);
+                } else {
+                    console.log("Error");
+                }
+            });
+    };
+    useEffect(() => {
+        getItems();
+    }, []); // add something to this dependency array later
+
+
     return (
         <div>
             {/* Header */}
             <div className="Header">
                 <h1 style={{ padding: "15px" }}>Store</h1>
-                
+
             </div>
 
             {/* Cart */}
-            <div className="Cart" style={{float: "right", padding: "15px"}}>
+            <div className="Cart" style={{ float: "right", padding: "15px" }}>
                 <Button variant="primary" onClick={handleShow}>
                     View Cart
                 </Button>
@@ -45,58 +75,9 @@ export default function Store() {
 
             {/* Item Cards */}
             <div className="CardContainer" style={{ margin: "auto", width: "50%" }}>
-                <CardDeck>
-
-
-                    <Card>
-                        <Card.Img variant="top" src="holder.js/100px160" />
-                        <Card.Body>
-                            <Card.Title>Card title</Card.Title>
-                            <Card.Text>
-                                This is a wider card with supporting text below as a natural lead-in to
-                                additional content. This content is a little bit longer.
-                        </Card.Text>
-                        </Card.Body>
-                        <Card.Footer>
-                            <small className="text-muted">Last updated 3 mins ago</small>
-                        </Card.Footer>
-                    </Card>
-
-
-
-                    <Card>
-                        <Card.Img variant="top" src="holder.js/100px160" />
-                        <Card.Body>
-                            <Card.Title>Card title</Card.Title>
-                            <Card.Text>
-                                This card has supporting text below as a natural lead-in to additional content.{' '}
-                            </Card.Text>
-                        </Card.Body>
-                        <Card.Footer>
-                            <small className="text-muted">Last updated 3 mins ago</small>
-                        </Card.Footer>
-                    </Card>
-
-
-
-                    <Card>
-                        <Card.Img variant="top" src="holder.js/100px160" />
-                        <Card.Body>
-                            <Card.Title>Card title</Card.Title>
-                            <Card.Text>
-                                This is a wider card with supporting text below as a natural lead-in to
-                                additional content. This card has even longer content than the first to
-                                show that equal height action.
-                        </Card.Text>
-                        </Card.Body>
-                        <Card.Footer>
-                            <small className="text-muted">Last updated 3 mins ago</small>
-                        </Card.Footer>
-                    </Card>
-
-
-                </CardDeck>
+                <DisplayItems items={items} />
             </div>
+
 
         </div>
     );
