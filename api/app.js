@@ -9,9 +9,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
-app.get("/", (req, res) => {
-  res.send('<h1>Test</h1>')
-});
+const ItemController = require('./controllers/items.js')
+
+ItemController(app, db)
+
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
