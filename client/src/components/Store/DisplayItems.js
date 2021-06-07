@@ -1,5 +1,6 @@
 import Card from 'react-bootstrap/Card';
 import CardDeck from 'react-bootstrap/CardDeck';
+import Button from 'react-bootstrap/Button';
 export default function DisplayItems(props){
 
     return (
@@ -16,7 +17,9 @@ export default function DisplayItems(props){
                 </Card.Text>
                 </Card.Body>
                 <Card.Footer>
-                    <small className="text-muted">$ {item.price}</small>
+                    <medium className="text-muted">$ {item.price}</medium>
+                    <Button size="sm" style={{float: "right"}}>Add to Cart</Button>
+                    {/* ^ so far doesn't do anything, dummy button */}
                 </Card.Footer>
             </Card>
 
