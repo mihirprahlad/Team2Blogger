@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "react-scripts start"
+    "dev": "nodemon ./api/app.js"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,12 @@
   },
   "homepage": "https://github.com/mp8dy/Team2Blogger#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "firebase": "^8.6.5",
+    "firebase-admin": "^9.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
   }
 }
