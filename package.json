@@ -1,0 +1,19 @@
+{
+  "name": "team2blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mp8dy/Team2Blogger.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mp8dy/Team2Blogger/issues"
+  },
+  "homepage": "https://github.com/mp8dy/Team2Blogger#readme"
+}
