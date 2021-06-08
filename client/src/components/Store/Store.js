@@ -52,7 +52,7 @@ export default function Store() {
             <br />
 
             {/* Item Cards */}
-            <div className="CardContainer" style={{ margin: "auto", width: "100%" }}>
+            <div className="CardContainer" style={{ width: "100%", margin: "auto", display: "flex", flexDirection: "row", flexWrap: "wrap", justifyContent: "center"}}>
                 <DisplayItems items={items} />
             </div>
         </div>

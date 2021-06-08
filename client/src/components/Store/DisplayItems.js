@@ -6,7 +6,7 @@ import { RiDeleteBinLine } from "react-icons/ri";
 
 export default function DisplayItems(props) {
   return (
-    <div className="CardContainer" style={{ margin: "auto", width: "50%" }}>
+    <div className="CardContainer">
       <CardDeck>
         {props.items.map((item) => (
           <Card>
