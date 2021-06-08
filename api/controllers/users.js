@@ -25,11 +25,11 @@ const UserController = (app, db) => {
 
     const docRef = db.collection("users").doc(req.body.id);
 
-    await docRef.get().then(doc => {
-      if (doc.exists){
-        res.status(409).json({ msg: "User already exists"})
+    await docRef.get().then((doc) => {
+      if (doc.exists) {
+        res.status(409).json({ msg: "User already exists" });
       }
-    })
+    });
 
     docRef
       .set(user)
@@ -38,6 +38,20 @@ const UserController = (app, db) => {
       })
       .catch(() => {
         res.status(400).json({ msg: "Error creating user" });
+      });
+  });
+
+  app.delete("/users/:id", (req, res) => {
+    db.collection("users")
+      .doc(req.body.id)
+      .delete()
+      .then(() => {
+        res.json({ msg: `User with ID ${req.body.id} deleted` });
+      })
+      .catch(() => {
+        res
+          .status(400)
+          .json({ msg: `Error deleting user with ID ${req.body.id}` });
       });
   });
 };
