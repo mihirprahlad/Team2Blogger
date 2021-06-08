@@ -1,5 +1,5 @@
 import firebase from "../auth.js";
-import { useContext } from "react";
+import { useEffect, useContext } from "react";
 import { UserContext } from "../contexts/UserContext.js";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
@@ -7,6 +7,15 @@ import axios from "axios";
 
 const SignIn = (props) => {
   const { user, setUser } = useContext(UserContext);
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
+      }
+    });
+  });
+
   const signInWithGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     firebase
