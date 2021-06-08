@@ -28,28 +28,31 @@ export default function PostCard({postContent}){
 
 
     return(
-        <div>
-            <Card style={{ width: '50vw' , height:'400px', margin:"auto"}}>
+        <div style={{paddingBottom:"10%"}}>
+            <Card style={{ width: '70vw' , height:'650px', margin:"auto"}}>
                 <Card.Body>
                     <Container>
                         <Row>
-                            <Col sm={2}>
+                            <Col md={1.5}>
                                 <Image style={{ width: '5rem'}} src="https://media.istockphoto.com/photos/businessman-silhouette-as-avatar-or-default-profile-picture-picture-id474001958?s=170x170" roundedCircle/>
                             </Col>
-                            <Col sm={10}>
+                            <Col md={10.5} style={{paddingLeft:"3%"}}>
                                 <h2>{postContent.title}</h2>
                                 <Card.Subtitle className="mb-2 text-muted">Camille Cooper</Card.Subtitle>
                                 <Card.Subtitle className="mb-2 text-muted">{postContent.date}</Card.Subtitle>
                             </Col>
                         </Row>
+                    <Row style={{justifyContent:"center"}}>
+                        <Image class="img-fluid" style={{ maxWidth: '60vw',maxHeight:"330px"}} src={postContent.image}/>
+                    </Row>
                     <Row>
-                    <Card.Text style={{textAlign:"left",paddingTop:"2%"}}>{reduceContentLength(postContent.content)}</Card.Text>
+                        <p style={{textAlign:"left",paddingTop:"2%",fontSize:15}}>{reduceContentLength(postContent.content)}</p>
                     </Row>
                     <Row style={{justifyContent:"center",paddingTop:"10px"}}>
-                    <Button variant="success" onClick={(e)=>{
-                        history.push("/blogpost/"+postContent.id);
-                        e.stopPropagation();
-                    }}>{postContent.content.length>=700?"Read More":"Read"}</Button>
+                        <Button variant="success" onClick={(e)=>{
+                            history.push("/blogpost/"+postContent.id);
+                            e.stopPropagation();
+                        }}>{postContent.content.length>=700?"Read More":"Read"}</Button>
                     </Row>
                     </Container>
                 </Card.Body>
