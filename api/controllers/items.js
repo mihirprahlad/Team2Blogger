@@ -33,17 +33,17 @@ const ItemController = (app, db) => {
       });
   });
 
-  app.delete("/items/:id", (req, res) => {
+  app.delete("/items", (req, res) => {
     db.collection("items")
-      .doc(req.params.id)
+      .doc(req.body.id)
       .delete()
       .then(() => {
-        res.json({ msg: `Item with ID ${req.params.id} deleted` });
+        res.json({ msg: `Item with ID ${req.body.id} deleted` });
       })
       .catch(() => {
         res
           .status(400)
-          .json({ msg: `Error deleting item with ID ${req.params.id}` });
+          .json({ msg: `Error deleting item with ID ${req.body.id}` });
       });
   });
 };
