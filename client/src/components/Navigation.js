@@ -1,6 +1,7 @@
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import { Link } from "react-router-dom";
+import SignIn from "./SignIn.js";
 
 const Navigation = (props) => {
   return (
@@ -24,6 +25,9 @@ const Navigation = (props) => {
           <Nav.Link as={Link} to="/about">
             About
           </Nav.Link>
+        </Nav>
+        <Nav>
+          <SignIn />
         </Nav>
       </Navbar.Collapse>
     </Navbar>
