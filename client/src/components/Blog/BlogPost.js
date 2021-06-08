@@ -32,7 +32,7 @@ export default function BlogPost(){
             (<div>
             <Row>
                 <Col sm={10}>
-                    <h1>{content.title}</h1>
+                    <h1 style={{fontWeight:"bold"}}>{content.title}</h1>
                     <h4>Camille Cooper</h4>
                     <h6>{content.date}</h6>
                 </Col>

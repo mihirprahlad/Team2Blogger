@@ -14,7 +14,7 @@ export default function Blog(){
     },[])
 
     return(
-        <div>
+        <div style={{paddingBottom:"5%"}}>
             <h1 style={{textAlign:"center",padding:"15px"}}>This is My Blog.</h1>
             {posts?(posts.map((post)=>{return(<PostCard postContent={post}/>)})):(
             <div class="center">

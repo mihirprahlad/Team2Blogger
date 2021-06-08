@@ -28,8 +28,8 @@ export default function PostCard({postContent}){
 
 
     return(
-        <div style={{paddingBottom:"10%"}}>
-            <Card style={{ width: '70vw' , height:'650px', margin:"auto"}}>
+        <div style={{paddingBottom:"3%"}}>
+            <Card style={{ width: '70vw' , height:'auto', margin:"auto"}}>
                 <Card.Body>
                     <Container>
                         <Row>
@@ -37,13 +37,13 @@ export default function PostCard({postContent}){
                                 <Image style={{ width: '5rem'}} src="https://media.istockphoto.com/photos/businessman-silhouette-as-avatar-or-default-profile-picture-picture-id474001958?s=170x170" roundedCircle/>
                             </Col>
                             <Col md={10.5} style={{paddingLeft:"3%"}}>
-                                <h2>{postContent.title}</h2>
+                                <h2 style={{fontWeight:"bold"}}>{postContent.title}</h2>
                                 <Card.Subtitle className="mb-2 text-muted">Camille Cooper</Card.Subtitle>
                                 <Card.Subtitle className="mb-2 text-muted">{postContent.date}</Card.Subtitle>
                             </Col>
                         </Row>
                     <Row style={{justifyContent:"center"}}>
-                        <Image class="img-fluid" style={{ maxWidth: '60vw',maxHeight:"330px"}} src={postContent.image}/>
+                        <Image class="img-fluid" style={{ maxWidth: '60vw',height:"330px"}} src={postContent.image}/>
                     </Row>
                     <Row>
                         <p style={{textAlign:"left",paddingTop:"2%",fontSize:15}}>{reduceContentLength(postContent.content)}</p>
