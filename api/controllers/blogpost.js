@@ -75,7 +75,7 @@ const BlogPostController = (app, db) => {
         .doc(req.params.id)
       ref.update({
         title: title,
-        date: upDate,
+        editDate: upDate,
         image: image,
         content: content
       })
