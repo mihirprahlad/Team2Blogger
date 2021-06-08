@@ -1,5 +1,7 @@
 import PostCard from './PostCard';
 import React, {useEffect, useState} from 'react';
+import Spinner from 'react-bootstrap/Spinner'
+import '../../App.css'
 export default function Blog(){
 
     const [posts,setPosts] = useState(null);
@@ -13,8 +15,11 @@ export default function Blog(){
 
     return(
         <div>
-            <h1 style={{textAlign:"center",padding:"15px"}}>My Blog.</h1>
-            {posts.map((post)=>{return(<PostCard postContent={post}/>)})}
+            <h1 style={{textAlign:"center",padding:"15px"}}>This is My Blog.</h1>
+            {posts?(posts.map((post)=>{return(<PostCard postContent={post}/>)})):(
+            <div class="center">
+            <Spinner animation="grow"/>
+            </div>)}
         </div>
     )
 
