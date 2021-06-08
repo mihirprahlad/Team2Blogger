@@ -4,17 +4,15 @@ import Button from 'react-bootstrap/Button';
 export default function DisplayItems(props){
 
     return (
-        <div className="CardContainer" style={{ margin: "auto", width: "50%" }}>
+        <div className="CardContainer" style={{ margin: "auto", width: "30%" }}>
         <CardDeck>
 
             {props.items.map((item) => (
                 <Card>
-                <Card.Img variant="top" src={item.image} />
+                <Card.Img variant="top" src={item.image} style={{height: "220px"}} />
                 <Card.Body>
                     <Card.Title>{item.name}</Card.Title>
-                    <Card.Text>
-                        {item.description}
-                </Card.Text>
+                    <Card.Text>{item.description}</Card.Text>
                 </Card.Body>
                 <Card.Footer>
                     <medium className="text-muted">$ {item.price}</medium>
