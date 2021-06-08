@@ -11,6 +11,20 @@ const UserController = (app, db) => {
       .then(() => res.json(users));
   });
 
+  app.get("/users/:id", (req, res) => {
+    db.collection("users")
+      .doc(req.params.id)
+      .get()
+      .then((doc) => {
+        if (doc.exists){
+          res.json({...doc.data(), id: doc.id});
+        }
+        else {
+          res.status(404).json({msg: `No user with id ${req.params.id}`})
+        }
+      });
+  });
+
   app.post("/users", async (req, res) => {
     const user = {
       id: req.body.id,
@@ -43,15 +57,15 @@ const UserController = (app, db) => {
 
   app.delete("/users/:id", (req, res) => {
     db.collection("users")
-      .doc(req.body.id)
+      .doc(req.params.id)
       .delete()
       .then(() => {
-        res.json({ msg: `User with ID ${req.body.id} deleted` });
+        res.json({ msg: `User with ID ${req.params.id} deleted` });
       })
       .catch(() => {
         res
           .status(400)
-          .json({ msg: `Error deleting user with ID ${req.body.id}` });
+          .json({ msg: `Error deleting user with ID ${req.params.id}` });
       });
   });
 };
