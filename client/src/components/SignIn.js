@@ -3,22 +3,43 @@ import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext.js";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
+import axios from "axios";
 
 const SignIn = (props) => {
   const { user, setUser } = useContext(UserContext);
-
   const signInWithGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     firebase
       .auth()
       .signInWithPopup(provider)
       .then((res) => {
-        setUser(true);
+        getUser(res.user);
         return false;
+      });
+  };
+
+  const getUser = (user) => {
+    axios
+      .get(`http://localhost:5000/users/${user.uid}`)
+      .then((res) => {
+        setUser(res.data);
       })
       .catch((err) => {
-        console.log(err.message);
+        createUser(user);
       });
+  };
+
+  const createUser = (user) => {
+    const newUser = {
+      id: user.uid,
+      email: user.email,
+      name: user.displayName,
+      image: user.photoURL,
+    };
+
+    axios.post("http://localhost:5000/users", newUser).then((res) => {
+      setUser(res.data);
+    });
   };
 
   const logout = () => {
