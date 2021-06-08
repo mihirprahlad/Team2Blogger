@@ -34,7 +34,7 @@ export default function PostCard({postContent}){
                     <Container>
                         <Row>
                             <Col sm={2}>
-                                <Image style={{ width: '5rem'}} src={postContent.image} roundedCircle/>
+                                <Image style={{ width: '5rem'}} src="https://media.istockphoto.com/photos/businessman-silhouette-as-avatar-or-default-profile-picture-picture-id474001958?s=170x170" roundedCircle/>
                             </Col>
                             <Col sm={10}>
                                 <h2>{postContent.title}</h2>
