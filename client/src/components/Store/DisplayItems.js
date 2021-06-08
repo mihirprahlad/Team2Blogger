@@ -28,6 +28,7 @@ export default function DisplayItems(props) {
                                         .then((obj) => {
                                             console.log("deleting", obj);
                                             // setUpdate(Math.random());
+                                            window.location.reload();
                                         })
                                 } />
                             </div>
