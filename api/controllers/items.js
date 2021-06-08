@@ -33,25 +33,28 @@ const ItemController = (app, db) => {
       });
   });
 
-  app.post("/items/update", async (req, res) => {
-    const item = { name, description, price, image, id} = req.body;
-    console.log("starting update");
-    console.log("body:", req.body);
+  app.put("/items/:id", async (req, res) => {
+    const item = {
+      name: req.body.name,
+      description: req.body.description,
+      price: req.body.price,
+      image: req.body.image,
+    };
 
-    const fieldChange = {};
-    fieldChange["name"] = name;
-    fieldChange["description"] = description;
-    fieldChange["price"] = price;
-    fieldChange["image"] = image;
+    if (!item.name || !item.description || !item.price || !item.image) {
+      res.status(400).json({ msg: "PUT request data not valid" });
+    }
 
-    console.log ("fieldChange", fieldChange);
-
-    const resp = await db
-      .collection("items")
-      .doc(id)
-      .update(fieldChange);
-    res.sendStatus(200);
-  })
+    db.collection("items")
+      .doc(req.params.id)
+      .set(item)
+      .then((doc) => {
+        res.json({ ...item, id: doc.id });
+      })
+      .catch(() => {
+        res.status(400).json({ msg: "Error updating item" });
+      });
+  });
 
   app.delete("/items/:id", (req, res) => {
     db.collection("items")

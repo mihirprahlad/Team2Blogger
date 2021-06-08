@@ -24,8 +24,9 @@ export default function EditItems(props) {
 
     // Handling edit submission -----------
     function handleSubmit () {
-        fetch("http://localhost:5000/items/update", {
-            method: "POST",
+      console.log(`http://localhost:5000/items/update/${id}`)
+        fetch(`http://localhost:5000/items/${id}`, {
+            method: "PUT",
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
@@ -35,7 +36,6 @@ export default function EditItems(props) {
                 description: description,
                 price: price,
                 image: image,
-                id: id,
             }),
         });;
         setShow(false);
