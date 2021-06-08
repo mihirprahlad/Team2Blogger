@@ -4,13 +4,15 @@ import Footer from "./components/Footer"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
+import { far } from '@fortawesome/free-regular-svg-icons'
+import { fas } from '@fortawesome/free-solid-svg-icons'
 
 import BlogPage from './components/BlogPage'
 import Forum from "./components/Forum/Forum";
 import Store from "./components/Store/Store";
 import About from "./components/About/About";
 import Home from "./components/Home/Home";
-library.add(fab)
+library.add(fab, far, fas)
 
 
 
@@ -19,7 +21,6 @@ function App() {
     <Router className="App">
       <main>
         <Navigation />
-        <Footer />
         <Switch>
           <Route path="/" exact component={Home}/>
           <Route path="/blog" component={()=><BlogPage/>}/>
@@ -27,6 +28,7 @@ function App() {
           <Route path="/store" component={Store}/>
           <Route path="/about" component={About}/>
         </Switch>
+        <Footer />
       </main>
     </Router>
   );
