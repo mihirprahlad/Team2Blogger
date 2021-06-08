@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import DisplayItems from './DisplayItems';
+import AddItems from './AddItems';
 import Cart from './Cart';
 
 export default function Store() {
@@ -41,6 +42,10 @@ export default function Store() {
                 <h1 style={{ padding: "15px" }}>Store</h1>
 
             </div>
+
+            {/* Add Items Button */}
+
+            <AddItems />
 
             {/* Cart */}
             <Cart />
