@@ -1,7 +1,7 @@
 import Card from "react-bootstrap/Card";
 import CardDeck from "react-bootstrap/CardDeck";
-import Button from "react-bootstrap/Button";
 import EditItems from "./EditItems";
+import AddToCart from "./AddToCart"
 import { RiDeleteBinLine } from "react-icons/ri";
 
 export default function DisplayItems(props) {
@@ -44,10 +44,7 @@ export default function DisplayItems(props) {
             </Card.Body>
             <Card.Footer>
               <medium className="text-muted">$ {item.price}</medium>
-              <Button size="sm" style={{ float: "right" }}>
-                Add to Cart
-              </Button>
-              {/* ^ so far doesn't do anything, dummy button */}
+              <AddToCart item = {item}/>
             </Card.Footer>
           </Card>
         ))}
