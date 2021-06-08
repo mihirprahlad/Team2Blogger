@@ -17,13 +17,12 @@ export default function DisplayItems(props) {
                             <div>
                                 <EditItems name={item.name} description={item.description} price={item.price} image={item.image} id={item.id}/>
                                 <RiDeleteBinLine onClick={() =>
-                                    fetch("http://localhost:5000/items", {
+                                    fetch(`http://localhost:5000/items/${item.id}`, {
                                         method: "DELETE",
                                         headers: {
                                             Accept: "application/json",
                                             "Content-Type": "application/json",
-                                        },
-                                        body: JSON.stringify({ id: item.id }),
+                                        }
                                     })
                                         .then((obj) => {
                                             console.log("deleting", obj);

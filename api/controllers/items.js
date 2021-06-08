@@ -53,17 +53,17 @@ const ItemController = (app, db) => {
     res.sendStatus(200);
   })
 
-  app.delete("/items", (req, res) => {
+  app.delete("/items/:id", (req, res) => {
     db.collection("items")
-      .doc(req.body.id)
+      .doc(req.params.id)
       .delete()
       .then(() => {
-        res.json({ msg: `Item with ID ${req.body.id} deleted` });
+        res.json({ msg: `Item with ID ${req.params.id} deleted` });
       })
       .catch(() => {
         res
           .status(400)
-          .json({ msg: `Error deleting item with ID ${req.body.id}` });
+          .json({ msg: `Error deleting item with ID ${req.params.id}` });
       });
   });
 };
