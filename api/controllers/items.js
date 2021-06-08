@@ -33,6 +33,26 @@ const ItemController = (app, db) => {
       });
   });
 
+  app.post("/items/update", async (req, res) => {
+    const item = { name, description, price, image, id} = req.body;
+    console.log("starting update");
+    console.log("body:", req.body);
+
+    const fieldChange = {};
+    fieldChange["name"] = name;
+    fieldChange["description"] = description;
+    fieldChange["price"] = price;
+    fieldChange["image"] = image;
+
+    console.log ("fieldChange", fieldChange);
+
+    const resp = await db
+      .collection("items")
+      .doc(id)
+      .update(fieldChange);
+    res.sendStatus(200);
+  })
+
   app.delete("/items", (req, res) => {
     db.collection("items")
       .doc(req.body.id)

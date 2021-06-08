@@ -1,13 +1,13 @@
 import Card from 'react-bootstrap/Card';
 import CardDeck from 'react-bootstrap/CardDeck';
 import Button from 'react-bootstrap/Button';
-import { RiEditBoxLine } from "react-icons/ri";
+import EditItems from './EditItems';
 import { RiDeleteBinLine } from "react-icons/ri";
 
 export default function DisplayItems(props) {
 
     return (
-        <div className="CardContainer" style={{ margin: "auto", width: "30%" }}>
+        <div className="CardContainer" style={{ margin: "auto", width: "50%" }}>
             <CardDeck>
 
                 {props.items.map((item) => (
@@ -15,7 +15,7 @@ export default function DisplayItems(props) {
                         <Card.Img variant="top" src={item.image} style={{ height: "220px", width: "220px" }} />
                         <Card.Body>
                             <div>
-                                <RiEditBoxLine />
+                                <EditItems name={item.name} description={item.description} price={item.price} image={item.image} id={item.id}/>
                                 <RiDeleteBinLine onClick={() =>
                                     fetch("http://localhost:5000/items", {
                                         method: "DELETE",
@@ -27,7 +27,6 @@ export default function DisplayItems(props) {
                                     })
                                         .then((obj) => {
                                             console.log("deleting", obj);
-                                            // setUpdate(Math.random());
                                             window.location.reload();
                                         })
                                 } />
