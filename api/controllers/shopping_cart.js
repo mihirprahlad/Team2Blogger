@@ -12,6 +12,7 @@ const ShoppingCartController = (app, db) => {
 
     if (Object.keys(item_map).length === 0) {
       res.json([]);
+      return;
     }
 
     // Get item documents corresponding to list of item ids
@@ -30,11 +31,21 @@ const ShoppingCartController = (app, db) => {
     res.json(cart);
   });
 
-  // app.post("/users/:id/shopping-cart", (req, res) => {
-  //
-  // })
+  app.post("/users/:id/shopping-cart", async (req, res) => {
+    let shopping_cart;
+    const item_id = req.body.item_id;
+    const userDoc = db.collection("users").doc(req.params.id);
 
+    await userDoc.get().then((doc) => {
+      shopping_cart = doc.data().shopping_cart;
+    });
+    // Add item to cart or increment item quantity if item already in cart
+    shopping_cart[item_id] = shopping_cart[item_id]
+      ? shopping_cart[item_id] + 1
+      : 1;
 
+    userDoc.update({ shopping_cart }).then(() => res.json(shopping_cart));
+  });
 };
 
 module.exports = ShoppingCartController;
