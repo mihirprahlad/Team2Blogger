@@ -6,8 +6,11 @@ import Col from 'react-bootstrap/Col';
 import React, {useState} from 'react';
 import Button from 'react-bootstrap/Button'
 import { useHistory } from "react-router-dom";
+import { FaThumbsUp } from 'react-icons/fa';
+import { FaThumbsDown } from 'react-icons/fa';
 
 export default function PostCard({postContent}){
+    const isLoggedIn = true;
     const history = useHistory();
 
     const [readMore,setReadMore] = useState(false);
@@ -33,13 +36,27 @@ export default function PostCard({postContent}){
                 <Card.Body>
                     <Container>
                         <Row>
-                            <Col md={1.5}>
+                            <Col md={2}>
                                 <Image style={{ width: '5rem'}} src="https://media.istockphoto.com/photos/businessman-silhouette-as-avatar-or-default-profile-picture-picture-id474001958?s=170x170" roundedCircle/>
                             </Col>
-                            <Col md={10.5} style={{paddingLeft:"3%"}}>
+                            <Col md={8} style={{paddingLeft:"3%"}}>
                                 <h2 style={{fontWeight:"bold"}}>{postContent.title}</h2>
                                 <Card.Subtitle className="mb-2 text-muted">Camille Cooper</Card.Subtitle>
                                 <Card.Subtitle className="mb-2 text-muted">{postContent.date}</Card.Subtitle>
+                            </Col>
+                            <Col md={2}>
+                                {isLoggedIn&&
+                                <div>
+                                <button type="button" class="btn btn-link" >
+                                    <FaThumbsUp size={20} style={{color:"#779ecb"}}/>
+                                </button>
+                                <button type="button" class="btn btn-link">
+                                    <FaThumbsDown size={20} style={{color:"#779ecb"}}/>
+                                </button>
+                                </div>
+                                }
+                                <Card.Subtitle style={{fontSize:"12px",margin:"auto", textAlign:"justify",paddingTop:7}}>Likes: 300</Card.Subtitle>
+                                <Card.Subtitle style={{fontSize:"12px",margin:"auto", textAlign:"justify",paddingTop:7}}>Dislikes: 300</Card.Subtitle>
                             </Col>
                         </Row>
                     <Row style={{justifyContent:"center"}}>
