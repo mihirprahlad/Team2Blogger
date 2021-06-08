@@ -9,18 +9,15 @@ const imageStyle = {
 }
 
 const titleStyle = {
-    fontFamily: "Brush Script MT",
     fontSize: 60
 };
 
 const headerStyle = {
-    fontFamily: "Verdana",
     margin: "50px",
     fontSize: 40
 };
 
 const textStyle = {
-    fontFamily: "Verdana",
     margin: "50px",
     fontSize: 24
 };
