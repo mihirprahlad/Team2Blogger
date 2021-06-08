@@ -10,8 +10,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
 const ItemController = require("./controllers/items.js");
+const UserController = require("./controllers/users.js");
 
 ItemController(app, db);
+UserController(app, db);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
