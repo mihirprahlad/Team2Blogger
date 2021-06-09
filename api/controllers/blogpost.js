@@ -10,19 +10,21 @@ const BlogPostController = (app, db) => {
         })
         .then(() => res.json(blogpost));
     });
-  
+
     app.post("/blogpost", (req, res) => {
       const blogpost = {
         title: req.body.title,
         date: req.body.date,
         image: req.body.image,
         content: req.body.content,
+        likes: {},
+        dislikes: {}
       };
-  
+
       if (!blogpost.title || !blogpost.date || !blogpost.image || !blogpost.content) {
         res.status(400).json({ msg: "Post request data not valid" });
       }
-  
+
       db.collection("blogpost")
         .add(blogpost)
         .then((doc) => {
@@ -32,7 +34,7 @@ const BlogPostController = (app, db) => {
           res.status(400).json({ msg: "Error creating blogpost" });
         });
     });
-  
+
     app.delete("/blogpost/:id", (req, res) => {
       db.collection("blogpost")
         .doc(req.params.id)
@@ -47,6 +49,5 @@ const BlogPostController = (app, db) => {
         });
     });
   };
-  
+
   module.exports = BlogPostController;
-  
