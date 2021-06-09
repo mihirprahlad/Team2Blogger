@@ -31,7 +31,7 @@ function App() {
           <Route path="/newpost" component={NewPost}/>
           <Route path="/forum" component={Forum}/>
           <Route path="/forumpost/:forumID" component={ForumPost}/>
-          {/* <Route path="/newforumpost" component={NewForumPost}/> */}
+          <Route path="/newforumpost" component={NewForumPost}/>
           <Route path="/store" component={Store}/>
           <Route path="/about" component={About}/>
         </Switch>
