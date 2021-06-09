@@ -13,13 +13,11 @@ const ItemController = require("./controllers/items.js");
 const UserController = require("./controllers/users.js");
 const BlogPostController = require("./controllers/blogpost.js");
 const ShoppingCartController = require("./controllers/shopping_cart.js");
-const ItemController = require("./controllers/items.js");
 
 ItemController(app, db);
 UserController(app, db);
 BlogPostController(app,db);
 ShoppingCartController(app,db);
-ItemController(app,db);
 
 
 app.listen(port, () => {
