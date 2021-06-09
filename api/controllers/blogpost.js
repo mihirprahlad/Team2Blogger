@@ -10,19 +10,21 @@ const BlogPostController = (app, db) => {
         })
         .then(() => res.json(blogpost));
     });
-  
+
     app.post("/blogpost", (req, res) => {
       const blogpost = {
         title: req.body.title,
         date: req.body.date,
         image: req.body.image,
         content: req.body.content,
+        likes: {},
+        dislikes: {}
       };
-  
+
       if (!blogpost.title || !blogpost.date || !blogpost.image || !blogpost.content) {
         res.status(400).json({ msg: "Post request data not valid" });
       }
-  
+
       db.collection("blogpost")
         .add(blogpost)
         .then((doc) => {
@@ -32,7 +34,7 @@ const BlogPostController = (app, db) => {
           res.status(400).json({ msg: "Error creating blogpost" });
         });
     });
-  
+
     app.delete("/blogpost/:id", (req, res) => {
       db.collection("blogpost")
         .doc(req.params.id)
@@ -46,47 +48,5 @@ const BlogPostController = (app, db) => {
             .json({ msg: `Error deleting blogpost with ID ${req.params.id}` });
         });
     });
-
-  app.put("/blogpost/:id", async (req, res) => {
-    let {title, upDate, image, content} = req.body;
-
-    let query = db.collection("blogpost").where("id", "==", req.params.id)
-    const snapshot = await query.get();
-    if(snapshot.empty) {
-      console.log("This post does not exist!");
-      res.status(400).json({msg: `Blog post with ID ${req.params.id} does not exist`});
-      return;
-    }
-
-    let post;
-    snapshot.forEach(p => {
-      post = t.data();
-    })
-
-    if(!title)
-      title = post.title
-    if(!image)
-      image = post.image
-    if(!content)
-      image = post.content
-
-    let ref = db
-      .collection("blogpost")
-      .doc(req.params.id)
-    ref.update({
-      title: title,
-      editDate: upDate,
-      image: image,
-      content: content
-    })
-    .then(() => {
-      res.json({msg: `Blog post with ID ${req.params.id} updated`});
-    })
-    .catch(() => {
-      res.status(400).json({msg: `Error updating blogpost with ID ${req.params.id}`})
-    });
-  })
-};
   
   module.exports = BlogPostController;
-  
