@@ -17,19 +17,24 @@ export default function PostCard({postContent}){
     const [likes, setLikes] = useState(0)
     const [dislikes, setDislikes] = useState(0);
 
-    const reduceContentLength = ((content)=>{
-    let displayContent = "";
-    if(content.length<=700){
-        return content;
-    }
-    else{
-    for(let x=0;x<=700;x++){
-        displayContent = displayContent+content.charAt(x);
-    }
-        return displayContent+"..."
-    } 
-    });
-
+    const reduceContentLength = ((content) => {
+        content = content.replace(/<[^>]*>?/gm, '');
+        let displayContent = "";
+        if(content.length<=700) {
+            return content;
+        }
+        else {
+        for(let x=0;x<=700;x++) {
+            displayContent = displayContent+content.charAt(x);
+        }
+            return displayContent+"..."
+        } 
+        });
+    
+        function checkURL(url) {
+            return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
+        }
+    
     const likeEdit = (here, other) => {
         const id = here.id
         const name = here.name
@@ -96,23 +101,23 @@ export default function PostCard({postContent}){
                             <Col md={2}>
                                 {isLoggedIn&&
                                 <div>
-                                {likeBut}
-                                {disBut}
+                                    {likeBut}
+                                    {disBut}
                                 </div>
                                 }
                                 <Card.Subtitle style={{fontSize:"12px",margin:"auto", textAlign:"justify",paddingTop:7}}>Likes: {likes}</Card.Subtitle>
                                 <Card.Subtitle style={{fontSize:"12px",margin:"auto", textAlign:"justify",paddingTop:7}}>Dislikes: {dislikes}</Card.Subtitle>
                             </Col>
                         </Row>
-                    <Row style={{justifyContent:"center"}}>
+                    {checkURL(postContent.image)&&<div><Row style={{justifyContent:"center"}}>
                         <Image class="img-fluid" style={{ maxWidth: '60vw',height:"330px"}} src={postContent.image}/>
-                    </Row>
+                    </Row></div>}
                     <Row>
                         <p style={{textAlign:"left",paddingTop:"2%",fontSize:15}}>{reduceContentLength(postContent.content)}</p>
                     </Row>
                     <Row style={{justifyContent:"center",paddingTop:"10px"}}>
                         <Button variant="success" onClick={(e)=>{
-                            history.push("/blogpost/"+postContent.id);
+                            history.push("/forumpost/"+postContent.id);
                             e.stopPropagation();
                         }}>{postContent.content.length>=700?"Read More":"Read"}</Button>
                     </Row>

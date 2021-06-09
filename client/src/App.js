@@ -11,6 +11,8 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 
 // import BlogPage from './components/BlogPage'
 import Forum from "./components/Forum/Forum";
+import ForumPost from "./components/Forum/ForumPost"
+import NewForumPost from "./components/Forum/NewForumPost"
 import Store from "./components/Store/Store";
 import About from "./components/About/About";
 import Home from "./components/Home/Home";
@@ -28,6 +30,8 @@ function App() {
           <Route path="/blogpost/:blogID" component={BlogPost}/>
           <Route path="/newpost" component={NewPost}/>
           <Route path="/forum" component={Forum}/>
+          <Route path="/forumpost/:forumID" component={ForumPost}/>
+          {/* <Route path="/newforumpost" component={NewForumPost}/> */}
           <Route path="/store" component={Store}/>
           <Route path="/about" component={About}/>
         </Switch>
