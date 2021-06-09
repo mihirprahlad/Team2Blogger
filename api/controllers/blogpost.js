@@ -46,7 +46,47 @@ const BlogPostController = (app, db) => {
             .json({ msg: `Error deleting blogpost with ID ${req.params.id}` });
         });
     });
-  };
+
+  app.put("/blogpost/:id", async (req, res) => {
+    let {title, upDate, image, content} = req.body;
+
+    let query = db.collection("blogpost").where("id", "==", req.params.id)
+    const snapshot = await query.get();
+    if(snapshot.empty) {
+      console.log("This post does not exist!");
+      res.status(400).json({msg: `Blog post with ID ${req.params.id} does not exist`});
+      return;
+    }
+
+    let post;
+    snapshot.forEach(p => {
+      post = t.data();
+    })
+
+    if(!title)
+      title = post.title
+    if(!image)
+      image = post.image
+    if(!content)
+      image = post.content
+
+    let ref = db
+      .collection("blogpost")
+      .doc(req.params.id)
+    ref.update({
+      title: title,
+      editDate: upDate,
+      image: image,
+      content: content
+    })
+    .then(() => {
+      res.json({msg: `Blog post with ID ${req.params.id} updated`});
+    })
+    .catch(() => {
+      res.status(400).json({msg: `Error updating blogpost with ID ${req.params.id}`})
+    });
+  })
+};
   
   module.exports = BlogPostController;
   
