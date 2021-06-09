@@ -56,6 +56,7 @@ export default function BlogPost(){
                     <h1 style={{fontWeight:"bold"}}>{content.title}</h1>
                     <h4>Camille Cooper</h4>
                     <h6>{content.date}</h6>
+                    {content.editDate&&<h6 style={{fontStyle:"italic"}}>Updated: {content.editDate}</h6>}
                 </Col>
                 <Col sm={2}>
                     <Image style={{ width: '5rem'}} src="https://media.istockphoto.com/photos/businessman-silhouette-as-avatar-or-default-profile-picture-picture-id474001958?s=170x170" roundedCircle/>
