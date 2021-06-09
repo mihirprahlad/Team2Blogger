@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useContext} from 'react'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css';
 import {useQuill} from  'react-quilljs'
@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Tooltip from 'react-bootstrap/Tooltip'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import {UserContext} from '../../contexts/UserContext'
 
 export default function NewPost(){
 
@@ -13,6 +14,8 @@ export default function NewPost(){
     const [newPostImage,setNewPostImage] = useState("");
     const { quill, quillRef } = useQuill();
     const [published,setPublished] = useState(false);
+    const {user} = useContext(UserContext);
+    console.log(user)
 
 
     const createNewPost=(()=>{
