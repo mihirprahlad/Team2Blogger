@@ -48,5 +48,6 @@ const BlogPostController = (app, db) => {
             .json({ msg: `Error deleting blogpost with ID ${req.params.id}` });
         });
     });
+}
   
   module.exports = BlogPostController;
