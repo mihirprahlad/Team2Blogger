@@ -18,7 +18,8 @@ const BlogPostController = (app, db) => {
         image: req.body.image,
         content: req.body.content,
         likes: {},
-        dislikes: {}
+        dislikes: {},
+        editDate: ""
       };
 
       if (!blogpost.title || !blogpost.date || !blogpost.image || !blogpost.content) {
