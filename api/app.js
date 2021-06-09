@@ -21,7 +21,6 @@ BlogPostController(app,db);
 ShoppingCartController(app,db);
 LikeController(app,db);
 
-
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
