@@ -31,6 +31,10 @@ export default function EditPost(){
                     }
                 })
             })
+            .then(()=>{
+                setNewPostTitle(content.title);
+                setNewPostImage(content.image);
+            })
     },[])
 
     const saveChanges=(()=>{
