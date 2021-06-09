@@ -22,7 +22,7 @@ export default function Cart(props) {
     // If someone is signed in, make cart useContext their personal cart
     const getUserCart = () => {
         if (user){
-            fetch(`http://localhost:5000/users/${user.uid}/shopping-cart`)
+            fetch(`http://localhost:5000/users/${user.id}/shopping-cart`)
             .then((res) => {
                 return res.json();
             })
