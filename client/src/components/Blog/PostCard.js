@@ -16,6 +16,7 @@ export default function PostCard({postContent}){
     const [readMore,setReadMore] = useState(false);
 
     const reduceContentLength = ((content)=>{
+    content = content.replace(/<[^>]*>?/gm, '');
     let displayContent = "";
     if(content.length<=700){
         return content;
@@ -27,6 +28,10 @@ export default function PostCard({postContent}){
         return displayContent+"..."
     } 
     });
+
+    function checkURL(url) {
+        return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
+    }
 
 
 
@@ -59,9 +64,9 @@ export default function PostCard({postContent}){
                                 <Card.Subtitle style={{fontSize:"12px",margin:"auto", textAlign:"justify",paddingTop:7}}>Dislikes: 300</Card.Subtitle>
                             </Col>
                         </Row>
-                    <Row style={{justifyContent:"center"}}>
+                    {checkURL(postContent.image)&&<div><Row style={{justifyContent:"center"}}>
                         <Image class="img-fluid" style={{ maxWidth: '60vw',height:"330px"}} src={postContent.image}/>
-                    </Row>
+                    </Row></div>}
                     <Row>
                         <p style={{textAlign:"left",paddingTop:"2%",fontSize:15}}>{reduceContentLength(postContent.content)}</p>
                     </Row>
@@ -69,7 +74,7 @@ export default function PostCard({postContent}){
                         <Button variant="success" onClick={(e)=>{
                             history.push("/blogpost/"+postContent.id);
                             e.stopPropagation();
-                        }}>{postContent.content.length>=700?"Read More":"Read"}</Button>
+                        }}>{postContent.content.length>=700?"Read More":"Go To Post"}</Button>
                     </Row>
                     </Container>
                 </Card.Body>
