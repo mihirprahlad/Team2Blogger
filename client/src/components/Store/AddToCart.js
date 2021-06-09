@@ -6,15 +6,14 @@ export default function AddToCart(props) {
     const { cart, setCart } = useContext(CartContext);
     const { user } = useContext(UserContext);
     const handleSubmit = () => {
-        if (!user) { // if not signed in, do this
+        if (!user) { // if not signed in, do this: add item to useContext cart
             let newCart = cart;
             newCart.push(props.item);
             console.log("newCart", newCart);
             setCart(newCart);
             console.log(cart);
-        } else { // if signed in, do this
+        } else { // if signed in, do this: add item to a user's cart in the database
             console.log("adding item ID", props.item.id, "to cart of ID:", user.uid);
-            console.log(props.item.id);
             fetch(`http://localhost:5000/users/${user.uid}/shopping-cart`, {
                 method: "POST",
                 headers: {
