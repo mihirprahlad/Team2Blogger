@@ -59,6 +59,15 @@ export default function EditPost(){
         .then(()=>{history.push("/blogpost/"+blogID);})
     })
 
+    const deletePost=(()=>{
+        fetch("http://localhost:5000/blogpost/"+blogID, {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+          })
+        .then(()=>{history.push("/blog");})
+    })
+
+
     if(content&&quill){
         if(content.content){
         quill.root.innerHTML  = content.content
@@ -91,7 +100,7 @@ export default function EditPost(){
         </div>
         <div>
         <Button onClick={()=>{saveChanges();}}style={{marginRight:"5px"}}>Publish Changes</Button>
-        <Button >Delete Post</Button>
+        <Button onClick={()=>{deletePost();}}>Delete Post</Button>
         </div>
     </div>
     )
