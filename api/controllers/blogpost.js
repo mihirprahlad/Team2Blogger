@@ -51,28 +51,22 @@ const BlogPostController = (app, db) => {
 
     app.put("/blogpost/:id", async (req, res) => {
       let {title, upDate, image, content} = req.body;
-      console.log(req.body)
       let query = db.collection("blogpost").doc(req.params.id);
       const snapshot = await query.get();
-      /*
-      if(snapshot.empty) {
+      if(!snapshot) {
         console.log("This post does not exist!");
         res.status(400).json({msg: `Blog post with ID ${req.params.id} does not exist`});
         return;
       }
-      */
-    
-      let post;
-      snapshot.forEach(p => {
-        post = t.data();
-      })
+
+      let post = snapshot._fieldsProto;
     
       if(!title)
-        title = post.title
+        title = post.title.stringValue
       if(!image)
-        image = post.image
-      if(!content)
-        image = post.content
+        image = post.image.stringValue
+      if(content === "<p><br></p>")
+        content = post.content.stringValue
     
       let ref = db
         .collection("blogpost")
