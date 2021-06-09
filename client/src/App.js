@@ -15,6 +15,7 @@ import Store from "./components/Store/Store";
 import About from "./components/About/About";
 import Home from "./components/Home/Home";
 import NewPost from "./components/Blog/NewPost";
+import EditPost from "./components/Blog/EditPost";
 library.add(fab, far, fas)
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Route path="/" exact component={Home}/>
           <Route path="/blog" component={()=><Blog/>}/>
           <Route path="/blogpost/:blogID" component={BlogPost}/>
+          <Route path="/editpost/:blogID" component={EditPost}/>
           <Route path="/newpost" component={NewPost}/>
           <Route path="/forum" component={Forum}/>
           <Route path="/store" component={Store}/>
