@@ -14,10 +14,11 @@ export default function EditPost(){
     const isAdmin = true;
     const history = useHistory();
     const {blogID} = useParams();
-    const [content,setContent] = useState();
+    const [content,setContent] = useState(null);
     const [newPostTitle,setNewPostTitle] = useState("");
     const [newPostImage,setNewPostImage] = useState("");
     const { quill, quillRef } = useQuill();
+    const [firstRun,setFirstRun] = useState(true);
 
 
     useEffect(()=>{
@@ -31,11 +32,17 @@ export default function EditPost(){
                     }
                 })
             })
-            .then(()=>{
-                setNewPostTitle(content.title);
-                setNewPostImage(content.image);
-            })
+        
     },[])
+
+    useEffect(()=>{
+        if(firstRun&&content){
+            console.log("activated")
+            setNewPostTitle(content.title);
+            setNewPostImage(content.image);
+            setFirstRun(false)
+        }
+    })
 
     const saveChanges=(()=>{
         const title = newPostTitle;
