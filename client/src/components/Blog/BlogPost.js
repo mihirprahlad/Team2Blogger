@@ -57,7 +57,7 @@ export default function BlogPost(){
             <Row style={{justifyContent:"center",marginBottom:"15px",marginTop:"5px"}}>
                 <Image style={{ maxWidth: '50rem',maxHeight:"20rem"}} src={content.image}/>
             </Row>
-            <p>{content.content}</p>
+            <div dangerouslySetInnerHTML={{ __html:content.content}} />
             </div>):(<div class="center">
             <Spinner animation="grow"/>
             </div>)

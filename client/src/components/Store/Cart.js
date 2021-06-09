@@ -1,7 +1,10 @@
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import { useState } from 'react';
-export default function Cart() {
+import { useState, useContext, useEffect } from 'react';
+import { UserContext } from "../../contexts/UserContext.js";
+import { CartContext } from "../../contexts/CartContext.js";
+import DisplayCart from "./DisplayCart";
+export default function Cart(props) {
 
     // Stuff for Cart Modal ---------------
     const [show, setShow] = useState(false);
@@ -9,6 +12,44 @@ export default function Cart() {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     // ------------------------------------
+
+    // Stuff for Cart ---------------------
+    const { user } = useContext(UserContext);
+    const { cart, setCart } = useContext(CartContext);
+    console.log("Cart in Cart.js", cart);
+    // ------------------------------------
+
+    // If someone is signed in, make cart useContext their personal cart
+    const getUserCart = () => {
+        if (user){
+            fetch(`http://localhost:5000/users/${user.uid}/shopping-cart`)
+            .then((res) => {
+                return res.json();
+            })
+            .then((obj) => {
+                if (obj != null) {
+                    console.log("User Cart", obj);
+                    if (obj.length === 0) { // if obj array is empty, make it a dummy object
+                        obj = [{
+                            "price": 0,
+                            "name": "Nothing in cart",
+                            "description": "",
+                            "image": "",
+                            "id": ""
+                        }];
+                    }
+                    setCart(obj);
+                } else {
+                    console.log("Error");
+                }
+            });
+        }
+    };
+
+    useEffect(() => {
+        getUserCart();
+    }, [show]);
+    
     
     return (
         <div className="Cart" style={{ float: "right", padding: "15px" }}>
@@ -20,7 +61,9 @@ export default function Cart() {
                 <Modal.Header closeButton>
                     <Modal.Title>Cart</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>INSERT CART HERE</Modal.Body>
+                <Modal.Body>
+                    <DisplayCart cart={cart}/>
+                </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Close

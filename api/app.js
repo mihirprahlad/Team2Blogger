@@ -13,12 +13,16 @@ const ItemController = require("./controllers/items.js");
 const UserController = require("./controllers/users.js");
 const BlogPostController = require("./controllers/blogpost.js");
 const ForumPostController = require("./controllers/forumpost")
+const ShoppingCartController = require("./controllers/shopping_cart.js");
+const LikeController = require("./controllers/likes.js");
 
 ItemController(app, db);
 UserController(app, db);
 BlogPostController(app,db);
 ForumPostController(app, db);
 
+ShoppingCartController(app,db);
+LikeController(app,db);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);

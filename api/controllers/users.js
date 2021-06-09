@@ -16,11 +16,10 @@ const UserController = (app, db) => {
       .doc(req.params.id)
       .get()
       .then((doc) => {
-        if (doc.exists){
-          res.json({...doc.data(), id: doc.id});
-        }
-        else {
-          res.status(404).json({msg: `No user with id ${req.params.id}`})
+        if (doc.exists) {
+          res.json({ ...doc.data(), id: doc.id });
+        } else {
+          res.status(404).json({ msg: `No user with id ${req.params.id}` });
         }
       });
   });
@@ -31,6 +30,9 @@ const UserController = (app, db) => {
       name: req.body.name,
       email: req.body.email,
       image: req.body.image,
+      shopping_cart: {},
+      liked_posts: {},
+      disliked_posts: {},
     };
 
     if (!user.id || !user.name || !user.email || !user.image) {
