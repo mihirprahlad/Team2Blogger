@@ -5,7 +5,16 @@ const LikeController = (app, db) => {
       .doc(req.params.post_id)
       .get()
       .then((doc) => {
-        res.json({ likes: doc.data().likes, dislikes: doc.data().dislikes });
+        res.json({
+          likes: {
+            count: Object.keys(doc.data().likes).length,
+            users: doc.data().likes,
+          },
+          dislikes: {
+            count: Object.keys(doc.data().dislikes).length,
+            users: doc.data().dislikes,
+          },
+        });
       });
   });
 
@@ -98,7 +107,9 @@ const LikeController = (app, db) => {
         userDoc.update({ disliked_posts });
       }
     });
-    res.json({ msg: `${action === "like" ? "Like" : "Dislike"} successfully removed.` });
+    res.json({
+      msg: `${action === "like" ? "Like" : "Dislike"} successfully removed.`,
+    });
   });
 };
 

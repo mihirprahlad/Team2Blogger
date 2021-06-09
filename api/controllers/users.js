@@ -30,6 +30,7 @@ const UserController = (app, db) => {
       name: req.body.name,
       email: req.body.email,
       image: req.body.image,
+      is_admin: false,
       shopping_cart: {},
       liked_posts: {},
       disliked_posts: {},
