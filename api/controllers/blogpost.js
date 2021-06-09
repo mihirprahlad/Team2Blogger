@@ -51,7 +51,8 @@ const BlogPostController = (app, db) => {
     });
 
     app.put("/blogpost/:id", async (req, res) => {
-      let {title, upDate, image, content} = req.body;
+      console.log(req.body)
+      let {title, editDate, image, content} = req.body;
       let query = db.collection("blogpost").doc(req.params.id);
       const snapshot = await query.get();
       if(!snapshot) {
@@ -68,15 +69,15 @@ const BlogPostController = (app, db) => {
         image = post.image.stringValue
       if(content === "<p><br></p>")
         content = post.content.stringValue
-    
+    console.log(editDate);
       let ref = db
         .collection("blogpost")
         .doc(req.params.id)
       ref.update({
-        title: title,
-        editDate: upDate,
-        image: image,
-        content: content
+        "title": title,
+        "editDate": editDate,
+        "image": image,
+        "content": content
       })
       .then(() => {
         res.json({msg: `Blog post with ID ${req.params.id} updated`});
