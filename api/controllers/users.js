@@ -34,6 +34,8 @@ const UserController = (app, db) => {
       shopping_cart: {},
       blog_likes: {},
       blog_dislikes: {},
+      forum_likes: {},
+      forum_dislikes: {}
     };
 
     if (!user.id || !user.name || !user.email || !user.image) {
