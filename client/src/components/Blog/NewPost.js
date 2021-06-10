@@ -6,14 +6,15 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Tooltip from 'react-bootstrap/Tooltip'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
-import { UserContext } from "../../contexts/UserContext.js";
+import {UserContext} from '../../contexts/UserContext'
 
 export default function NewPost(){
-    const { user } = useContext(UserContext);
+
     const [newPostTitle,setNewPostTitle] = useState("");
     const [newPostImage,setNewPostImage] = useState("");
     const { quill, quillRef } = useQuill();
     const [published,setPublished] = useState(false);
+    const {user} = useContext(UserContext);
 
 
     const createNewPost=(()=>{
@@ -52,7 +53,7 @@ return(
                 </div>
             </Form.Group>
         </Form>
-        {user&&
+        {user&&user.is_admin&&
         (published?<OverlayTrigger overlay={<Tooltip id="tooltip-disabled">This Post Has Already Been Published!</Tooltip>}>
         <span className="d-inline-block">
         <Button variant="primary" disabled style={{marginLeft:"20px", marginBottom:"6%"}} onClick={()=>{

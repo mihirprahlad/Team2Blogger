@@ -7,12 +7,11 @@ import Button from 'react-bootstrap/Button'
 import Tooltip from 'react-bootstrap/Tooltip'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import { useHistory,useParams } from "react-router-dom";
-import { UserContext } from "../../contexts/UserContext.js";
+import { UserContext } from '../../contexts/UserContext';
 
 export default function EditPost(){
 
-    const isLoggedIn = true;
-    const isAdmin = true;
+    const {user} = useContext(UserContext)
     const history = useHistory();
     const {blogID} = useParams();
     const [content,setContent] = useState(null);
@@ -20,7 +19,6 @@ export default function EditPost(){
     const [newPostImage,setNewPostImage] = useState("");
     const { quill, quillRef } = useQuill();
     const [firstRun,setFirstRun] = useState(true);
-    const { user } = useContext(UserContext);
 
 
     useEffect(()=>{
@@ -101,7 +99,7 @@ export default function EditPost(){
         <div style={{backgroundColor:"white"}} ref={quillRef} ></div>
         </div>
         <div>
-        {user&&
+        {user&&user.is_admin&&
         <div>
         <Button onClick={()=>{saveChanges();}}style={{marginRight:"5px"}}>Publish Changes</Button>
         <Button onClick={()=>{deletePost();}}>Delete Post</Button>
