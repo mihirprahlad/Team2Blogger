@@ -3,14 +3,15 @@ import Image from 'react-bootstrap/Image';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import React, {useState} from 'react';
+import React, {useState,useContext} from 'react';
 import Button from 'react-bootstrap/Button'
 import { useHistory } from "react-router-dom";
 import { FaThumbsUp } from 'react-icons/fa';
 import { FaThumbsDown } from 'react-icons/fa';
+import { UserContext } from '../../contexts/UserContext';
 
 export default function PostCard({postContent}){
-    const isLoggedIn = true;
+    const {user} = useContext(UserContext)
     const history = useHistory();
 
     const [readMore,setReadMore] = useState(false);
@@ -51,7 +52,7 @@ export default function PostCard({postContent}){
                                 {postContent.editDate!==""&&<Card.Subtitle style={{fontStyle:"italic"}} className="mb-2 text-muted">Updated: {postContent.editDate}</Card.Subtitle>}
                             </Col>
                             <Col md={2}>
-                                {isLoggedIn&&
+                                {user&&
                                 <div>
                                 <button type="button" class="btn btn-link" >
                                     <FaThumbsUp size={20} style={{color:"#003366"}}/>
@@ -61,8 +62,8 @@ export default function PostCard({postContent}){
                                 </button>
                                 </div>
                                 }
-                                <Card.Subtitle style={{fontSize:"12px",margin:"auto", textAlign:"justify",paddingTop:7}}>Likes: 300</Card.Subtitle>
-                                <Card.Subtitle style={{fontSize:"12px",margin:"auto", textAlign:"justify",paddingTop:7}}>Dislikes: 300</Card.Subtitle>
+                                <Card.Subtitle style={{fontSize:"14px",margin:"auto", textAlign:"justify",paddingTop:7}}>Likes: 300</Card.Subtitle>
+                                <Card.Subtitle style={{fontSize:"14px",margin:"auto", textAlign:"justify",paddingTop:7}}>Dislikes: 300</Card.Subtitle>
                             </Col>
                         </Row>
                     {checkURL(postContent.image)&&<div><Row style={{justifyContent:"center"}}>

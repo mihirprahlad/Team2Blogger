@@ -14,7 +14,10 @@ const titleStyle = {
 
 
 };
-document.body.style='background:beige;';
+document.body.style='background:#FAF0E6;';
+const aboutTextStyle = {
+    fontSize: 20
+};
 
 
 export default function Home() {
