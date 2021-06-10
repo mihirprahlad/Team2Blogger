@@ -3,7 +3,7 @@ import DeleteCartItem from './DeleteCartItem';
 import EditCartItem from './EditCartItem';
 import { useState } from 'react';
 export default function DisplayCart(props) {
-    const [edit, setEdit] = useState(false);
+
     return (
         <div>
             <Table striped bordered hover size="sm">

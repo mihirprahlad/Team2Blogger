@@ -1,8 +1,10 @@
 import { RiDeleteBinLine } from "react-icons/ri";
 import { useContext } from 'react';
 import { UserContext } from "../../contexts/UserContext.js";
+import { CartUpdate } from "../../contexts/CartUpdate.js";
 export default function DeleteCartItem(props){
     const { user } = useContext(UserContext);
+    const { setUpdate } = useContext(CartUpdate);
     const itemID = props.itemID;
     console.log("item", itemID);
     return (
@@ -16,6 +18,7 @@ export default function DeleteCartItem(props){
                       },
                     }).then((obj) => {
                       console.log("deleting", obj);
+                      setUpdate(Math.random());
                     })
                   }
                 /> : null}
