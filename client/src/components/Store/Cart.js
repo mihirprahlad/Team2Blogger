@@ -29,15 +29,6 @@ export default function Cart(props) {
             .then((obj) => {
                 if (obj != null) {
                     console.log("User Cart", obj);
-                    if (obj.length === 0) { // if obj array is empty, make it a dummy object
-                        obj = [{
-                            "price": 0,
-                            "name": "Nothing in cart",
-                            "description": "",
-                            "image": "",
-                            "id": ""
-                        }];
-                    }
                     setCart(obj);
                 } else {
                     console.log("Error");
@@ -62,7 +53,7 @@ export default function Cart(props) {
                     <Modal.Title>Cart</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <DisplayCart cart={cart}/>
+                    {cart.length != 0 ? <DisplayCart cart={cart}/> : "Nothing in cart."}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
