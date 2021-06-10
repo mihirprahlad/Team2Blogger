@@ -9,7 +9,7 @@ const Navigation = (props) => {
             <div className = "container-fluid text-center text-md-left">
                 <div className = "row">
                     <div className="col-md-6 mt-md-2 mt-3">
-                        <FontAwesomeIcon icon = {["far", "copyright"]}/> The Camille Connection
+                        <FontAwesomeIcon icon = {["far", "copyright"]}/> Camille's Corner
                     </div>
                     <div className="col-md-6 mb-md-0 mb-3">
                         <Nav className="nav justify-content-end">

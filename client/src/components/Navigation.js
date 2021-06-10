@@ -6,7 +6,7 @@ import SignIn from "./SignIn.js";
 const Navigation = (props) => {
   return (
     <Navbar bg="dark" variant="dark">
-      <Navbar.Brand href="#home">Camille's Blog</Navbar.Brand>
+      <Navbar.Brand href="#home">Camille's Corner</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse className="justify-content-center" id="basic-navbar-nav">
         <Nav className="mr-auto">

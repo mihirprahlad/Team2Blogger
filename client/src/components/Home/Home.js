@@ -2,6 +2,7 @@ import React from "react";
 import LazyHero from 'react-lazy-hero';
 import Button from 'react-bootstrap/Button'
 import { useHistory } from "react-router-dom";
+import hero from './hero.jpg';
 
 const titleStyle = {
     fontSize: 65
@@ -16,7 +17,7 @@ export default function Home() {
     const history = useHistory();
     return (
         <div>
-                <LazyHero imageSrc="https://wallpaperaccess.com/full/647493.jpg" opacity={0.35} parallaxOffset={150}>
+                <LazyHero imageSrc={hero} opacity={0.35} parallaxOffset={150}>
                     <h1 style={titleStyle}>Camille's Corner</h1>
                 </LazyHero>
                 <div>
@@ -25,7 +26,6 @@ export default function Home() {
                 </div>
                 <p style={aboutTextStyle}>
                     <Button variant="success" onClick={(e)=>{
-                            console.log("aasdf");
                             history.push("/about");
                             e.stopPropagation();
                         }}>{"Learn More"}</Button>
