@@ -48,6 +48,7 @@ export default function PostCard({postContent}){
                                 <h2 style={{fontWeight:"bold"}}>{postContent.title}</h2>
                                 <Card.Subtitle className="mb-2 text-muted">Camille Cooper</Card.Subtitle>
                                 <Card.Subtitle className="mb-2 text-muted">{postContent.date}</Card.Subtitle>
+                                {postContent.editDate!==""&&<Card.Subtitle style={{fontStyle:"italic"}} className="mb-2 text-muted">Updated: {postContent.editDate}</Card.Subtitle>}
                             </Col>
                             <Col md={2}>
                                 {isLoggedIn&&

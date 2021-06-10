@@ -14,10 +14,11 @@ export default function EditPost(){
     const isAdmin = true;
     const history = useHistory();
     const {blogID} = useParams();
-    const [content,setContent] = useState();
+    const [content,setContent] = useState(null);
     const [newPostTitle,setNewPostTitle] = useState("");
     const [newPostImage,setNewPostImage] = useState("");
     const { quill, quillRef } = useQuill();
+    const [firstRun,setFirstRun] = useState(true);
 
 
     useEffect(()=>{
@@ -31,26 +32,41 @@ export default function EditPost(){
                     }
                 })
             })
-            .then(()=>{
-                setNewPostTitle(content.title);
-                setNewPostImage(content.image);
-            })
+        
     },[])
+
+    useEffect(()=>{
+        if(firstRun&&content){
+            console.log("activated")
+            setNewPostTitle(content.title);
+            setNewPostImage(content.image);
+            setFirstRun(false)
+        }
+    })
 
     const saveChanges=(()=>{
         const title = newPostTitle;
-        const date = Date().toLocaleString()
+        const editDate = Date().toLocaleString()
         const image = newPostImage;
         const content = quill.container.firstChild.innerHTML
-        console.log(JSON.stringify({title,date,image,content}))
+        console.log(JSON.stringify({title,editDate,image,content}))
         console.log(blogID)
         fetch("http://localhost:5000/blogpost/"+blogID, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({title,date,image,content})
+            body: JSON.stringify({title,editDate,image,content})
           })
         .then(()=>{history.push("/blogpost/"+blogID);})
     })
+
+    const deletePost=(()=>{
+        fetch("http://localhost:5000/blogpost/"+blogID, {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+          })
+        .then(()=>{history.push("/blog");})
+    })
+
 
     if(content&&quill){
         if(content.content){
@@ -84,7 +100,7 @@ export default function EditPost(){
         </div>
         <div>
         <Button onClick={()=>{saveChanges();}}style={{marginRight:"5px"}}>Publish Changes</Button>
-        <Button >Delete Post</Button>
+        <Button onClick={()=>{deletePost();}}>Delete Post</Button>
         </div>
     </div>
     )
