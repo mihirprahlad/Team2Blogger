@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React,{useState,useEffect,useContext} from "react";
 import {useParams} from "react-router-dom"
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -12,6 +12,8 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form'
 import {useQuill} from  'react-quilljs'
 import { useHistory } from "react-router-dom";
+import {UserContext} from '../../contexts/UserContext'
+import Comments from "../Comments/Comments";
 
 export default function BlogPost(){
     const history = useHistory();
@@ -20,6 +22,7 @@ export default function BlogPost(){
     const {blogID} = useParams();
     const [content,setContent] = useState(null);
     const [edit,setEdit] = useState(false);
+    const {user} = useContext(UserContext);
 
     useEffect(()=>{
         fetch("http://localhost:5000/blogpost")
@@ -46,8 +49,8 @@ export default function BlogPost(){
         <div>
             {isAdmin&&
             <div style={{right:"1%",top:"10%",position:"absolute"}}>
-                <Button style={{width:"5rem",marginBottom:"3px"}}onClick={(e)=>{history.push("/editpost/"+content.id);
-                            e.stopPropagation();}}>Edit</Button>
+               {user.is_admin&&<Button style={{width:"5rem",marginBottom:"3px"}}onClick={(e)=>{history.push("/editpost/"+content.id);
+                            e.stopPropagation();}}>Edit</Button>}
             </div>}
             {content?
             (<div style={{marginLeft:"17%",marginRight:"17%",marginTop:"28px",marginBottom:"100px"}}>
@@ -77,6 +80,9 @@ export default function BlogPost(){
                 <Image style={{ maxWidth: '50rem',maxHeight:"20rem"}} src={content.image}/>
             </Row>}
             <div dangerouslySetInnerHTML={{ __html:content.content}} />
+            <br/>
+            {Comments(history.location.pathname, blogID, content.title)}
+
             </div>)
             :
             (<div class="center">
