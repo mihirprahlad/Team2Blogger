@@ -32,8 +32,8 @@ const UserController = (app, db) => {
       image: req.body.image,
       is_admin: false,
       shopping_cart: {},
-      liked_posts: {},
-      disliked_posts: {},
+      blog_likes: {},
+      blog_dislikes: {},
     };
 
     if (!user.id || !user.name || !user.email || !user.image) {

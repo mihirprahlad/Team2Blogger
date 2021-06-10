@@ -19,14 +19,14 @@ const LikeController = (app, db) => {
   });
 
   // Get user likes and dislikes
-  app.get("/users/:user_id/likes", (req, res) => {
+  app.get("/users/:user_id/blog-likes", (req, res) => {
     db.collection("users")
       .doc(req.params.user_id)
       .get()
       .then((doc) => {
         res.json({
-          liked_posts: doc.data().liked_posts,
-          disliked_posts: doc.data().disliked_posts,
+          blog_likes: doc.data().blog_likes,
+          blog_dislikes: doc.data().blog_dislikes,
         });
       });
   });
@@ -56,21 +56,21 @@ const LikeController = (app, db) => {
     blogDoc.update({ likes, dislikes });
 
     userDoc = db.collection("users").doc(user_id);
-    let liked_posts, disliked_posts;
+    let blog_likes, blog_dislikes;
     await userDoc.get().then((doc) => {
       if (action === "like") {
-        liked_posts = doc.data().liked_posts;
-        liked_posts[post_id] = true;
-        disliked_posts = doc.data().disliked_posts;
-        delete disliked_posts[post_id];
+        blog_likes = doc.data().blog_likes;
+        blog_likes[post_id] = true;
+        blog_dislikes = doc.data().blog_dislikes;
+        delete blog_dislikes[post_id];
       } else {
-        disliked_posts = doc.data().disliked_posts;
-        disliked_posts[post_id] = true;
-        liked_posts = doc.data().liked_posts;
-        delete liked_posts[post_id];
+        blog_dislikes = doc.data().blog_dislikes;
+        blog_dislikes[post_id] = true;
+        blog_likes = doc.data().blog_likes;
+        delete blog_likes[post_id];
       }
     });
-    userDoc.update({ liked_posts, disliked_posts });
+    userDoc.update({ blog_likes, blog_dislikes });
     res.json({ msg: "Success!" });
   });
 
@@ -95,16 +95,16 @@ const LikeController = (app, db) => {
     });
 
     userDoc = db.collection("users").doc(user_id);
-    let liked_posts, disliked_posts;
+    let blog_likes, blog_dislikes;
     userDoc.get().then((doc) => {
       if (action === "like") {
-        liked_posts = doc.data().liked_posts;
-        delete liked_posts[post_id];
-        userDoc.update({ liked_posts });
+        blog_likes = doc.data().blog_likes;
+        delete blog_likes[post_id];
+        userDoc.update({ blog_likes });
       } else {
-        disliked_posts = doc.data().disliked_posts;
-        delete disliked_posts[post_id];
-        userDoc.update({ disliked_posts });
+        blog_dislikes = doc.data().blog_dislikes;
+        delete blog_dislikes[post_id];
+        userDoc.update({ blog_dislikes });
       }
     });
     res.json({
