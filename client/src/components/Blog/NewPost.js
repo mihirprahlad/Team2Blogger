@@ -52,7 +52,7 @@ return(
                 </div>
             </Form.Group>
         </Form>
-        {user&&
+        {user&&user.is_admin&&
         (published?<OverlayTrigger overlay={<Tooltip id="tooltip-disabled">This Post Has Already Been Published!</Tooltip>}>
         <span className="d-inline-block">
         <Button variant="primary" disabled style={{marginLeft:"20px", marginBottom:"6%"}} onClick={()=>{

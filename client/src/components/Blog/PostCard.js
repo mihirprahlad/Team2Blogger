@@ -42,7 +42,7 @@ export default function PostCard({postContent}){
                     <Container>
                         <Row>
                             <Col md={2}>
-                                <Image style={{ width: '5rem'}} src="https://media.istockphoto.com/photos/businessman-silhouette-as-avatar-or-default-profile-picture-picture-id474001958?s=170x170" roundedCircle/>
+                                <Image style={{ width: '5rem'}} src="https://drive.google.com/thumbnail?id=1wJ0SlPBrq0AQp10LzpcdjqJIijQndLnT" roundedCircle/>
                             </Col>
                             <Col md={8} style={{paddingLeft:"3%"}}>
                                 <h2 style={{fontWeight:"bold"}}>{postContent.title}</h2>
@@ -54,10 +54,10 @@ export default function PostCard({postContent}){
                                 {isLoggedIn&&
                                 <div>
                                 <button type="button" class="btn btn-link" >
-                                    <FaThumbsUp size={20} style={{color:"#779ecb"}}/>
+                                    <FaThumbsUp size={20} style={{color:"#003366"}}/>
                                 </button>
                                 <button type="button" class="btn btn-link">
-                                    <FaThumbsDown size={20} style={{color:"#779ecb"}}/>
+                                    <FaThumbsDown size={20} style={{color:"#003366"}}/>
                                 </button>
                                 </div>
                                 }
@@ -69,10 +69,10 @@ export default function PostCard({postContent}){
                         <Image class="img-fluid" style={{ maxWidth: '60vw',height:"330px"}} src={postContent.image}/>
                     </Row></div>}
                     <Row>
-                        <p style={{textAlign:"left",paddingTop:"2%",fontSize:15}}>{reduceContentLength(postContent.content)}</p>
+                        <p style={{textAlign:"center",paddingTop:"2%",fontSize:15,marginLeft:"3%",marginRight:"3%"}}>{reduceContentLength(postContent.content)}</p>
                     </Row>
                     <Row style={{justifyContent:"center",paddingTop:"10px"}}>
-                        <Button variant="success" onClick={(e)=>{
+                        <Button style={{backgroundColor:"#4C6357",border:"none"}} onClick={(e)=>{
                             history.push("/blogpost/"+postContent.id);
                             e.stopPropagation();
                         }}>{postContent.content.length>=700?"Read More":"Go To Post"}</Button>
