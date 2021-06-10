@@ -6,7 +6,7 @@ import SignIn from "./SignIn.js";
 const Navigation = (props) => {
   return (
     <Navbar style={{backgroundColor:"#003366"}}>
-      <Link href="#home" style={{color:"#faf0e6",fontWeight:800,fontSize:28,paddingRight:30,paddingLeft:17}}>CAMILLE'S CORNER</Link>
+      <Link to="/" style={{color:"#faf0e6",fontWeight:800,fontSize:28,paddingRight:30,paddingLeft:17}}>CAMILLE'S CORNER</Link>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse className="justify-content-center" id="basic-navbar-nav">
         <Nav className="mr-auto">
