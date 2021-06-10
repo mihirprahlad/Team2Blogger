@@ -9,10 +9,10 @@ import { useHistory } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext.js";
 
 export default function Blog(){
-    const isAdmin = true;
     const [posts,setPosts] = useState(null);
     const history = useHistory();
-    const { user } = useContext(UserContext);
+    const {user} = useContext(UserContext);
+    console.log(user)
 
 
     useEffect(()=>{
