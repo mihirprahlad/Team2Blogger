@@ -1,5 +1,8 @@
 import React from "react";
 import LazyHero from 'react-lazy-hero';
+import Button from 'react-bootstrap/Button'
+import { useHistory } from "react-router-dom";
+
 const titleStyle = {
     fontSize: "12rem",
     color:"#014421",
@@ -14,6 +17,7 @@ const aboutTextStyle = {
 };
 
 export default function Home() {
+    const history = useHistory();
     return (
         <div>
                 <LazyHero imageSrc="https://wallpaperaccess.com/full/647493.jpg" style={{height:"300px"}}opacity={0.35} parallaxOffset={150}>
@@ -24,6 +28,15 @@ export default function Home() {
                     <p style={aboutTextStyle}>Camille is a Virgo Libra cusp. Her hobbies include hiking, climbing, yoga, snowboarding, and anything with music. Her favorite  parts of nature are trees, mountains, and rivers; her favorite parts of cities are music and rooftops. </p>
                     <div style={{height:15,width:110,backgroundColor:"#014421"}}></div>
                 </div>
+                <p style={aboutTextStyle}>
+                    <Button variant="success" onClick={(e)=>{
+                            console.log("aasdf");
+                            history.push("/about");
+                            e.stopPropagation();
+                        }}>{"Learn More"}</Button>
+                </p>
+                
+                {}
         </div>
     );
     

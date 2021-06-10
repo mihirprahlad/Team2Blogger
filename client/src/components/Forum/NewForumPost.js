@@ -25,18 +25,24 @@ export default function NewForumPost() {
         const date = Date().toLocaleString()
         const image = newPostImage;
         const content = quill.container.firstChild.innerHTML;
-        const username = user.displayName;
+        const username = user.name;
         const userid = user.email;
-        const userpic = user.photoURL;
-        console.log(JSON.stringify({title,date,image,content, username, userid, userpic}))
-        // fetch("http://localhost:5000/blogpost", {
-        //     method: "POST",
-        //     headers: { "Content-Type": "application/json" },
-        //     body: JSON.stringify({title,date,image,content})
-        //   })
-        // .then(() => {
-        //     setPublished(true);
-        // })
+        const userpic = user.image;
+        const user_id = user.id;
+        console.log(JSON.stringify({title,date,image,content,username,userid,userpic, user_id}))
+        if(!user)
+            alert("You must be signed in to create new posts! Your data will not be saved.");
+        else {
+            console.log("here");
+            fetch("http://localhost:5000/forumpost", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({title,date,image,content, username, userid, userpic, user_id})
+              })
+            .then(() => {
+                setPublished(true);
+            })
+        }
     })
 
     const display = <div style={{marginLeft:50,marginRight:50}}>
@@ -82,12 +88,12 @@ export default function NewForumPost() {
 
 
     return(
-        // display
-        user ? display :
-        <div className = "text-center">
-            <h3 style = {{padding:"15px"}}>You must log in to create forum posts!</h3>
-            <SignIn/>
-        </div>
+        display
+        // user ? display :
+        // <div className = "text-center">
+        //     <h3 style = {{padding:"15px"}}>You must log in to create forum posts!</h3>
+        //     <SignIn/>
+        // </div>
     )
 
 }

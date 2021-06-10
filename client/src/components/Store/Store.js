@@ -1,11 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import DisplayItems from './DisplayItems';
 import AddItems from './AddItems';
 import Cart from './Cart';
+import { UserContext } from "../../contexts/UserContext.js";
 
 export default function Store() {
     // Fetch request to get store items
     const [items, setItems] = useState([]); // array of items
+    const { user } = useContext(UserContext);
+    console.log("user", user);
 
     const getItems = () => {
         fetch("http://localhost:5000/items")
@@ -43,9 +46,8 @@ export default function Store() {
 
             </div>
 
-            {/* Add Items Button */}
-
-            <AddItems />
+            {/* Add Items Button - Only visible to admin users */}
+            {user.is_admin ? <AddItems /> : null}
 
             {/* Cart */}
             <Cart />
