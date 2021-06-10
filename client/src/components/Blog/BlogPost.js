@@ -78,6 +78,8 @@ export default function BlogPost(){
                 <Image style={{ maxWidth: '50rem',maxHeight:"20rem"}} src={content.image}/>
             </Row>}
             <div dangerouslySetInnerHTML={{ __html:content.content}} />
+            <br/>
+             {Comments(history.location.pathname, blogID, content.title)}
             </div>)
             :
             (<div class="center">
