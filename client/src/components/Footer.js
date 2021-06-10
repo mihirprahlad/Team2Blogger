@@ -9,6 +9,7 @@ const Navigation = (props) => {
             <div className = "container-fluid text-center text-md-left">
                 <div className = "row">
                     <div className="col-md-6 mt-md-2 mt-3">
+                        <FontAwesomeIcon icon = {["far", "copyright"]}/> Camille's Corner
                         <FontAwesomeIcon style={{color:"beige"}} icon = {["far", "copyright"]}/> <h style={{color:"beige",fontWeight:800,fontSize:20}}>The Camille Connection</h>
                     </div>
                     <div className="col-md-6 mb-md-0 mb-3">

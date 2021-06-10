@@ -5,6 +5,8 @@ import SignIn from "./SignIn.js";
 
 const Navigation = (props) => {
   return (
+    <Navbar bg="dark" variant="dark">
+      <Navbar.Brand href="#home">Camille's Corner</Navbar.Brand>
     <Navbar style={{backgroundColor:"#003366"}}>
       <Link href="#home" style={{color:"beige",fontWeight:800,fontSize:28,paddingRight:30,paddingLeft:17}}>CAMILLE'S CORNER</Link>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
