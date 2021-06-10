@@ -38,13 +38,14 @@ export default function Blog(){
 
     return(
         <div style={{paddingBottom:(posts?"3%":"100%")}}>
-            <div style={{display:"flex",marginLeft:"14%"}}>
+            <div style={{display:"flex",marginLeft:"14%",marginBottom:"-30px"}}>
             <h1 style={{textAlign:"left",padding:"15px",fontSize:"80px"}}>BLOG.</h1>
-            {user&&user.is_admin&&<div style={{paddingTop:"30px"}}><Button style={{height:50,backgroundColor:"#4C6357",border:"none"}} onClick={(e)=>{
+            {user&&user.is_admin&&<div style={{paddingTop:"30px",paddingLeft:"49vw"}}><Button style={{height:50,backgroundColor:"#4C6357",border:"none"}} onClick={(e)=>{
             history.push("/newpost");
             e.stopPropagation();
             }}>New Post</Button></div>}
             </div>
+            <div style={{height:15,width:240,marginLeft:"15%",backgroundColor:"#4C6357",marginBottom:"2%"}}></div>
             {posts?(posts.map((post)=>{return(<PostCard postContent={post}/>)})):(
             <div class="center">
             <Spinner animation="grow"/>           
