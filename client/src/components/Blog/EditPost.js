@@ -95,8 +95,8 @@ export default function EditPost(){
         </Form>
         </div>
         }
-        <div style={{height:200,width:"auto",marginBottom:"5%"}}>
-        <div ref={quillRef} ></div>
+        <div style={{height:200,width:"auto",marginBottom:"5%",backgroundColor:"white"}}>
+        <div style={{backgroundColor:"white"}} ref={quillRef} ></div>
         </div>
         <div>
         {user&&user.is_admin&&
