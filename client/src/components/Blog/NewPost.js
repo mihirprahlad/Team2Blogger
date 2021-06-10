@@ -6,14 +6,16 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Tooltip from 'react-bootstrap/Tooltip'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
-import { UserContext } from "../../contexts/UserContext.js";
+import {UserContext} from '../../contexts/UserContext'
 
 export default function NewPost(){
-    const { user } = useContext(UserContext);
+
     const [newPostTitle,setNewPostTitle] = useState("");
     const [newPostImage,setNewPostImage] = useState("");
     const { quill, quillRef } = useQuill();
     const [published,setPublished] = useState(false);
+    const {user} = useContext(UserContext);
+    console.log(user)
 
 
     const createNewPost=(()=>{
@@ -47,13 +49,12 @@ return(
             </Form.Group>
             <Form.Group className="mb-3" controlId="formContent">
                 <Form.Label>Content</Form.Label>
-                <div style={{height:200,backgroundColor:"white"}}>
-                <div style={{backgroundColor:"white"}}ref={quillRef} ></div>
+                <div style={{height:200}}>
+                <div ref={quillRef} ></div>
                 </div>
             </Form.Group>
         </Form>
-        {user&&
-        (published?<OverlayTrigger overlay={<Tooltip id="tooltip-disabled">This Post Has Already Been Published!</Tooltip>}>
+        {published?<OverlayTrigger overlay={<Tooltip id="tooltip-disabled">This Post Has Already Been Published!</Tooltip>}>
         <span className="d-inline-block">
         <Button variant="primary" disabled style={{marginLeft:"20px", marginBottom:"6%"}} onClick={()=>{
                 createNewPost();
@@ -65,7 +66,7 @@ return(
                 createNewPost();
             }}>
                 Publish
-        </Button>)}
+        </Button>}
     </div>
 )
 

@@ -1,4 +1,4 @@
-import React,{useState,useEffect,useContext} from 'react';
+import React,{useState,useEffect} from 'react';
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css';
 import {useQuill} from  'react-quilljs'
@@ -7,7 +7,6 @@ import Button from 'react-bootstrap/Button'
 import Tooltip from 'react-bootstrap/Tooltip'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import { useHistory,useParams } from "react-router-dom";
-import { UserContext } from "../../contexts/UserContext.js";
 
 export default function EditPost(){
 
@@ -20,7 +19,6 @@ export default function EditPost(){
     const [newPostImage,setNewPostImage] = useState("");
     const { quill, quillRef } = useQuill();
     const [firstRun,setFirstRun] = useState(true);
-    const { user } = useContext(UserContext);
 
 
     useEffect(()=>{
@@ -97,16 +95,12 @@ export default function EditPost(){
         </Form>
         </div>
         }
-        <div style={{height:200,width:"auto",marginBottom:"5%",backgroundColor:"white"}}>
-        <div style={{backgroundColor:"white"}} ref={quillRef} ></div>
+        <div style={{height:200,width:"auto",marginBottom:"5%"}}>
+        <div ref={quillRef} ></div>
         </div>
-        <div>
-        {user&&
         <div>
         <Button onClick={()=>{saveChanges();}}style={{marginRight:"5px"}}>Publish Changes</Button>
         <Button onClick={()=>{deletePost();}}>Delete Post</Button>
-        </div>
-        }
         </div>
     </div>
     )
