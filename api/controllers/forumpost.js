@@ -34,18 +34,17 @@ const ForumPostController = (app, db) => {
       image: req.body.image,
       content: req.body.content,
       user_id: req.body.user_id,
-      user: {
-        name: req.body.username,
-        id: req.body.userid,
-        pic: req.body.userpic,
-      },
+      likes: {},
+      dislikes: {},
+      editDate: ""
     };
 
     if (
       !forumpost.title ||
       !forumpost.date ||
       !forumpost.image ||
-      !forumpost.content
+      !forumpost.content ||
+      !forumpost.user_id
     ) {
       res.status(400).json({ msg: "Post request data not valid" });
     }

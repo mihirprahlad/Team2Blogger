@@ -31,7 +31,6 @@ export default function Home() {
                 <p style={aboutTextStyle}>
                     <div style={{paddingLeft:"48%",paddingBottom:"3%"}}>
                     <Button style={{backgroundColor:"#4C6357",border:"none"}} onClick={(e)=>{
-                            console.log("aasdf");
                             history.push("/about");
                             e.stopPropagation();
                         }}>{"Learn More"}</Button>
