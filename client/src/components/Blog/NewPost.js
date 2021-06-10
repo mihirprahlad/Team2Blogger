@@ -48,8 +48,8 @@ return(
             </Form.Group>
             <Form.Group className="mb-3" controlId="formContent">
                 <Form.Label>Content</Form.Label>
-                <div style={{height:200}}>
-                <div ref={quillRef} ></div>
+                <div style={{height:200,backgroundColor:"white"}}>
+                <div style={{backgroundColor:"white"}}ref={quillRef} ></div>
                 </div>
             </Form.Group>
         </Form>
