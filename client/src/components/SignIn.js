@@ -11,10 +11,10 @@ const SignIn = (props) => {
   useEffect(() => {
     firebase.auth().onAuthStateChanged((currentUser) => {
       if (currentUser) {
-        setUser(currentUser);
+        getUser(currentUser);
       }
     });
-  });
+  }, []);
 
   const signInWithGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();

@@ -40,8 +40,8 @@ export default function AddToCart(props) {
             filteredArr.length > 0 ? setCart(filteredArr) : setCart(cart);
 
         } else { // if signed in, do this: add item to a user's cart in the database
-            console.log("adding item ID", item.id, "to cart of ID:", user.uid);
-            fetch(`http://localhost:5000/users/${user.uid}/shopping-cart`, {
+            console.log("adding item ID", item.id, "to cart of ID:", user.id);
+            fetch(`http://localhost:5000/users/${user.id}/shopping-cart`, {
                 method: "POST",
                 headers: {
                     Accept: "application/json",
