@@ -3,7 +3,7 @@ import CardDeck from "react-bootstrap/CardDeck";
 import EditItems from "./EditItems";
 import AddToCart from "./AddToCart"
 import { RiDeleteBinLine } from "react-icons/ri";
-import { useState, useContext } from 'react';
+import { useContext } from 'react';
 import { UserContext } from "../../contexts/UserContext.js";
 
 export default function DisplayItems(props) {
