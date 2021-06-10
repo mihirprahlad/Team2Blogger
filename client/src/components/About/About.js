@@ -8,8 +8,7 @@ import Gallery from './Gallery';
 
 const historyHeaderStyle = {
     marginLeft: "-30px",
-    fontSize: 40,
-    color:"#014421"
+    fontSize: 40
 };
 
 const historyTextStyle = {

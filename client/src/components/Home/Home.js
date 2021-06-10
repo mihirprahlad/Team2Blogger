@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 
 const titleStyle = {
     fontSize: "12rem",
-    color:"#014421",
+    color:"#4C6357",
     fontWeight:900
 
 
@@ -26,13 +26,15 @@ export default function Home() {
                 <div style={{marginRight:300,marginLeft:300,marginTop:100,marginBottom:100}}>
                     <p style={aboutTextStyle}>Camille is a recent college graduate from UVA currently traveling from city to city exploring what urban life offers while taking advantage of any opportunity to get back to the great outdoors. Exclusively working for new start-ups as a freelancer, she has been able to have extended stays in NYC, Denver, SF, Seattle, and Barcelona. She loves being a digital nomad because each new city brings new stories and opportunities. </p>
                     <p style={aboutTextStyle}>Camille is a Virgo Libra cusp. Her hobbies include hiking, climbing, yoga, snowboarding, and anything with music. Her favorite  parts of nature are trees, mountains, and rivers; her favorite parts of cities are music and rooftops. </p>
-                    <div style={{height:15,width:110,backgroundColor:"#014421"}}></div>
+                    <div style={{height:15,width:110,backgroundColor:"#4C6357"}}></div>
                 </div>
-                <p style={{marginLeft:300}}>
-                    <Button variant="success" onClick={(e)=>{
+                <p style={aboutTextStyle}>
+                    <div style={{paddingLeft:"48%",paddingBottom:"3%"}}>
+                    <Button style={{backgroundColor:"#4C6357",border:"none"}} onClick={(e)=>{
                             history.push("/about");
                             e.stopPropagation();
                         }}>{"Learn More"}</Button>
+                    </div>
                 </p>
                 
                 {}
