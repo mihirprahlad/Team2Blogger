@@ -1,18 +1,18 @@
 import PostCard from './PostCard';
-import React, {useEffect, useState, useRef,Link,useContext} from 'react';
+import React, {useEffect, useState, useRef,Link} from 'react';
 import Spinner from 'react-bootstrap/Spinner'
 import '../../App.css'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
-import { useHistory} from "react-router-dom";
-import {UserContext} from '../../contexts/UserContext'
+import { useHistory } from "react-router-dom";
 
 export default function Blog(){
 
+    const isAdmin = true;
     const [posts,setPosts] = useState(null);
     const history = useHistory();
-    const {user} = useContext(UserContext);
+
 
     useEffect(()=>{
         fetch("http://localhost:5000/blogpost")
@@ -48,6 +48,7 @@ export default function Blog(){
             <div class="center">
             <Spinner animation="grow"/>           
             </div>)}
+
         </div>
     )
 
