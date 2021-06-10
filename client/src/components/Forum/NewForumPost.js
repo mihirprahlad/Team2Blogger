@@ -32,6 +32,8 @@ export default function NewForumPost() {
         console.log(JSON.stringify({title,date,image,content,username,userid,userpic, user_id}))
         if(!user)
             alert("You must be signed in to create new posts! Your data will not be saved.");
+        else if(title === "" || content === "<p><br></p>")
+            alert("A title and content must be entered!")
         else {
             console.log("here");
             fetch("http://localhost:5000/forumpost", {
