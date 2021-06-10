@@ -101,8 +101,8 @@ export default function EditPost(){
         <div>
         {user&&user.is_admin&&
         <div>
-        <Button onClick={()=>{saveChanges();}}style={{marginRight:"5px"}}>Publish Changes</Button>
-        <Button onClick={()=>{deletePost();}}>Delete Post</Button>
+        <Button onClick={()=>{saveChanges();}}style={{marginRight:"5px",backgroundColor:"#4C6357",border:"none"}}>Publish Changes</Button>
+        <Button style={{backgroundColor:"#4C6357",border:"none"}}onClick={()=>{deletePost();}}>Delete Post</Button>
         </div>
         }
         </div>

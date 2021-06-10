@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button'
 import Tooltip from 'react-bootstrap/Tooltip'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import {UserContext} from '../../contexts/UserContext'
+import { useHistory } from "react-router-dom";
 
 export default function NewPost(){
 
@@ -15,6 +16,7 @@ export default function NewPost(){
     const { quill, quillRef } = useQuill();
     const [published,setPublished] = useState(false);
     const {user} = useContext(UserContext);
+    const history = useHistory();
 
 
     const createNewPost=(()=>{
@@ -29,6 +31,9 @@ export default function NewPost(){
             body: JSON.stringify({title,date,image,content})
           })
         .then(()=>{setPublished(true);})
+        .then(()=>{
+            history.push("/blog");
+        })
     })
 
 return(
@@ -56,13 +61,13 @@ return(
         {user&&user.is_admin&&
         (published?<OverlayTrigger overlay={<Tooltip id="tooltip-disabled">This Post Has Already Been Published!</Tooltip>}>
         <span className="d-inline-block">
-        <Button variant="primary" disabled style={{marginLeft:"20px", marginBottom:"6%"}} onClick={()=>{
+        <Button variant="primary" disabled style={{marginLeft:"20px", marginBottom:"6%",backgroundColor:"#4C6357",border:"none"}} onClick={()=>{
                 createNewPost();
             }}>
                 Publish
         </Button>
         </span>
-        </OverlayTrigger>:<Button variant="primary" style={{marginLeft:"20px", marginBottom:"6%"}} onClick={()=>{
+        </OverlayTrigger>:<Button variant="primary" style={{marginLeft:"20px", marginBottom:"6%",backgroundColor:"#4C6357",border:"none"}} onClick={()=>{
                 createNewPost();
             }}>
                 Publish
