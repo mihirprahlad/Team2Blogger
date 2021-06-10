@@ -101,7 +101,7 @@ export default function EditPost(){
         <div style={{backgroundColor:"white"}} ref={quillRef} ></div>
         </div>
         <div>
-        {user&&
+        {user&&user.is_admin&&
         <div>
         <Button onClick={()=>{saveChanges();}}style={{marginRight:"5px"}}>Publish Changes</Button>
         <Button onClick={()=>{deletePost();}}>Delete Post</Button>
