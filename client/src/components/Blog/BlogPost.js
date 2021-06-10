@@ -13,6 +13,7 @@ import Form from 'react-bootstrap/Form'
 import {useQuill} from  'react-quilljs'
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext.js";
+import Comments from "../Comments/Comments";
 
 export default function BlogPost(){
     const history = useHistory();
