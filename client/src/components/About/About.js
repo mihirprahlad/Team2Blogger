@@ -5,7 +5,10 @@ import Gallery from './Gallery';
 //     height: "350px",
 //     width: "525px"
 // };
-
+const aboutTextStyle = {
+    marginLeft: "-30px",
+    fontSize: 20
+};
 const historyHeaderStyle = {
     marginLeft: "-30px",
     fontSize: 40
@@ -30,9 +33,10 @@ export default function About() {
                 </div>
                 <div class='column'>
                     <div>
-                        <b style={historyHeaderStyle}>History</b>
-                        <p></p>
-                        <p style={historyTextStyle}>Camille's Corner started back in the summer of 2019 when Camille first moved to NYC for an internship. Sitting behind a screen all day in the middle of a giant concrete jungle made her long for the proper outdoors. Hopelessly stuck between being drawn to the culture of cities and the allure of Mother Nature, Camille decided to bridge the two worlds through adventure and discovery, adopting a digital nomad life that took her across the country. The name of the blog comes from the corner in her room where Camille hung up tapestries that depicted beautiful landscapes juxtaposed against her Soho apartment. The goal of Camille's Corner is to show others that in every city, nature offers an escape, and no one has to choose only one world. </p>
+                        <b style={historyHeaderStyle}>About</b>
+                        <p style={aboutTextStyle}>Camille is a recent college graduate from UVA currently traveling from city to city exploring what urban life offers while taking advantage of any opportunity to get back to the great outdoors. Exclusively working for new start-ups as a freelancer, she has been able to have extended stays in NYC, Denver, SF, Seattle, and Barcelona. She loves being a digital nomad because each new city brings new stories and opportunities. </p>
+                        <p style={aboutTextStyle}>Camille is a Virgo Libra cusp. Her hobbies include hiking, climbing, yoga, snowboarding, and anything with music. Her favorite  parts of nature are trees, mountains, and rivers; her favorite parts of cities are music and rooftops. </p>
+                        <p style={historyTextStyle}></p>
                         <div style={{height:15,width:110,backgroundColor:"#014421",marginLeft: "-30px",}}></div>
                     </div>
                 </div>

@@ -72,7 +72,7 @@ export default function PostCard({postContent}){
                         <p style={{textAlign:"left",paddingTop:"2%",fontSize:15}}>{reduceContentLength(postContent.content)}</p>
                     </Row>
                     <Row style={{justifyContent:"center",paddingTop:"10px"}}>
-                        <Button variant="success" onClick={(e)=>{
+                        <Button style={{backgroundColor:"#4C6357",border:"none"}} onClick={(e)=>{
                             history.push("/blogpost/"+postContent.id);
                             e.stopPropagation();
                         }}>{postContent.content.length>=700?"Go To Post":"Go To Post"}</Button>
