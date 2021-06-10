@@ -62,13 +62,13 @@ const SignIn = (props) => {
     <>
       {user ? (
         <>
-          <Nav.Link as="p" className="mb-0">
+          <Nav.Link style={{color:"beige"}} as="p" className="mb-0">
             Signed in as {firebase.auth().currentUser.displayName}
           </Nav.Link>
-          <Button onClick={logout}>Logout</Button>
+          <Button style={{backgroundColor:"beige",color:"#000080"}} onClick={logout}>Logout</Button>
         </>
       ) : (
-        <Button onClick={signInWithGoogle}>Sign In</Button>
+        <Button style={{backgroundColor:"beige",color:"#000080"}} onClick={signInWithGoogle}>Sign In</Button>
       )}
     </>
   );
