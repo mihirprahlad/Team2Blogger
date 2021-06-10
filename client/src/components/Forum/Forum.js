@@ -19,7 +19,21 @@ export default function Forum() {
                 return(res.json())
             })
             .then((obj) => {
-                setPosts(obj);
+                obj.sort(function(a,b){
+                    if(b.editDate&&a.editDate){
+                    return new Date(b.editDate) - new Date(a.editDate);
+                    }
+                    else if(b.editDate){
+                    return new Date(b.editDate) - new Date(a.date);
+                    }
+                    else if(a.editDate){
+                    return new Date(b.date) - new Date(a.editDate);
+                    }
+                    else{
+                    return new Date(b.date) - new Date(a.date);
+                    }
+                    });
+                setPosts(obj)
             });
     }, [])
 
