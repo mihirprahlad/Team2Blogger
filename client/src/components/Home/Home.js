@@ -28,9 +28,8 @@ export default function Home() {
                     <p style={aboutTextStyle}>Camille is a Virgo Libra cusp. Her hobbies include hiking, climbing, yoga, snowboarding, and anything with music. Her favorite  parts of nature are trees, mountains, and rivers; her favorite parts of cities are music and rooftops. </p>
                     <div style={{height:15,width:110,backgroundColor:"#014421"}}></div>
                 </div>
-                <p style={aboutTextStyle}>
+                <p style={{marginLeft:300}}>
                     <Button variant="success" onClick={(e)=>{
-                            console.log("aasdf");
                             history.push("/about");
                             e.stopPropagation();
                         }}>{"Learn More"}</Button>
