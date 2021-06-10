@@ -1,4 +1,4 @@
-import React,{useState,useEffect,useContext} from "react";
+import React,{useState,useEffect, useContext} from "react";
 import {useParams} from "react-router-dom"
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -12,13 +12,11 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form'
 import {useQuill} from  'react-quilljs'
 import { useHistory } from "react-router-dom";
-import {UserContext} from '../../contexts/UserContext'
+import { UserContext } from "../../contexts/UserContext.js";
 import Comments from "../Comments/Comments";
 
 export default function BlogPost(){
     const history = useHistory();
-    const isLoggedIn = true;
-    const isAdmin = true;
     const {blogID} = useParams();
     const [content,setContent] = useState(null);
     const [edit,setEdit] = useState(false);
@@ -47,9 +45,9 @@ export default function BlogPost(){
 
     return(
         <div>
-            {isAdmin&&
+            {user&&user.is_admin&&
             <div style={{right:"1%",top:"10%",position:"absolute"}}>
-               {user.is_admin&&<Button style={{width:"5rem",marginBottom:"3px"}}onClick={(e)=>{history.push("/editpost/"+content.id);
+               {user&&user.is_admin&&<Button style={{width:"5rem",marginBottom:"3px",backgroundColor:"#4C6357",border:"none"}}onClick={(e)=>{history.push("/editpost/"+content.id);
                             e.stopPropagation();}}>Edit</Button>}
             </div>}
             {content?
@@ -62,14 +60,14 @@ export default function BlogPost(){
                     {content.editDate&&<h6 style={{fontStyle:"italic"}}>Updated: {content.editDate}</h6>}
                 </Col>
                 <Col sm={2}>
-                    <Image style={{ width: '5rem'}} src="https://media.istockphoto.com/photos/businessman-silhouette-as-avatar-or-default-profile-picture-picture-id474001958?s=170x170" roundedCircle/>
-                    {isLoggedIn&&
+                    <Image style={{ width: '5rem'}} src="https://drive.google.com/thumbnail?id=1wJ0SlPBrq0AQp10LzpcdjqJIijQndLnT" roundedCircle/>
+                    {user&&
                                 <div>
                                 <button type="button" class="btn btn-link" >
-                                    <FaThumbsUp size={20} style={{color:"#779ecb"}}/>
+                                    <FaThumbsUp size={20} style={{color:"#003366"}}/>
                                 </button>
                                 <button type="button" class="btn btn-link">
-                                    <FaThumbsDown size={20} style={{color:"#779ecb"}}/>
+                                    <FaThumbsDown size={20} style={{color:"#003366"}}/>
                                 </button>
                                 </div>
                                 }
@@ -81,8 +79,7 @@ export default function BlogPost(){
             </Row>}
             <div dangerouslySetInnerHTML={{ __html:content.content}} />
             <br/>
-            {Comments(history.location.pathname, blogID, content.title)}
-
+             {Comments(history.location.pathname, blogID, content.title)}
             </div>)
             :
             (<div class="center">

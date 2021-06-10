@@ -1,5 +1,5 @@
 const LikeController = (app, db) => {
-  // Gets likes and dislikes of a post
+  // Gets likes and dislikes of a blog post
   app.get("/blogpost/:post_id/likes", (req, res) => {
     db.collection("blogpost")
       .doc(req.params.post_id)
@@ -18,15 +18,47 @@ const LikeController = (app, db) => {
       });
   });
 
+  // Gets likes and dislikes of a forum post
+  app.get("/forumpost/:post_id/likes", (req, res) => {
+    db.collection("forumpost")
+      .doc(req.params.post_id)
+      .get()
+      .then((doc) => {
+        res.json({
+          likes: {
+            count: Object.keys(doc.data().likes).length,
+            users: doc.data().likes,
+          },
+          dislikes: {
+            count: Object.keys(doc.data().dislikes).length,
+            users: doc.data().dislikes,
+          },
+        });
+      });
+  });
+
   // Get user likes and dislikes
-  app.get("/users/:user_id/likes", (req, res) => {
+  app.get("/users/:user_id/blog-likes", (req, res) => {
     db.collection("users")
       .doc(req.params.user_id)
       .get()
       .then((doc) => {
         res.json({
-          liked_posts: doc.data().liked_posts,
-          disliked_posts: doc.data().disliked_posts,
+          blog_likes: doc.data().blog_likes,
+          blog_dislikes: doc.data().blog_dislikes,
+        });
+      });
+  });
+
+  // Get user likes and dislikes
+  app.get("/users/:user_id/forum-likes", (req, res) => {
+    db.collection("users")
+      .doc(req.params.user_id)
+      .get()
+      .then((doc) => {
+        res.json({
+          forum_likes: doc.data().forum_likes,
+          forum_dislikes: doc.data().forum_dislikes,
         });
       });
   });
@@ -56,21 +88,62 @@ const LikeController = (app, db) => {
     blogDoc.update({ likes, dislikes });
 
     userDoc = db.collection("users").doc(user_id);
-    let liked_posts, disliked_posts;
+    let blog_likes, blog_dislikes;
     await userDoc.get().then((doc) => {
       if (action === "like") {
-        liked_posts = doc.data().liked_posts;
-        liked_posts[post_id] = true;
-        disliked_posts = doc.data().disliked_posts;
-        delete disliked_posts[post_id];
+        blog_likes = doc.data().blog_likes;
+        blog_likes[post_id] = true;
+        blog_dislikes = doc.data().blog_dislikes;
+        delete blog_dislikes[post_id];
       } else {
-        disliked_posts = doc.data().disliked_posts;
-        disliked_posts[post_id] = true;
-        liked_posts = doc.data().liked_posts;
-        delete liked_posts[post_id];
+        blog_dislikes = doc.data().blog_dislikes;
+        blog_dislikes[post_id] = true;
+        blog_likes = doc.data().blog_likes;
+        delete blog_likes[post_id];
       }
     });
-    userDoc.update({ liked_posts, disliked_posts });
+    userDoc.update({ blog_likes, blog_dislikes });
+    res.json({ msg: "Success!" });
+  });
+
+  app.post("/forumpost/:post_id/likes", async (req, res) => {
+    const post_id = req.params.post_id;
+    const user_id = req.body.user_id;
+    const action = req.body.action; // action can be either "like" or "dislike"
+
+    forumDoc = db.collection("forumpost").doc(post_id);
+    let likes, dislikes;
+    await forumDoc.get().then((doc) => {
+      if (action === "like") {
+        likes = doc.data().likes;
+        likes[user_id] = true;
+        dislikes = doc.data().dislikes;
+        delete dislikes[user_id];
+      } else {
+        dislikes = doc.data().dislikes;
+        dislikes[user_id] = true;
+        likes = doc.data().likes;
+        delete likes[user_id];
+      }
+    });
+    forumDoc.update({ likes, dislikes });
+
+    userDoc = db.collection("users").doc(user_id);
+    let forum_likes, forum_dislikes;
+    await userDoc.get().then((doc) => {
+      if (action === "like") {
+        forum_likes = doc.data().forum_likes;
+        forum_likes[post_id] = true;
+        forum_dislikes = doc.data().forum_dislikes;
+        delete forum_dislikes[post_id];
+      } else {
+        forum_dislikes = doc.data().forum_dislikes;
+        forum_dislikes[post_id] = true;
+        forum_likes = doc.data().forum_likes;
+        delete forum_likes[post_id];
+      }
+    });
+    userDoc.update({ forum_likes, forum_dislikes });
     res.json({ msg: "Success!" });
   });
 
@@ -95,16 +168,53 @@ const LikeController = (app, db) => {
     });
 
     userDoc = db.collection("users").doc(user_id);
-    let liked_posts, disliked_posts;
+    let blog_likes, blog_dislikes;
     userDoc.get().then((doc) => {
       if (action === "like") {
-        liked_posts = doc.data().liked_posts;
-        delete liked_posts[post_id];
-        userDoc.update({ liked_posts });
+        blog_likes = doc.data().blog_likes;
+        delete blog_likes[post_id];
+        userDoc.update({ blog_likes });
       } else {
-        disliked_posts = doc.data().disliked_posts;
-        delete disliked_posts[post_id];
-        userDoc.update({ disliked_posts });
+        blog_dislikes = doc.data().blog_dislikes;
+        delete blog_dislikes[post_id];
+        userDoc.update({ blog_dislikes });
+      }
+    });
+    res.json({
+      msg: `${action === "like" ? "Like" : "Dislike"} successfully removed.`,
+    });
+  });
+
+  app.delete("/forumpost/:post_id/likes", async (req, res) => {
+    const post_id = req.params.post_id;
+    const user_id = req.body.user_id;
+    const action = req.body.action; // action can be either "like" or "dislike"
+
+    forumDoc = db.collection("forumpost").doc(post_id);
+    let likes, dislikes;
+    forumDoc.get().then((doc) => {
+      if (action === "like") {
+        likes = doc.data().likes;
+        delete likes[user_id];
+        forumDoc.update({ likes });
+      } else {
+        dislikes = doc.data().dislikes;
+        delete dislikes[user_id];
+        forumDoc.update({ dislikes });
+      }
+    });
+
+    userDoc = db.collection("users").doc(user_id);
+    let forum_likes, forum_dislikes;
+    userDoc.get().then((doc) => {
+      if (action === "like") {
+        forum_likes = doc.data().forum_likes;
+        delete forum_likes[post_id];
+        userDoc.update({ forum_likes });
+      } else {
+        forum_dislikes = doc.data().forum_dislikes;
+        delete forum_dislikes[post_id];
+        userDoc.update({ forum_dislikes });
       }
     });
     res.json({
