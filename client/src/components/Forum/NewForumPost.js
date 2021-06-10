@@ -25,22 +25,23 @@ export default function NewForumPost() {
         const date = Date().toLocaleString()
         const image = newPostImage;
         const content = quill.container.firstChild.innerHTML;
-        const username = user.displayName;
+        const username = user.name;
         const userid = user.email;
-        const userpic = user.photoURL;
-        console.log(JSON.stringify({title,date,image,content, username, userid, userpic}))
+        const userpic = user.image;
+        const user_id = user.id;
+        console.log(JSON.stringify({title,date,image,content,username,userid,userpic, user_id}))
         if(!user)
             alert("You must be signed in to create new posts! Your data will not be saved.");
         else {
             console.log("here");
-            // fetch("http://localhost:5000/blogpost", {
-            //     method: "POST",
-            //     headers: { "Content-Type": "application/json" },
-            //     body: JSON.stringify({title,date,image,content})
-            //   })
-            // .then(() => {
-            //     setPublished(true);
-            // })
+            fetch("http://localhost:5000/forumpost", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({title,date,image,content, username, userid, userpic, user_id})
+              })
+            .then(() => {
+                setPublished(true);
+            })
         }
     })
 

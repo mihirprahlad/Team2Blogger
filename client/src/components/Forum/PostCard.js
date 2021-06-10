@@ -24,12 +24,12 @@ export default function PostCard({postContent}){
             return content;
         }
         else {
-        for(let x=0;x<=700;x++) {
-            displayContent = displayContent+content.charAt(x);
-        }
+            for(let x=0;x<=700;x++) {
+                displayContent = displayContent+content.charAt(x);
+            }
             return displayContent+"..."
         } 
-        });
+    });
     
         function checkURL(url) {
             return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
@@ -97,6 +97,7 @@ export default function PostCard({postContent}){
                                 <h2 style={{fontWeight:"bold"}}>{postContent.title}</h2>
                                 <Card.Subtitle className="mb-2 text-muted">{postContent.user.name}</Card.Subtitle>
                                 <Card.Subtitle className="mb-2 text-muted">{postContent.date}</Card.Subtitle>
+                                {/* {postContent.editDate !== "" && <Card.Subtitle style = {{fontStyle:"italic"}} className="mb-2 text-muted">Updated: {postContent.editDate}</Card.Subtitle>} */}
                             </Col>
                             <Col md={2}>
                                 {isLoggedIn&&
