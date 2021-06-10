@@ -57,7 +57,7 @@ const ForumPostController = (app, db) => {
         res.json({ ...forumpost, id: doc.id });
       })
       .catch(() => {
-        res.status(400).json({ msg: "Error creating blogpost" });
+        res.status(400).json({ msg: "Error creating forumpost" });
       });
   });
 
@@ -74,6 +74,44 @@ const ForumPostController = (app, db) => {
           .json({ msg: `Error deleting blogpost with ID ${req.params.id}` });
       });
   });
+
+
+  app.put("/forumpost/:id", async (req, res) => {
+    console.log(req.body)
+    let {title, editDate, image, content} = req.body;
+    let query = db.collection("forumpost").doc(req.params.id);
+    const snapshot = await query.get();
+    if(!snapshot) {
+      console.log("This post does not exist!");
+      res.status(400).json({msg: `Forum post with ID ${req.params.id} does not exist`});
+      return;
+    }
+
+    let post = snapshot._fieldsProto;
+  
+    if(!title)
+      title = post.title.stringValue
+    if(!image)
+      image = post.image.stringValue
+    if(content === "<p><br></p>")
+      content = post.content.stringValue
+  console.log(editDate);
+    let ref = db
+      .collection("forumpost")
+      .doc(req.params.id)
+    ref.update({
+      "title": title,
+      "editDate": editDate,
+      "image": image,
+      "content": content
+    })
+    .then(() => {
+      res.json({msg: `Forum post with ID ${req.params.id} updated`});
+    })
+    .catch(() => {
+      res.status(400).json({msg: `Error updating forumpost with ID ${req.params.id}`})
+    });
+  })
 };
 
 module.exports = ForumPostController;
