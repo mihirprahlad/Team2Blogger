@@ -31,9 +31,9 @@ export default function PostCard({postContent}){
         } 
     });
     
-        function checkURL(url) {
-            return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
-        }
+        // function checkURL(url) {
+        //     return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
+        // }
     
     const likeEdit = (here, other) => {
         const id = here.id
@@ -97,7 +97,7 @@ export default function PostCard({postContent}){
                                 <h2 style={{fontWeight:"bold"}}>{postContent.title}</h2>
                                 <Card.Subtitle className="mb-2 text-muted">{postContent.user.name}</Card.Subtitle>
                                 <Card.Subtitle className="mb-2 text-muted">{postContent.date}</Card.Subtitle>
-                                {/* {postContent.editDate !== "" && <Card.Subtitle style = {{fontStyle:"italic"}} className="mb-2 text-muted">Updated: {postContent.editDate}</Card.Subtitle>} */}
+                                {postContent.editDate !== "" && <Card.Subtitle style = {{fontStyle:"italic"}} className="mb-2 text-muted">Updated: {postContent.editDate}</Card.Subtitle>}
                             </Col>
                             <Col md={2}>
                                 {isLoggedIn&&
@@ -110,7 +110,7 @@ export default function PostCard({postContent}){
                                 <Card.Subtitle style={{fontSize:"12px",margin:"auto", textAlign:"justify",paddingTop:7}}>Dislikes: {dislikes}</Card.Subtitle>
                             </Col>
                         </Row>
-                    {checkURL(postContent.image)&&<div><Row style={{justifyContent:"center"}}>
+                    {<div><Row style={{justifyContent:"center"}}>
                         <Image class="img-fluid" style={{ maxWidth: '60vw',height:"330px"}} src={postContent.image}/>
                     </Row></div>}
                     <Row>

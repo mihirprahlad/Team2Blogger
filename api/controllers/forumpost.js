@@ -16,6 +16,7 @@ const ForumPostController = (app, db) => {
       const forumpost = {
         title: req.body.title,
         date: req.body.date,
+        editDate: "",
         image: req.body.image,
         content: req.body.content,
         user_id: req.body.user_id,
