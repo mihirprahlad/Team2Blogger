@@ -17,7 +17,7 @@ const Navigation = (props) => {
               icon={["far", "copyright"]}
             />{" "}
             <h style={{ color: "beige", fontWeight: 800, fontSize: 20 }}>
-              The Camille Connection
+              The Camille Corner
             </h>
           </div>
           <div className="col-md-6 mb-md-0 mb-3">
@@ -54,7 +54,7 @@ const Navigation = (props) => {
                 <Nav.Link
                   style={{ color: "beige", fontWeight: 800, fontSize: 17 }}
                   as={Link}
-                  to={{ pathname: "https://instagram.com" }}
+                  to={{ pathname: "https://www.instagram.com/camycoop/?hl=en" }}
                   target="_blank"
                 >
                   <FontAwesomeIcon
@@ -62,15 +62,6 @@ const Navigation = (props) => {
                     icon={["fab", "instagram"]}
                   />{" "}
                   Instagram
-                </Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link
-                  style={{ color: "beige", fontWeight: 800, fontSize: 17 }}
-                  as={Link}
-                  to="/login"
-                >
-                  Create an account!
                 </Nav.Link>
               </Nav.Item>
             </Nav>
