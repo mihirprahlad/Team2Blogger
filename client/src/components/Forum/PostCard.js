@@ -53,12 +53,12 @@ export default function PostCard({postContent}){
         const name = e.currentTarget.name;
         if(userLikes.includes(id)) {
             liked = true;
-            disliked = false;
+            // disliked = false;
             // setLiked(true);
         }
         if(userDislikes.includes(id)) {
             disliked = true;
-            liked = false;
+            // liked = false;
             // setDisliked(true);
         }
         console.log(id, "\nliked:", liked, "\ndisliked:", disliked)

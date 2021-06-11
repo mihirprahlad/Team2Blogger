@@ -73,8 +73,8 @@ export default function Forum() {
             </div>
         </div>
         <div style={{height:15,width:310,marginLeft:"15%",backgroundColor:"#4C6357",marginBottom:"2%"}}></div>
-        {user ?
-            posts ? 
+        {posts ?
+            user ? 
                 postsToDisplay.map((post) => {
                     return(
                         <PostCard postContent = {post}/>
