@@ -18,12 +18,16 @@ export default function PostCard({postContent}){
     const [readMore,setReadMore] = useState(false);
     const [likes, setLikes] = useState(Object.keys(l).length)
     const [dislikes, setDislikes] = useState(Object.keys(d).length);
-    const [liked, setLiked] = useState(false);
-    const [disliked, setDisliked] = useState(false);
+    // const [liked, setLiked] = useState(false);
+    let liked = false;
+    // const [disliked, setDisliked] = useState(false);
+    let disliked = false;
     const {user} = useContext(UserContext);
-    const userid = user.id;
     const [likeBut, setLikeBut] = useState(null);
     const [disBut, setDisBut] = useState(null);
+    const userid = user.id;
+    const userLikes = Object.keys(user.forum_likes);
+    const userDislikes = Object.keys(user.forum_dislikes);
 
     const reduceContentLength = ((content) => {
         content = content.replace(/<[^>]*>?/gm, '');
@@ -47,6 +51,17 @@ export default function PostCard({postContent}){
     const onClick = (e) => {
         const id = e.currentTarget.id
         const name = e.currentTarget.name;
+        if(userLikes.includes(id)) {
+            liked = true;
+            disliked = false;
+            // setLiked(true);
+        }
+        if(userDislikes.includes(id)) {
+            disliked = true;
+            liked = false;
+            // setDisliked(true);
+        }
+        console.log(id, "\nliked:", liked, "\ndisliked:", disliked)
         let other;
         const here = e;
         name === "like" ? 
@@ -63,10 +78,13 @@ export default function PostCard({postContent}){
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({user_id: userid, action: "like"})
                   })
-                setLiked(true);
+                // setLiked(true);
+                liked = true;
                 if(disliked) {
                     setDislikes(dislikes - 1);
-                    setDisliked(false);
+                    delete user.forum_dislikes.id
+                    // setDisliked(false);
+                    disliked = false;
                     other.style.color = "#003366"
                 }
             }
@@ -78,36 +96,54 @@ export default function PostCard({postContent}){
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({user_id: userid, action: "dislike"})
                   })
-                setDisliked(true);
+                // setDisliked(true);
+                disliked = true;
                 if(liked) {
                     setLikes(likes - 1);
-                    setLiked(false);
+                    delete user.forum_likes.id
+                    liked = false;
+                    // setLiked(false);
                     other.style.color = "#003366";
                 }
             }
+            // if(other.name === "active") {
+            //     id === "like" ? setDislikes(dislikes - 1) : setLikes(likes - 1);
+            //     other.name = "inactive";
+            //     other.style.color = "#003366";
+            //     console.log("here")
+            // }
         }
         else {
+            // here.currentTarget.name = "inactive"
             here.currentTarget.style.color = "#003366";
             if(name === "like") {
                 setLikes(likes - 1);
+                delete user.forum_likes.id
                 fetch(`http://localhost:5000/forumpost/${id}/likes`, {
                     method: "DELETE",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({user_id: userid, action: "like"})
                   })
-                setLiked(false);
+                // setLiked(false);
+                liked = false;
             }
             else {
                 setDislikes(dislikes - 1);
+                delete user.forum_dislikes.id
                 fetch(`http://localhost:5000/forumpost/${id.substring(1)}/likes`, {
                     method: "DELETE",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({user_id: userid, action: "dislike"})
                   })
 
-                setDisliked(false);
+                // setDisliked(false);
+                disliked = false;
             }
+            // id === "like" ? setLikes(likes - 1) : setDislikes(dislikes - 1);
         }
+
+
+        // likeEdit(here, other);
     }
 
     const setButtonColor = (n, i) => {
@@ -136,7 +172,11 @@ export default function PostCard({postContent}){
     useEffect(() => {
         let color = setButtonColor("like", postContent.id)
         console.log(color);
-        setLikeBut(<button type = "button" id={postContent.id} name="like" onClick = {onClick} class="btn btn-link" style={{color:{color}}}>
+        // if(userLikes.includes(postContent.id))
+        //     setLiked(true);
+        // if(userDislikes.includes(postContent.id))
+        //     setDisliked(true);
+        setLikeBut(<button type = "button" id={postContent.id} name="like" onClick = {onClick} class="btn btn-link" style={{color:color}}>
             <FaThumbsUp size={20} />
         </button>)
         color = setButtonColor("dislike", postContent.id)
