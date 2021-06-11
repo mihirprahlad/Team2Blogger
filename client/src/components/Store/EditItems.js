@@ -118,7 +118,7 @@ export default function EditItems(props) {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                         </Button>
-                    <Button variant="primary" onClick={handleSubmit}>
+                    <Button style={{ float: "right", backgroundColor:"#4C6357", border:"none" }} variant="primary" onClick={handleSubmit}>
                         Save Changes
                         </Button>
                 </Modal.Footer>

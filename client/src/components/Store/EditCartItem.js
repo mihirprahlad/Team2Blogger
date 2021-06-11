@@ -59,7 +59,7 @@ export default function EditCartItem(props) {
 
                         {/* Item Quantity */}
                         <Form.Row>
-                            <Form.Label column="lg" lg={2}>
+                            <Form.Label column="md" lg={2}>
                                 Quantity
                     </Form.Label>
                             <Col>
@@ -68,12 +68,12 @@ export default function EditCartItem(props) {
                         </Form.Row>
                     </Form.Group>
                 </Modal.Body>
-                <br /> <br />
+                <br /> <br /> <br />
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                 </Button>
-                    <Button variant="primary" onClick={handleSubmit}>
+                    <Button style={{ float: "right", backgroundColor:"#4C6357", border:"none" }} variant="primary" onClick={handleSubmit}>
                         Save Changes
                 </Button>
                 </Modal.Footer>
