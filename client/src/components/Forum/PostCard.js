@@ -17,12 +17,6 @@ export default function PostCard({postContent}){
     const [readMore,setReadMore] = useState(false);
     const [likes, setLikes] = useState(Object.keys(l).length)
     const [dislikes, setDislikes] = useState(Object.keys(d).length);
-<<<<<<< Updated upstream
-    const [liked, setLiked] = useState(false);
-    const [disliked, setDisliked] = useState(false);
-
-    console.log(postContent.likes)
-=======
     // const [liked, setLiked] = useState(false);
     let liked = false;
     // const [disliked, setDisliked] = useState(false);
@@ -33,7 +27,6 @@ export default function PostCard({postContent}){
     const userid = user.id;
     const userLikes = Object.keys(user.forum_likes);
     const userDislikes = Object.keys(user.forum_dislikes);
->>>>>>> Stashed changes
 
     const reduceContentLength = ((content) => {
         content = content.replace(/<[^>]*>?/gm, '');
@@ -130,9 +123,6 @@ export default function PostCard({postContent}){
             if(name === "like") {
                 here.currentTarget.style.color = "#66c144";
                 setLikes(likes + 1);
-<<<<<<< Updated upstream
-                setLiked(true);
-=======
                 fetch(`http://localhost:5000/forumpost/${id}/likes`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -140,7 +130,6 @@ export default function PostCard({postContent}){
                   })
                 // setLiked(true);
                 liked = true;
->>>>>>> Stashed changes
                 if(disliked) {
                     setDislikes(dislikes - 1);
                     delete user.forum_dislikes.id
@@ -151,10 +140,6 @@ export default function PostCard({postContent}){
             }
             else {
                 here.currentTarget.style.color = "#e31f0e"
-<<<<<<< Updated upstream
-                setDislikes(dislikes + 1)
-                setDisliked(true);
-=======
                 setDislikes(dislikes + 1);
                 fetch(`http://localhost:5000/forumpost/${id.substring(1)}/likes`, {
                     method: "POST",
@@ -163,7 +148,6 @@ export default function PostCard({postContent}){
                   })
                 // setDisliked(true);
                 disliked = true;
->>>>>>> Stashed changes
                 if(liked) {
                     setLikes(likes - 1);
                     delete user.forum_likes.id
@@ -184,13 +168,6 @@ export default function PostCard({postContent}){
             here.currentTarget.style.color = "#003366";
             if(name === "like") {
                 setLikes(likes - 1);
-<<<<<<< Updated upstream
-                setLiked(false);
-            }
-            else {
-                setDislikes(dislikes - 1);
-                setDisliked(false);
-=======
                 delete user.forum_likes.id
                 fetch(`http://localhost:5000/forumpost/${id}/likes`, {
                     method: "DELETE",
@@ -211,7 +188,6 @@ export default function PostCard({postContent}){
 
                 // setDisliked(false);
                 disliked = false;
->>>>>>> Stashed changes
             }
             // id === "like" ? setLikes(likes - 1) : setDislikes(dislikes - 1);
         }
@@ -220,15 +196,6 @@ export default function PostCard({postContent}){
         // likeEdit(here, other);
     }
 
-<<<<<<< Updated upstream
-    const likeBut = <button type = "button" id={postContent.id} name="like" onClick = {onClick} class="btn btn-link" style={{color:"#003366"}} writable = {true}>
-        <FaThumbsUp size={20} />
-    </button>
-
-    const disBut = <button type ="button" id = {`d${postContent.id}`} name = "dislike" onClick = {onClick} class="btn btn-link" style={{color:"#003366"}} writable = {true}>
-        <FaThumbsDown size={20}/>
-    </button>
-=======
     useEffect(() => {
         let color = setButtonColor("like", postContent.id)
         console.log(color);
@@ -245,7 +212,6 @@ export default function PostCard({postContent}){
             <FaThumbsDown size={20}/>
         </button>)
     }, [])
->>>>>>> Stashed changes
 
 
     return(

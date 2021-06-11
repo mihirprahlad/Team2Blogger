@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import { useState, useContext, useEffect } from 'react';
 import { UserContext } from "../../contexts/UserContext.js";
 import { CartContext } from "../../contexts/CartContext.js";
+import { CartUpdate } from "../../contexts/CartUpdate.js";
 import DisplayCart from "./DisplayCart";
 export default function Cart(props) {
 
@@ -16,6 +17,7 @@ export default function Cart(props) {
     // Stuff for Cart ---------------------
     const { user } = useContext(UserContext);
     const { cart, setCart } = useContext(CartContext);
+    const { update } = useContext(CartUpdate);
     console.log("Cart in Cart.js", cart);
     // ------------------------------------
 
@@ -29,15 +31,6 @@ export default function Cart(props) {
             .then((obj) => {
                 if (obj != null) {
                     console.log("User Cart", obj);
-                    if (obj.length === 0) { // if obj array is empty, make it a dummy object
-                        obj = [{
-                            "price": 0,
-                            "name": "Nothing in cart",
-                            "description": "",
-                            "image": "",
-                            "id": ""
-                        }];
-                    }
                     setCart(obj);
                 } else {
                     console.log("Error");
@@ -48,7 +41,7 @@ export default function Cart(props) {
 
     useEffect(() => {
         getUserCart();
-    }, [show]);
+    }, [show, update]);
     
     
     return (
@@ -62,15 +55,15 @@ export default function Cart(props) {
                     <Modal.Title>Cart</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <DisplayCart cart={cart}/>
+                    {cart.length !== 0 ? <DisplayCart cart={cart}/> : "Nothing in cart."}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                         </Button>
-                    <Button variant="primary" onClick={handleClose}>
+                    {/* <Button variant="primary" onClick={handleClose}>
                         Save Changes
-                        </Button>
+                        </Button> */}
                 </Modal.Footer>
             </Modal>
         </div>
