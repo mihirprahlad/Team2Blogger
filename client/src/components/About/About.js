@@ -7,7 +7,8 @@ const aboutTextStyle = {
 };
 const historyHeaderStyle = {
   marginLeft: "-30px",
-  fontSize: 50,
+  marginBottom:"-0px",
+  fontSize:"80px"
 };
 
 const historyTextStyle = {
@@ -24,13 +25,13 @@ export default function About() {
         </div>
         <div class="col">
           <div>
-            <h1 style={historyHeaderStyle}>About.</h1>
+            <h1 style={historyHeaderStyle}>ABOUT.</h1>
             <div
               style={{
                 marginLeft: "-30px",
                 marginBottom: 20,
                 height: 15,
-                width: 155,
+                width: 300,
                 backgroundColor: "#4C6357",
               }}
             ></div>
