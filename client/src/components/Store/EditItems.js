@@ -47,7 +47,7 @@ export default function EditItems(props) {
     return (
         <div className="Cart" >
             {/* Icon that opens the Edit Modal */}
-            <div style={{ float: "right", padding: "15px" }}>
+            <div style={{ float: "right", paddingRight: "15px" }}>
                 <RiEditBoxLine onClick={handleShow} />
             </div>
 

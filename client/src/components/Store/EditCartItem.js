@@ -36,8 +36,7 @@ export default function EditCartItem(props) {
                 item_id: id,
                 quantity: quantity,
             }),
-        }).then((obj) => {
-            console.log("deleting", obj);
+        }).then(() => {
             setUpdate(Math.random());
         });
         setShow(false);

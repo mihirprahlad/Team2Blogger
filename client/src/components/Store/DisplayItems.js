@@ -19,12 +19,13 @@ export default function DisplayItems(props) {
               style={{ height: "220px", width: "220px" }}
             />
             <Card.Body>
-              <div>
+              <div style={{ display: "flex", margin: "auto", justifyContent: "center" }}>
                 {/* Edit Button - Only visible to an admin */}
                 {user.is_admin ? <EditItems name={item.name} description={item.description} price={item.price} image={item.image} id={item.id} /> : null}
-                
+
                 {/* Delete Button - Only visible to an admin */}
-                {user.is_admin ? <RiDeleteBinLine onClick={() =>
+                <div>
+                  {user.is_admin ? <RiDeleteBinLine onClick={() =>
                     fetch(`http://localhost:5000/items/${item.id}`, {
                       method: "DELETE",
                       headers: {
@@ -36,9 +37,10 @@ export default function DisplayItems(props) {
                       window.location.reload();
                     })
                   }
-                /> : null}
-
-              </div>
+                  /> : null}
+                </div>
+              </div>   
+              <br />
               <Card.Title>{item.name}</Card.Title>
               <Card.Text>{item.description}</Card.Text>
             </Card.Body>

@@ -46,7 +46,7 @@ export default function Cart(props) {
     
     return (
         <div className="Cart" style={{ float: "right", padding: "15px" }}>
-            <Button variant="primary" onClick={handleShow}>
+            <Button style={{backgroundColor:"#4C6357", border:"none"}} variant="primary" onClick={handleShow}>
                 View Cart
                 </Button>
 
@@ -61,9 +61,6 @@ export default function Cart(props) {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                         </Button>
-                    {/* <Button variant="primary" onClick={handleClose}>
-                        Save Changes
-                        </Button> */}
                 </Modal.Footer>
             </Modal>
         </div>
