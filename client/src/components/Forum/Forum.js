@@ -49,8 +49,8 @@ export default function Forum() {
                 </Button>
             </div>}
         </div>
-        {user ?
-            posts ? 
+        {posts ?
+            user ? 
                 posts.map((post) => {
                     return(
                         <PostCard postContent = {post}/>
@@ -58,12 +58,12 @@ export default function Forum() {
                 })
             :
             <div class = "text-center">
-                <Spinner animation = "grow"/>
+                <h3 style = {{padding:"15px"}}>You must log in to view forum posts!</h3>
+                    <SignIn/>
             </div>
         :
         <div class = "text-center">
-            <h3 style = {{padding:"15px"}}>You must log in to view forum posts!</h3>
-                <SignIn/>
+            <Spinner animation = "grow"/>
         </div>
         }
     </div>
