@@ -6,10 +6,15 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Col } from 'react-bootstrap';
+
+/**
+ * Allows signed in users to edit the quantities of items in their carts. Used in DisplayCart.js
+ * @param {Object} props - Contains itemID and itemQuantity
+ * @returns A button to open the edit modal and the edit modal itself
+ */
 export default function EditCartItem(props) {
     const { user } = useContext(UserContext);
-    const { update, setUpdate } = useContext(CartUpdate);
-    console.log("update before", update)
+    const { setUpdate } = useContext(CartUpdate);
 
     // Controls for Edit Modal ---------------
     const [show, setShow] = useState(false);

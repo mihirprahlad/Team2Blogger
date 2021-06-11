@@ -2,6 +2,12 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { useContext } from 'react';
 import { UserContext } from "../../contexts/UserContext.js";
 import { CartUpdate } from "../../contexts/CartUpdate.js";
+
+/**
+ * Allows signed in users to delete items in their carts. Used in DisplayCart.js
+ * @param {Object} props - Contains itemID
+ * @returns A button that on click deletes the proper item from the cart and updates the cart automatically
+ */
 export default function DeleteCartItem(props){
     const { user } = useContext(UserContext);
     const { setUpdate } = useContext(CartUpdate);

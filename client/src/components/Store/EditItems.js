@@ -6,6 +6,11 @@ import InputGroup from 'react-bootstrap/InputGroup'
 import { Col } from 'react-bootstrap';
 import { useState } from 'react';
 
+/**
+ * Handles the admin edit items functionality. Used in DisplayItems.js
+ * @param {Object} props - contains name, description, price, image of the item being edited
+ * @returns A button to open the edit modal, and the edit modal itself
+ */
 export default function EditItems(props) {
     // Controls for Edit Modal ---------------
     const [show, setShow] = useState(false);

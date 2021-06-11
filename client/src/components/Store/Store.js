@@ -4,6 +4,10 @@ import AddItems from './AddItems';
 import Cart from './Cart';
 import { UserContext } from "../../contexts/UserContext.js";
 
+/**
+ * Driver for the store page. Used in App.js
+ * @returns A store header, admin controls, a cart, and the items
+ */
 export default function Store() {
     // Fetch request to get store items
     const [items, setItems] = useState([]); // array of items
@@ -35,14 +39,14 @@ export default function Store() {
     };
     useEffect(() => {
         getItems();
-    }, []); // add something to this dependency array later
+    }, []);
 
 
     return (
-        <div style={{marginLeft:"5%",paddingTop:"4vh",marginRight:"5%"}}>
+        <div style={{marginLeft:"5%",paddingTop:"4vh", paddingBottom:"4vh", marginRight:"5%"}}>
             {/* Header */}
-            <h1 style={{textAlign:"left",fontSize:"50px",color:"#4C635"}}>Store</h1>
-                <div style={{height:15,width:130,backgroundColor:"#4C6357"}}></div>
+            <h1 style={{textAlign:"left",fontSize:"50px",color:"#4C635"}}>Store.</h1>
+                <div style={{height:15,width:140,backgroundColor:"#4C6357"}}></div>
 
 
             {/* Add Items Button - Only visible to admin users */}
