@@ -12,6 +12,7 @@ import { UserContext } from "../../contexts/UserContext";
 import SignIn from "./../SignIn"
 import Button from 'react-bootstrap/Button';
 import Comments from "../Comments/Comments";
+import moment from 'moment';
 
 export default function ForumPost() {
     const history = useHistory();
@@ -103,7 +104,8 @@ export default function ForumPost() {
                         <Col sm={10}>
                             <h1 style={{fontWeight:"bold"}}>{content.title}</h1>
                             <h4>{content.user.name}</h4>
-                            <h6>{content.date}</h6>
+                            <h6>{moment(content.date).format("dddd, MMMM Do YYYY, h:mm:ss a")}</h6>
+                            {content.editDate!==""&&<h6>{moment(content.editDate).format("dddd, MMMM Do YYYY, h:mm:ss a")}</h6>}
                         </Col>
                         <Col sm={2}>
                             <Image style={{ width: '5rem'}} src={content.user.pic} roundedCircle/>
