@@ -26,7 +26,7 @@ export default function PostCard({postContent}){
                             <Col md={2}>
                             </Col>
                             <Col md={8} style={{paddingLeft:"3%"}}>
-                                <h2 style={{fontWeight:"bold", fontSize:17, justifyContent:"center", alignContent:"center"}}>{postContent.title}</h2>
+                                <h2 style={{fontWeight:"bold", fontSize:18, textAlign:"center", justifyContent:"center", alignContent:"center"}}>{postContent.title}</h2>
                             </Col>
                         </Row>
                     {checkURL(postContent.image)&&<div><Row style={{justifyContent:"center"}}>
