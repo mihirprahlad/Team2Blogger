@@ -16,5 +16,5 @@ const images = [
     },
   ];
 export default function Gallery() {
-    return <Carousel images={images} style={{ height: 620, width: 520 }} hasThumbnails={false} hasIndexBoard={false} hasSizeButton={false} hasMediaButton={false}/>
+    return <Carousel images={images} style={{ height: 620, width: 520 }} isAutoPlaying={true} autoPlayInterval={3000} hasThumbnails={false} hasIndexBoard={false} hasSizeButton={false} hasMediaButton={false}/>
 }
