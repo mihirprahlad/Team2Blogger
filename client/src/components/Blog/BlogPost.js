@@ -22,6 +22,7 @@ export default function BlogPost(){
     const [edit,setEdit] = useState(false);
     const {user} = useContext(UserContext);
 
+    // Loads every single blog post. If blog post matches ID, the content for the page is set.
     useEffect(()=>{
         fetch("http://localhost:5000/blogpost")
             .then((res) => res.json())
@@ -37,7 +38,7 @@ export default function BlogPost(){
             })
     },[])
     
-
+    // Checks that URL is an image URL
     function checkURL(url) {
         return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
     }

@@ -20,7 +20,7 @@ export default function EditPost(){
     const { quill, quillRef } = useQuill();
     const [firstRun,setFirstRun] = useState(true);
 
-
+    // Loads every post. Matches post to given ID
     useEffect(()=>{
         fetch("http://localhost:5000/blogpost")
             .then((res) => res.json())
@@ -35,6 +35,8 @@ export default function EditPost(){
         
     },[])
 
+    // Once content is set and it's still the first run, newPostTitle and newPostImage 
+    // will be set to the respective content title and image
     useEffect(()=>{
         if(firstRun&&content){
             console.log("activated")
@@ -44,6 +46,7 @@ export default function EditPost(){
         }
     })
 
+    // Sends Put request with inputted changes to posts
     const saveChanges=(()=>{
         const title = newPostTitle;
         const editDate = Date().toLocaleString()
@@ -59,6 +62,8 @@ export default function EditPost(){
         .then(()=>{history.push("/blogpost/"+blogID);})
     })
 
+
+    // Sends Delete request to delete post
     const deletePost=(()=>{
         fetch("http://localhost:5000/blogpost/"+blogID, {
             method: "DELETE",
@@ -67,7 +72,8 @@ export default function EditPost(){
         .then(()=>{history.push("/blog");})
     })
 
-
+    // Once the content is loaded and Quill is initialized, the content of the post is 
+    // added set to be displayed in the text editor by default
     if(content&&quill){
         if(content.content){
         quill.root.innerHTML  = content.content
