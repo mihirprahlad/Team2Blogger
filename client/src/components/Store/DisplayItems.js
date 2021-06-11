@@ -6,6 +6,11 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { useContext } from 'react';
 import { UserContext } from "../../contexts/UserContext.js";
 
+/**
+ * Displays all items available in the store. Used in Store.js
+ * @param {Object} props - items: Array of item objects representing all store items
+ * @returns A CardDeck holding Cards representing each item. If user is an admin, also returns edit and delete buttons for each item.
+ */
 export default function DisplayItems(props) {
   const { user } = useContext(UserContext);
   return (
@@ -46,6 +51,8 @@ export default function DisplayItems(props) {
             </Card.Body>
             <Card.Footer>
               <medium className="text-muted">$ {item.price}</medium>
+
+              {/* Add to Cart button */}
               <AddToCart item={item} />
             </Card.Footer>
           </Card>

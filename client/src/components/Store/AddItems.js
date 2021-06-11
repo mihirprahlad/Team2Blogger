@@ -4,6 +4,10 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup'
 import { Col } from 'react-bootstrap';
 import { useState } from 'react';
+/**
+ * Allows admin users to add items to the store. Used in Store.js
+ * @returns A button to open the add modal, and the add modal itself
+ */
 export default function AddItems() {
     // Controls for Add Modal ---------------
     const [show, setShow] = useState(false);
@@ -40,7 +44,7 @@ export default function AddItems() {
     // ------------------------------------
     return (
 
-        <div className="Add" style={{ float: "left", padding: "15px" }}>
+        <div className="Add" style={{ float: "left", paddingTop: "15px", paddingLeft: "0px" }}>
             {/* Button that opens the Add Modal */}
             <Button style={{backgroundColor:"#4C6357", border:"none"}} variant="primary" onClick={handleShow}>
                 Add Item
