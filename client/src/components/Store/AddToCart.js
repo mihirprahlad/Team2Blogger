@@ -1,12 +1,24 @@
 import Button from "react-bootstrap/Button";
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Popover from 'react-bootstrap/Popover';
+// import Alert from 'react-bootstrap/Alert'
 import { CartContext } from "../../contexts/CartContext.js";
 import { UserContext } from "../../contexts/UserContext.js";
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 export default function AddToCart(props) {
     const { cart, setCart } = useContext(CartContext);
     const { user } = useContext(UserContext);
     const item = props.item; // what is being added to the cart
+    const [show, setShow] = useState(false);
 
+    const popover = (
+        <Popover id="popover-basic">
+            {/* <Popover.Title as="h3">Popover right</Popover.Title> */}
+            <Popover.Content>
+                Added to Cart
+          </Popover.Content>
+        </Popover>
+    );
 
     const handleSubmit = () => {
         if (!user) { // if not signed in, do this: add item to useContext cart
@@ -17,7 +29,7 @@ export default function AddToCart(props) {
 
             // Increment quantity if duplicate exists
             cart.map((cartItem) => (
-                item.id === cartItem.id ? (cartItem.quantity = cartItem.quantity + 1) : duplicate = false
+                item.id === cartItem.id ? (cartItem.quantity = parseInt(cartItem.quantity) + 1) : duplicate = false
             ))
 
             // If duplicate does not exist, add to cart with quantity 1
@@ -52,11 +64,22 @@ export default function AddToCart(props) {
                 }),
             });
         }
-
+        setShow(true);
     }
     return (
-        <Button size="sm" onClick={handleSubmit} style={{ float: "right" }}>
-            Add to Cart
-        </Button>
+        <div>
+            {/* {show ?
+                <Alert variant="success" onClose={() => setShow(false)} dismissible>
+                    <p style={{ textAlign: "center" }}>Added!</p>
+                </Alert>
+                : null} */}
+            <OverlayTrigger trigger="focus" placement="right" overlay={popover} >
+                <Button size="sm" onClick={handleSubmit} style={{ float: "right" }}>
+                    Add to Cart
+                </Button>
+            </OverlayTrigger>
+
+        </div>
+
     );
 }

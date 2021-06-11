@@ -7,8 +7,6 @@ import { CartUpdate } from "../../contexts/CartUpdate.js";
 import DisplayCart from "./DisplayCart";
 export default function Cart(props) {
 
-    //const [total, setTotal] = useState(0);
-
     // Stuff for Cart Modal ---------------
     const [show, setShow] = useState(false);
 
@@ -22,27 +20,6 @@ export default function Cart(props) {
     const { update } = useContext(CartUpdate);
     console.log("Cart in Cart.js", cart);
     // ------------------------------------
-
-    const [total, setTotal] = useState(0);
-    // cart.map((item) => (
-    //     setTotal(total + item.price)
-    // ));
-    // console.log ("price", total);
-
-    const getTotalPrice = () => {
-        setTotal(0);
-        if (total === 0){
-            cart.map((item) => (
-                // console.log(item.name, parseFloat(item.price)),
-                total ? setTotal(total + parseFloat(item.price)) : setTotal(total)
-            ));
-            console.log ("price", total);
-        }
-    }
-
-    useEffect(() => {
-        getTotalPrice();
-    }, [show]);
 
     // If someone is signed in, make cart useContext their personal cart
     const getUserCart = () => {
@@ -78,15 +55,15 @@ export default function Cart(props) {
                     <Modal.Title>Cart</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {cart.length != 0 ? <DisplayCart cart={cart}/> : "Nothing in cart."}
+                    {cart.length !== 0 ? <DisplayCart cart={cart}/> : "Nothing in cart."}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                         </Button>
-                    <Button variant="primary" onClick={handleClose}>
+                    {/* <Button variant="primary" onClick={handleClose}>
                         Save Changes
-                        </Button>
+                        </Button> */}
                 </Modal.Footer>
             </Modal>
         </div>
