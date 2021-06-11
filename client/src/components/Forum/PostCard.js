@@ -9,13 +9,14 @@ import { useHistory } from "react-router-dom";
 import { FaThumbsUp } from 'react-icons/fa';
 import { FaThumbsDown } from 'react-icons/fa';
 import { UserContext } from "../../contexts/UserContext";
+import moment from 'moment';
+import axios from "axios";
 
 export default function PostCard({postContent}){
     const isLoggedIn = true;
     const history = useHistory();
     const l = postContent.likes;
     const d = postContent.dislikes;
-    const [readMore,setReadMore] = useState(false);
     const [likes, setLikes] = useState(Object.keys(l).length)
     const [dislikes, setDislikes] = useState(Object.keys(d).length);
     // const [liked, setLiked] = useState(false);
@@ -26,8 +27,8 @@ export default function PostCard({postContent}){
     const [likeBut, setLikeBut] = useState(null);
     const [disBut, setDisBut] = useState(null);
     const userid = user.id;
-    const userLikes = Object.keys(user.forum_likes);
-    const userDislikes = Object.keys(user.forum_dislikes);
+    let userLikes = Object.keys(user.forum_likes);
+    let userDislikes = Object.keys(user.forum_dislikes);
 
     const reduceContentLength = ((content) => {
         content = content.replace(/<[^>]*>?/gm, '');
@@ -51,12 +52,17 @@ export default function PostCard({postContent}){
     const onClick = (e) => {
         const id = e.currentTarget.id
         const name = e.currentTarget.name;
-        if(userLikes.includes(id)) {
+        const i = postContent.id;
+        console.log("Start user likes:", userLikes);
+        console.log("Start user dislikes:",userDislikes)
+        console.log("Start user", user)
+        if(userLikes.includes(i)) {
+            console.log("liked")
             liked = true;
-            disliked = false;
-            // setLiked(true);
+        //     disliked = false;
+        //     setLiked(true);
         }
-        if(userDislikes.includes(id)) {
+        if(userDislikes.includes(i)) {
             disliked = true;
             liked = false;
             // setDisliked(true);
@@ -65,24 +71,33 @@ export default function PostCard({postContent}){
         let other;
         const here = e;
         name === "like" ? 
-            other = document.getElementById(`d${id}`) 
+            other = document.getElementById(`d${i}`) 
             : 
-            other = document.getElementById(id.substring(1))
+            other = document.getElementById(i)
 
         if((name === "like" && !liked) || (name === "dislike" && !disliked)) {//(name === "inactive") {
             if(name === "like") {
                 here.currentTarget.style.color = "#66c144";
-                setLikes(likes + 1);
-                fetch(`http://localhost:5000/forumpost/${id}/likes`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({user_id: userid, action: "like"})
-                  })
+                // setLikes(likes + 1);
+                axios
+                    .post(`http://localhost:5000/forumpost/${i}/likes`, {user_id: userid, action: "like"})
+                    .then((res) => {
+                        setLikes(res.data.likes);
+                        setDislikes(res.data.dislikes);
+                    })
+                // fetch(`http://localhost:5000/forumpost/${i}/likes`, {
+                //     method: "POST",
+                //     headers: { "Content-Type": "application/json" },
+                //     body: JSON.stringify({user_id: userid, action: "like"})
+                //   })
                 // setLiked(true);
                 liked = true;
                 if(disliked) {
                     setDislikes(dislikes - 1);
-                    delete user.forum_dislikes.id
+                    console.log(delete user.forum_dislikes[id])
+                    console.log("End user:", user)
+                    userDislikes = Object.keys(user.forum_dislikes)
+                    console.log("End user dislikes:",userDislikes);
                     // setDisliked(false);
                     disliked = false;
                     other.style.color = "#003366"
@@ -91,16 +106,27 @@ export default function PostCard({postContent}){
             else {
                 here.currentTarget.style.color = "#e31f0e"
                 setDislikes(dislikes + 1);
-                fetch(`http://localhost:5000/forumpost/${id.substring(1)}/likes`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({user_id: userid, action: "dislike"})
-                  })
+                axios
+                .post(`http://localhost:5000/forumpost/${i}/likes`, {user_id: userid, action: "like"})
+                .then((res) => {
+                    setLikes(res.data.likes);
+                    setDislikes(res.data.dislikes);
+                })
+
+                // fetch(`http://localhost:5000/forumpost/${i}/likes`, {
+                //     method: "POST",
+                //     headers: { "Content-Type": "application/json" },
+                //     body: JSON.stringify({user_id: userid, action: "dislike"})
+                //   })
                 // setDisliked(true);
                 disliked = true;
                 if(liked) {
-                    setLikes(likes - 1);
-                    delete user.forum_likes.id
+                    console.log("here");
+                    // setLikes(likes - 1);
+                    console.log(delete user.forum_likes[id])
+                    console.log("End user:", user)
+                    userLikes = Object.keys(user.forum_likes)
+                    console.log("End user likes:",userLikes)
                     liked = false;
                     // setLiked(false);
                     other.style.color = "#003366";
@@ -117,33 +143,47 @@ export default function PostCard({postContent}){
             // here.currentTarget.name = "inactive"
             here.currentTarget.style.color = "#003366";
             if(name === "like") {
-                setLikes(likes - 1);
-                delete user.forum_likes.id
-                fetch(`http://localhost:5000/forumpost/${id}/likes`, {
-                    method: "DELETE",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({user_id: userid, action: "like"})
-                  })
+                // setLikes(likes - 1);
+                console.log(delete user.forum_likes[id]);
+                axios
+                    .delete(`http://localhost:5000/forumpost/${i}/likes`, {
+                        data: {user_id: userid, action: "like"}
+                    })
+                    .then((res) => {
+                        setLikes(res.data.likes);
+                        setDislikes(res.data.dislikes);
+                    })
+                // fetch(`http://localhost:5000/forumpost/${i}/likes`, {
+                //     method: "DELETE",
+                //     headers: { "Content-Type": "application/json" },
+                //     body: JSON.stringify({user_id: userid, action: "like"})
+                //   })
                 // setLiked(false);
                 liked = false;
             }
             else {
-                setDislikes(dislikes - 1);
-                delete user.forum_dislikes.id
-                fetch(`http://localhost:5000/forumpost/${id.substring(1)}/likes`, {
-                    method: "DELETE",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({user_id: userid, action: "dislike"})
-                  })
+                // setDislikes(dislikes - 1);
+                console.log(delete user.forum_dislikes[id])
+                axios
+                    .delete(`http://localhost:5000/forumpost/${i}/likes`, {
+                        data: {user_id: userid, action: "like"}
+                    })
+                    .then((res) => {
+                        setLikes(res.data.likes);
+                        setDislikes(res.data.dislikes);
+                    })
+
+                // fetch(`http://localhost:5000/forumpost/${i}/likes`, {
+                //     method: "DELETE",
+                //     headers: { "Content-Type": "application/json" },
+                //     body: JSON.stringify({user_id: userid, action: "dislike"})
+                //   })
 
                 // setDisliked(false);
                 disliked = false;
             }
             // id === "like" ? setLikes(likes - 1) : setDislikes(dislikes - 1);
         }
-
-
-        // likeEdit(here, other);
     }
 
     const setButtonColor = (n, i) => {
