@@ -3,6 +3,7 @@ import Gallery from "./Gallery";
 const aboutTextStyle = {
   marginLeft: "-30px",
   fontSize: 20,
+  marginRight: "100px",
 };
 const historyHeaderStyle = {
   marginLeft: "-30px",
