@@ -9,6 +9,7 @@ import { useHistory } from "react-router-dom";
 import { FaThumbsUp } from 'react-icons/fa';
 import { FaThumbsDown } from 'react-icons/fa';
 import { UserContext } from '../../contexts/UserContext';
+import moment from 'moment';
 
 export default function PostCard({postContent}){
     const {user} = useContext(UserContext)
@@ -50,8 +51,8 @@ export default function PostCard({postContent}){
                             <Col md={8} style={{paddingLeft:"3%"}}>
                                 <h2 style={{fontWeight:"bold"}}>{postContent.title}</h2>
                                 <Card.Subtitle className="mb-2 text-muted">Camille Cooper</Card.Subtitle>
-                                <Card.Subtitle className="mb-2 text-muted">{postContent.date}</Card.Subtitle>
-                                {postContent.editDate!==""&&<Card.Subtitle style={{fontStyle:"italic"}} className="mb-2 text-muted">Updated: {postContent.editDate}</Card.Subtitle>}
+                                <Card.Subtitle className="mb-2 text-muted">{moment(postContent.date).format("dddd, MMMM Do YYYY, h:mm:ss a")}</Card.Subtitle>
+                                {postContent.editDate!==""&&<Card.Subtitle style={{fontStyle:"italic"}} className="mb-2 text-muted">Updated: {moment(postContent.editDate).format("dddd, MMMM Do YYYY, h:mm:ss a")}</Card.Subtitle>}
                             </Col>
                             <Col md={2}>
                                 {user&&

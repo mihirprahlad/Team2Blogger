@@ -7,14 +7,14 @@ import PostCard from './PostCard';
 import { faFileExcel } from "@fortawesome/free-solid-svg-icons";
 
 const titleStyle = {
-    fontSize: "12rem",
+    fontSize: "12vw",
     color:"#4C6357",
     fontWeight:900
 };
 
 document.body.style='background:#FAF0E6;';
 const aboutTextStyle = {
-    fontSize: 20
+    fontSize: 20 
 };
 
 export default function Home() {
