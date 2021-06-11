@@ -5,7 +5,12 @@ import { UserContext } from "../../contexts/UserContext.js";
 import { CartContext } from "../../contexts/CartContext.js";
 import { CartUpdate } from "../../contexts/CartUpdate.js";
 import DisplayCart from "./DisplayCart";
-export default function Cart(props) {
+
+/**
+ * Driver for displaying the user's cart. Used in Store.js
+ * @returns A button to view the cart and a modal that displays the cart info
+ */
+export default function Cart() {
 
     // Stuff for Cart Modal ---------------
     const [show, setShow] = useState(false);
@@ -46,24 +51,24 @@ export default function Cart(props) {
     
     return (
         <div className="Cart" style={{ float: "right", padding: "15px" }}>
-            <Button variant="primary" onClick={handleShow}>
+            {/* View Cart button */}
+            <Button style={{backgroundColor:"#4C6357", border:"none"}} variant="primary" onClick={handleShow}>
                 View Cart
                 </Button>
 
+            {/* Cart Modal */}
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Cart</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
+                    {/* If cart is not empty, display cart. Otherwise, display a message. */}
                     {cart.length !== 0 ? <DisplayCart cart={cart}/> : "Nothing in cart."}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                         </Button>
-                    {/* <Button variant="primary" onClick={handleClose}>
-                        Save Changes
-                        </Button> */}
                 </Modal.Footer>
             </Modal>
         </div>

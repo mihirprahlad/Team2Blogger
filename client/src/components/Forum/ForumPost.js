@@ -10,7 +10,9 @@ import { FaThumbsUp } from 'react-icons/fa';
 import { FaThumbsDown } from 'react-icons/fa';
 import { UserContext } from "../../contexts/UserContext";
 import SignIn from "./../SignIn"
+import Button from 'react-bootstrap/Button';
 import Comments from "../Comments/Comments";
+import moment from 'moment';
 
 export default function ForumPost() {
     const history = useHistory();
@@ -20,6 +22,10 @@ export default function ForumPost() {
     const {user} = useContext(UserContext);
     const [likes, setLikes] = useState(0)
     const [dislikes, setDislikes] = useState(0);
+
+    if(content){
+        console.log((content&&user&&(user.id===content.user.id))||(content&&user&&user.is_admin))
+    }
 
     useEffect(() => {
         fetch("http://localhost:5000/forumpost")
@@ -90,11 +96,16 @@ export default function ForumPost() {
         {user ? 
             content ?
                 (<div>
+                    <div style={{right:"1%",top:"10%",position:"absolute"}}>
+                    {((content&&user&&(user.id===content.user.id))||(content&&user&&user.is_admin))?<Button style={{width:"5rem",marginBottom:"3px",backgroundColor:"#4C6357",border:"none"}}onClick={(e)=>{history.push("/editforumpost/"+content.id);
+                                    e.stopPropagation();}}>Edit</Button>:<div></div>}
+                    </div>
                     <Row>
                         <Col sm={10}>
                             <h1 style={{fontWeight:"bold"}}>{content.title}</h1>
                             <h4>{content.user.name}</h4>
-                            <h6>{content.date}</h6>
+                            <h6>{moment(content.date).format("dddd, MMMM Do YYYY, h:mm:ss a")}</h6>
+                            {content.editDate!==""&&<h6>{moment(content.editDate).format("dddd, MMMM Do YYYY, h:mm:ss a")}</h6>}
                         </Col>
                         <Col sm={2}>
                             <Image style={{ width: '5rem'}} src={content.user.pic} roundedCircle/>

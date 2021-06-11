@@ -13,6 +13,7 @@ import { useHistory } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext.js";
 import Likes from "./Likes.js";
 import Comments from "../Comments/Comments";
+import moment from 'moment';
 
 export default function BlogPost() {
   const history = useHistory();
@@ -75,10 +76,10 @@ export default function BlogPost() {
             <Col sm={10}>
               <h1 style={{ fontWeight: "bold" }}>{content.title}</h1>
               <h4>Camille Cooper</h4>
-              <h6>{content.date}</h6>
+              <h6>{moment(content.date).format("dddd, MMMM Do YYYY, h:mm:ss a")}</h6>
               {content.editDate && (
                 <h6 style={{ fontStyle: "italic" }}>
-                  Updated: {content.editDate}
+                  Updated: {moment(content.editDate).format("dddd, MMMM Do YYYY, h:mm:ss a")}
                 </h6>
               )}
             </Col>

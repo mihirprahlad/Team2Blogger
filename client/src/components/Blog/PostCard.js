@@ -6,10 +6,9 @@ import Col from "react-bootstrap/Col";
 import React, { useState, useContext } from "react";
 import Button from "react-bootstrap/Button";
 import { useHistory } from "react-router-dom";
-import { FaThumbsUp } from "react-icons/fa";
-import { FaThumbsDown } from "react-icons/fa";
 import { UserContext } from "../../contexts/UserContext";
 import Likes from "./Likes.js";
+import moment from "moment";
 
 export default function PostCard({ postContent }) {
   const { user } = useContext(UserContext);
@@ -55,14 +54,19 @@ export default function PostCard({ postContent }) {
                   Camille Cooper
                 </Card.Subtitle>
                 <Card.Subtitle className="mb-2 text-muted">
-                  {postContent.date}
+                  {moment(postContent.date).format(
+                    "dddd, MMMM Do YYYY, h:mm:ss a"
+                  )}
                 </Card.Subtitle>
                 {postContent.editDate !== "" && (
                   <Card.Subtitle
                     style={{ fontStyle: "italic" }}
                     className="mb-2 text-muted"
                   >
-                    Updated: {postContent.editDate}
+                    Updated:{" "}
+                    {moment(postContent.editDate).format(
+                      "dddd, MMMM Do YYYY, h:mm:ss a"
+                    )}
                   </Card.Subtitle>
                 )}
               </Col>
@@ -115,34 +119,3 @@ export default function PostCard({ postContent }) {
     </div>
   );
 }
-
-// {user && (
-//   <div>
-//     <button type="button" class="btn btn-link">
-//       <FaThumbsUp size={20} style={{ color: "#003366" }} />
-//     </button>
-//     <button type="button" class="btn btn-link">
-//       <FaThumbsDown size={20} style={{ color: "#003366" }} />
-//     </button>
-//   </div>
-// )}
-// <Card.Subtitle
-//   style={{
-//     fontSize: "14px",
-//     margin: "auto",
-//     textAlign: "justify",
-//     paddingTop: 7,
-//   }}
-// >
-//   Likes: 300
-// </Card.Subtitle>
-// <Card.Subtitle
-//   style={{
-//     fontSize: "14px",
-//     margin: "auto",
-//     textAlign: "justify",
-//     paddingTop: 7,
-//   }}
-// >
-//   Dislikes: 300
-// </Card.Subtitle>
