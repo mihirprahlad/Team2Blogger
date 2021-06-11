@@ -18,6 +18,7 @@ import About from "./components/About/About";
 import Home from "./components/Home/Home";
 import NewPost from "./components/Blog/NewPost";
 import EditPost from "./components/Blog/EditPost";
+import EditForumPost from "./components/Forum/EditForumPost"
 library.add(fab, far, fas);
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
             <Route path="/forum" component={Forum} />
             <Route path="/forumpost/:forumID" component={ForumPost} />
             <Route path="/newforumpost" component={NewForumPost} />
+            <Route path="/editforumpost/:forumID" component={EditForumPost} />
             <Route path="/store" component={Store} />
             <Route path="/about" component={About} />
           </Switch>
