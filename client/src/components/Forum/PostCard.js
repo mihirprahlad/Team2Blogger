@@ -3,11 +3,12 @@ import Image from 'react-bootstrap/Image';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import React, {useState} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import Button from 'react-bootstrap/Button'
 import { useHistory } from "react-router-dom";
 import { FaThumbsUp } from 'react-icons/fa';
 import { FaThumbsDown } from 'react-icons/fa';
+import { UserContext } from "../../contexts/UserContext";
 
 export default function PostCard({postContent}){
     const isLoggedIn = true;
@@ -46,53 +47,6 @@ export default function PostCard({postContent}){
         //     return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
         // }
     
-    const likeEdit = (here, other) => {
-        const id = here.id
-        const name = here.name
-
-        if((id === "like" && !liked) || (id === "dislike" && !disliked)) {//(name === "inactive") {
-            // here.name = "active"
-            if(id === "like") {
-                here.style.color = "#66c144";
-                setLikes(likes + 1);
-                setLiked(true);
-                if(disliked) {
-                    setDislikes(dislikes - 1);
-                    setDisliked(false);
-                    other.style.color = "#003366";
-                }
-            }
-            else {
-                here.style.color = "#e31f0e"
-                setDislikes(dislikes + 1)
-                setDisliked(true);
-                if(liked) {
-                    setLikes(likes - 1);
-                    setLiked(false);
-                    other.style.color = "#003366";
-                }
-            }
-            // if(other.name === "active")
-            // {
-            //     id === "like" ? setDislikes(dislikes - 1) : setLikes(likes - 1);
-            //     other.name = "inactive";
-            //     other.style.color = "#003366";
-            // }
-        }
-        else {
-            // here.name = "inactive"
-            here.style.color = "#003366";
-            if(id === "like") {
-                setLikes(likes - 1);
-                setLiked(false);
-            }
-            else {
-                setDislikes(dislikes - 1);
-                setDisliked(false);
-            }
-            // id === "like" ? setLikes(likes - 1) : setDislikes(dislikes - 1);
-        }
-    }
 
     const onClick = (e) => {
         const id = e.currentTarget.id
@@ -109,17 +63,13 @@ export default function PostCard({postContent}){
         }
         console.log(id, "\nliked:", liked, "\ndisliked:", disliked)
         let other;
-        // console.log(id);
-        // const here = document.getElementById(id);
         const here = e;
         name === "like" ? 
             other = document.getElementById(`d${id}`) 
             : 
             other = document.getElementById(id.substring(1))
 
-
         if((name === "like" && !liked) || (name === "dislike" && !disliked)) {//(name === "inactive") {
-            // here.currentTarget.name = "active"
             if(name === "like") {
                 here.currentTarget.style.color = "#66c144";
                 setLikes(likes + 1);
@@ -194,6 +144,29 @@ export default function PostCard({postContent}){
 
 
         // likeEdit(here, other);
+    }
+
+    const setButtonColor = (n, i) => {
+        let o;
+        let color = "#003366"
+        n === "like" ? 
+            o = Object.keys(user.forum_likes) 
+            : 
+            o = Object.keys(user.forum_dislikes)
+            
+        o.forEach(id => {
+             if(id === i) {
+                if(n === "like") {
+                    color = "#66c144";
+                    // setLiked(true);
+                }
+                else {
+                    color = "#e31f0e";
+                    // setDisliked(true);
+                }
+            }
+        });
+        return(color)
     }
 
     useEffect(() => {
