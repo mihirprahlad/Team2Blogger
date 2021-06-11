@@ -3,11 +3,12 @@ import Image from 'react-bootstrap/Image';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import React, {useState} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import Button from 'react-bootstrap/Button'
 import { useHistory } from "react-router-dom";
 import { FaThumbsUp } from 'react-icons/fa';
 import { FaThumbsDown } from 'react-icons/fa';
+import { UserContext } from "../../contexts/UserContext";
 
 export default function PostCard({postContent}){
     const isLoggedIn = true;
@@ -19,8 +20,10 @@ export default function PostCard({postContent}){
     const [dislikes, setDislikes] = useState(Object.keys(d).length);
     const [liked, setLiked] = useState(false);
     const [disliked, setDisliked] = useState(false);
-
-    console.log(postContent.likes)
+    const {user} = useContext(UserContext);
+    const userid = user.id;
+    const [likeBut, setLikeBut] = useState(null);
+    const [disBut, setDisBut] = useState(null);
 
     const reduceContentLength = ((content) => {
         content = content.replace(/<[^>]*>?/gm, '');
@@ -40,72 +43,26 @@ export default function PostCard({postContent}){
         //     return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
         // }
     
-    const likeEdit = (here, other) => {
-        const id = here.id
-        const name = here.name
-
-        if((id === "like" && !liked) || (id === "dislike" && !disliked)) {//(name === "inactive") {
-            // here.name = "active"
-            if(id === "like") {
-                here.style.color = "#66c144";
-                setLikes(likes + 1);
-                setLiked(true);
-                if(disliked) {
-                    setDislikes(dislikes - 1);
-                    setDisliked(false);
-                    other.style.color = "#003366";
-                }
-            }
-            else {
-                here.style.color = "#e31f0e"
-                setDislikes(dislikes + 1)
-                setDisliked(true);
-                if(liked) {
-                    setLikes(likes - 1);
-                    setLiked(false);
-                    other.style.color = "#003366";
-                }
-            }
-            // if(other.name === "active")
-            // {
-            //     id === "like" ? setDislikes(dislikes - 1) : setLikes(likes - 1);
-            //     other.name = "inactive";
-            //     other.style.color = "#003366";
-            // }
-        }
-        else {
-            // here.name = "inactive"
-            here.style.color = "#003366";
-            if(id === "like") {
-                setLikes(likes - 1);
-                setLiked(false);
-            }
-            else {
-                setDislikes(dislikes - 1);
-                setDisliked(false);
-            }
-            // id === "like" ? setLikes(likes - 1) : setDislikes(dislikes - 1);
-        }
-    }
 
     const onClick = (e) => {
         const id = e.currentTarget.id
         const name = e.currentTarget.name;
         let other;
-        // console.log(id);
-        // const here = document.getElementById(id);
         const here = e;
         name === "like" ? 
             other = document.getElementById(`d${id}`) 
             : 
             other = document.getElementById(id.substring(1))
 
-
         if((name === "like" && !liked) || (name === "dislike" && !disliked)) {//(name === "inactive") {
-            // here.currentTarget.name = "active"
             if(name === "like") {
                 here.currentTarget.style.color = "#66c144";
                 setLikes(likes + 1);
+                fetch(`http://localhost:5000/forumpost/${id}/likes`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({user_id: userid, action: "like"})
+                  })
                 setLiked(true);
                 if(disliked) {
                     setDislikes(dislikes - 1);
@@ -115,7 +72,12 @@ export default function PostCard({postContent}){
             }
             else {
                 here.currentTarget.style.color = "#e31f0e"
-                setDislikes(dislikes + 1)
+                setDislikes(dislikes + 1);
+                fetch(`http://localhost:5000/forumpost/${id.substring(1)}/likes`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({user_id: userid, action: "dislike"})
+                  })
                 setDisliked(true);
                 if(liked) {
                     setLikes(likes - 1);
@@ -123,38 +85,66 @@ export default function PostCard({postContent}){
                     other.style.color = "#003366";
                 }
             }
-            // if(other.name === "active") {
-            //     id === "like" ? setDislikes(dislikes - 1) : setLikes(likes - 1);
-            //     other.name = "inactive";
-            //     other.style.color = "#003366";
-            //     console.log("here")
-            // }
         }
         else {
-            // here.currentTarget.name = "inactive"
             here.currentTarget.style.color = "#003366";
             if(name === "like") {
                 setLikes(likes - 1);
+                fetch(`http://localhost:5000/forumpost/${id}/likes`, {
+                    method: "DELETE",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({user_id: userid, action: "like"})
+                  })
                 setLiked(false);
             }
             else {
                 setDislikes(dislikes - 1);
+                fetch(`http://localhost:5000/forumpost/${id.substring(1)}/likes`, {
+                    method: "DELETE",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({user_id: userid, action: "dislike"})
+                  })
+
                 setDisliked(false);
             }
-            // id === "like" ? setLikes(likes - 1) : setDislikes(dislikes - 1);
         }
-
-
-        // likeEdit(here, other);
     }
 
-    const likeBut = <button type = "button" id={postContent.id} name="like" onClick = {onClick} class="btn btn-link" style={{color:"#003366"}} writable = {true}>
-        <FaThumbsUp size={20} />
-    </button>
+    const setButtonColor = (n, i) => {
+        let o;
+        let color = "#003366"
+        n === "like" ? 
+            o = Object.keys(user.forum_likes) 
+            : 
+            o = Object.keys(user.forum_dislikes)
+            
+        o.forEach(id => {
+             if(id === i) {
+                if(n === "like") {
+                    color = "#66c144";
+                    // setLiked(true);
+                }
+                else {
+                    color = "#e31f0e";
+                    // setDisliked(true);
+                }
+            }
+        });
+        return(color)
+    }
 
-    const disBut = <button type ="button" id = {`d${postContent.id}`} name = "dislike" onClick = {onClick} class="btn btn-link" style={{color:"#003366"}} writable = {true}>
-        <FaThumbsDown size={20}/>
-    </button>
+    useEffect(() => {
+        let color = setButtonColor("like", postContent.id)
+        console.log(color);
+        setLikeBut(<button type = "button" id={postContent.id} name="like" onClick = {onClick} class="btn btn-link" style={{color:{color}}}>
+            <FaThumbsUp size={20} />
+        </button>)
+        color = setButtonColor("dislike", postContent.id)
+        // console.log(color)
+        setDisBut(<button type ="button" id = {`d${postContent.id}`} name = "dislike" onClick = {onClick} class="btn btn-link" style={{color:color}}>
+            <FaThumbsDown size={20}/>
+        </button>)
+    }, [])
 
 
     return(
