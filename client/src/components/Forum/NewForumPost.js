@@ -8,6 +8,7 @@ import Tooltip from 'react-bootstrap/Tooltip'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import { UserContext } from "../../contexts/UserContext";
 import SignIn from "./../SignIn"
+import { useHistory } from "react-router-dom";
 
 export default function NewForumPost() {
 
@@ -16,6 +17,7 @@ export default function NewForumPost() {
     const { quill, quillRef } = useQuill();
     const [published,setPublished] = useState(false);
     const {user} = useContext(UserContext);
+    const history = useHistory();
 
     console.log(user);
 
@@ -43,6 +45,9 @@ export default function NewForumPost() {
               })
             .then(() => {
                 setPublished(true);
+            })
+            .then(()=>{
+                history.push("/forum");
             })
         }
     })
