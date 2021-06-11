@@ -32,7 +32,6 @@ const Likes = ({ postId, initialLikes, initialDislikes }) => {
     axios
       .post(`http://localhost:5000/forumpost/${postId}/likes`, reqBody)
       .then((res) => {
-        console.log(res)
         // Update state variables with new likes and dislikes
         setLikes(res.data.likes);
         setDislikes(res.data.dislikes);
@@ -46,7 +45,6 @@ const Likes = ({ postId, initialLikes, initialDislikes }) => {
         data: reqBody,
       })
       .then((res) => {
-        console.log(res)
         // Update state variables with new likes and dislikes
         setLikes(res.data.likes);
         setDislikes(res.data.dislikes);
