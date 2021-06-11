@@ -21,7 +21,7 @@ export default function DisplayItems(props) {
             <Card.Img
               variant="top"
               src={item.image}
-              style={{ height: "220px", width: "220px" }}
+              style={{ height: "220px", width: "220px", margin: "auto" }}
             />
             <Card.Body>
               <div style={{ display: "flex", margin: "auto", justifyContent: "center" }}>
