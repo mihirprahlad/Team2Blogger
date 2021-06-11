@@ -39,12 +39,11 @@ export default function Store() {
 
 
     return (
-        <div>
+        <div style={{marginLeft:"5%",paddingTop:"4vh",marginRight:"5%"}}>
             {/* Header */}
-            <div className="Header">
-                <h1 style={{ padding: "15px" }}>Store</h1>
+            <h1 style={{textAlign:"left",fontSize:"50px",color:"#4C635"}}>Store</h1>
+                <div style={{height:15,width:130,backgroundColor:"#4C6357"}}></div>
 
-            </div>
 
             {/* Add Items Button - Only visible to admin users */}
             {user.is_admin ? <AddItems /> : null}

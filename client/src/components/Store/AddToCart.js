@@ -1,7 +1,6 @@
 import Button from "react-bootstrap/Button";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
-// import Alert from 'react-bootstrap/Alert'
 import { CartContext } from "../../contexts/CartContext.js";
 import { UserContext } from "../../contexts/UserContext.js";
 import { useContext, useState } from 'react';
@@ -13,7 +12,6 @@ export default function AddToCart(props) {
 
     const popover = (
         <Popover id="popover-basic">
-            {/* <Popover.Title as="h3">Popover right</Popover.Title> */}
             <Popover.Content>
                 Added to Cart
           </Popover.Content>
@@ -68,17 +66,11 @@ export default function AddToCart(props) {
     }
     return (
         <div>
-            {/* {show ?
-                <Alert variant="success" onClose={() => setShow(false)} dismissible>
-                    <p style={{ textAlign: "center" }}>Added!</p>
-                </Alert>
-                : null} */}
             <OverlayTrigger trigger="focus" placement="right" overlay={popover} >
-                <Button size="sm" onClick={handleSubmit} style={{ float: "right" }}>
+                <Button size="sm" onClick={handleSubmit} style={{ float: "right", backgroundColor:"#4C6357", border:"none" }}>
                     Add to Cart
                 </Button>
             </OverlayTrigger>
-
         </div>
 
     );
