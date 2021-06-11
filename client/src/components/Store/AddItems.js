@@ -44,7 +44,7 @@ export default function AddItems() {
     // ------------------------------------
     return (
 
-        <div className="Add" style={{ float: "left", paddingTop: "15px", paddingLeft: "155px" }}>
+        <div className="Add" style={{ float: "left", paddingTop: "15px", paddingLeft: "150px" }}>
             {/* Button that opens the Add Modal */}
             <Button style={{backgroundColor:"#4C6357", border:"none"}} variant="primary" onClick={handleShow}>
                 Add Item
