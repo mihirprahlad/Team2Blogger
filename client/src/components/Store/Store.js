@@ -43,10 +43,12 @@ export default function Store() {
 
 
     return (
-        <div style={{marginLeft:"5%",paddingTop:"4vh", paddingBottom:"4vh", marginRight:"5%"}}>
+        <div style={{ marginLeft: "5%", paddingTop: "3vh", paddingBottom: "4vh", marginRight: "5%" }}>
             {/* Header */}
-            <h1 style={{textAlign:"left",fontSize:"50px",color:"#4C635"}}>Store.</h1>
-                <div style={{height:15,width:140,backgroundColor:"#4C6357"}}></div>
+            <h1 style={{ textAlign: "left", fontSize: "80px", color: "#4C635", paddingLeft: "150px", marginBottom: "-8px" }}>STORE.</h1>
+
+            {/* Underline */}
+            <div style={{ height: 15, marginLeft: "150px", width: "280px", backgroundColor: "#4C6357" }}></div>
 
 
             {/* Add Items Button - Only visible to admin users */}
@@ -57,7 +59,7 @@ export default function Store() {
             <br />
 
             {/* Item Cards */}
-            <div className="CardContainer" style={{ width: "100%", margin: "auto", display: "flex", flexDirection: "row", flexWrap: "wrap", justifyContent: "center"}}>
+            <div className="CardContainer" style={{ width: "100%", margin: "auto", display: "flex", flexDirection: "row", flexWrap: "wrap", justifyContent: "center" }}>
                 <DisplayItems items={items} />
             </div>
         </div>
