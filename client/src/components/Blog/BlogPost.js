@@ -89,7 +89,11 @@ export default function BlogPost() {
                 src="https://drive.google.com/thumbnail?id=1wJ0SlPBrq0AQp10LzpcdjqJIijQndLnT"
                 roundedCircle
               />
-              <Likes />
+              <Likes
+                postId={content.id}
+                initialLikes={content.likes}
+                initialDislikes={content.dislikes}
+              />
             </Col>
           </Row>
           {checkURL(content.image) && (
