@@ -60,14 +60,14 @@ const Likes = ({ postId, initialLikes, initialDislikes }) => {
             class="btn btn-link"
             onClick={() => like("like")}
           >
-            <FaThumbsUp size={20} style={{ color: "#003366" }} />
+            <FaThumbsUp size={20} style={{ color: likes[user.id] ? "#66c144" : "#003366" }}/>
           </button>
           <button
             type="button"
             class="btn btn-link"
             onClick={() => like("dislike")}
           >
-            <FaThumbsDown size={20} style={{ color: "#003366" }} />
+            <FaThumbsDown size={20} style={{ color: dislikes[user.id] ? "#e31f0e" : "#003366" }} />
           </button>
         </div>
       )}
