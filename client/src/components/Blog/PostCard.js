@@ -16,6 +16,7 @@ export default function PostCard({postContent}){
 
     const [readMore,setReadMore] = useState(false);
 
+    // Ensures the Post Cards only display at max 700 characters
     const reduceContentLength = ((content)=>{
     content = content.replace(/<[^>]*>?/gm, '');
     let displayContent = "";
@@ -30,6 +31,7 @@ export default function PostCard({postContent}){
     } 
     });
 
+    // Checks that URL is an image URL
     function checkURL(url) {
         return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
     }

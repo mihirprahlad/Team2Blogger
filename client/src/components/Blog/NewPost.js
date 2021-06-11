@@ -18,7 +18,7 @@ export default function NewPost(){
     const {user} = useContext(UserContext);
     const history = useHistory();
 
-
+    // Sends a post request to create a new blog post based on information from textfields
     const createNewPost=(()=>{
         const title = newPostTitle;
         const date = Date().toLocaleString()
