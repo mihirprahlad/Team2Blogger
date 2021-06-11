@@ -17,10 +17,23 @@ export default function PostCard({postContent}){
     const [readMore,setReadMore] = useState(false);
     const [likes, setLikes] = useState(Object.keys(l).length)
     const [dislikes, setDislikes] = useState(Object.keys(d).length);
+<<<<<<< Updated upstream
     const [liked, setLiked] = useState(false);
     const [disliked, setDisliked] = useState(false);
 
     console.log(postContent.likes)
+=======
+    // const [liked, setLiked] = useState(false);
+    let liked = false;
+    // const [disliked, setDisliked] = useState(false);
+    let disliked = false;
+    const {user} = useContext(UserContext);
+    const [likeBut, setLikeBut] = useState(null);
+    const [disBut, setDisBut] = useState(null);
+    const userid = user.id;
+    const userLikes = Object.keys(user.forum_likes);
+    const userDislikes = Object.keys(user.forum_dislikes);
+>>>>>>> Stashed changes
 
     const reduceContentLength = ((content) => {
         content = content.replace(/<[^>]*>?/gm, '');
@@ -91,6 +104,17 @@ export default function PostCard({postContent}){
     const onClick = (e) => {
         const id = e.currentTarget.id
         const name = e.currentTarget.name;
+        if(userLikes.includes(id)) {
+            liked = true;
+            disliked = false;
+            // setLiked(true);
+        }
+        if(userDislikes.includes(id)) {
+            disliked = true;
+            liked = false;
+            // setDisliked(true);
+        }
+        console.log(id, "\nliked:", liked, "\ndisliked:", disliked)
         let other;
         // console.log(id);
         // const here = document.getElementById(id);
@@ -106,20 +130,45 @@ export default function PostCard({postContent}){
             if(name === "like") {
                 here.currentTarget.style.color = "#66c144";
                 setLikes(likes + 1);
+<<<<<<< Updated upstream
                 setLiked(true);
+=======
+                fetch(`http://localhost:5000/forumpost/${id}/likes`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({user_id: userid, action: "like"})
+                  })
+                // setLiked(true);
+                liked = true;
+>>>>>>> Stashed changes
                 if(disliked) {
                     setDislikes(dislikes - 1);
-                    setDisliked(false);
+                    delete user.forum_dislikes.id
+                    // setDisliked(false);
+                    disliked = false;
                     other.style.color = "#003366"
                 }
             }
             else {
                 here.currentTarget.style.color = "#e31f0e"
+<<<<<<< Updated upstream
                 setDislikes(dislikes + 1)
                 setDisliked(true);
+=======
+                setDislikes(dislikes + 1);
+                fetch(`http://localhost:5000/forumpost/${id.substring(1)}/likes`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({user_id: userid, action: "dislike"})
+                  })
+                // setDisliked(true);
+                disliked = true;
+>>>>>>> Stashed changes
                 if(liked) {
                     setLikes(likes - 1);
-                    setLiked(false);
+                    delete user.forum_likes.id
+                    liked = false;
+                    // setLiked(false);
                     other.style.color = "#003366";
                 }
             }
@@ -135,11 +184,34 @@ export default function PostCard({postContent}){
             here.currentTarget.style.color = "#003366";
             if(name === "like") {
                 setLikes(likes - 1);
+<<<<<<< Updated upstream
                 setLiked(false);
             }
             else {
                 setDislikes(dislikes - 1);
                 setDisliked(false);
+=======
+                delete user.forum_likes.id
+                fetch(`http://localhost:5000/forumpost/${id}/likes`, {
+                    method: "DELETE",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({user_id: userid, action: "like"})
+                  })
+                // setLiked(false);
+                liked = false;
+            }
+            else {
+                setDislikes(dislikes - 1);
+                delete user.forum_dislikes.id
+                fetch(`http://localhost:5000/forumpost/${id.substring(1)}/likes`, {
+                    method: "DELETE",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({user_id: userid, action: "dislike"})
+                  })
+
+                // setDisliked(false);
+                disliked = false;
+>>>>>>> Stashed changes
             }
             // id === "like" ? setLikes(likes - 1) : setDislikes(dislikes - 1);
         }
@@ -148,6 +220,7 @@ export default function PostCard({postContent}){
         // likeEdit(here, other);
     }
 
+<<<<<<< Updated upstream
     const likeBut = <button type = "button" id={postContent.id} name="like" onClick = {onClick} class="btn btn-link" style={{color:"#003366"}} writable = {true}>
         <FaThumbsUp size={20} />
     </button>
@@ -155,6 +228,24 @@ export default function PostCard({postContent}){
     const disBut = <button type ="button" id = {`d${postContent.id}`} name = "dislike" onClick = {onClick} class="btn btn-link" style={{color:"#003366"}} writable = {true}>
         <FaThumbsDown size={20}/>
     </button>
+=======
+    useEffect(() => {
+        let color = setButtonColor("like", postContent.id)
+        console.log(color);
+        // if(userLikes.includes(postContent.id))
+        //     setLiked(true);
+        // if(userDislikes.includes(postContent.id))
+        //     setDisliked(true);
+        setLikeBut(<button type = "button" id={postContent.id} name="like" onClick = {onClick} class="btn btn-link" style={{color:color}}>
+            <FaThumbsUp size={20} />
+        </button>)
+        color = setButtonColor("dislike", postContent.id)
+        // console.log(color)
+        setDisBut(<button type ="button" id = {`d${postContent.id}`} name = "dislike" onClick = {onClick} class="btn btn-link" style={{color:color}}>
+            <FaThumbsDown size={20}/>
+        </button>)
+    }, [])
+>>>>>>> Stashed changes
 
 
     return(
