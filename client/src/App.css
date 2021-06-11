@@ -56,20 +56,6 @@ body {
   margin: 40px;
 }
 
-.row {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  width: 100%;
-}
-
-.column {
-  display: flex;
-  flex-direction: column;
-  flex-basis: 100%;
-  flex: 1;
-}
-
 main {
   position: relative;
   min-height: 100vh;

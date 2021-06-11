@@ -18,10 +18,10 @@ export default function About() {
   return (
     <div class="page-wrapper">
       <div class="row">
-        <div class="column">
+        <div class="col d-flex justify-content-center">
           <Gallery />
         </div>
-        <div class="column">
+        <div class="col">
           <div>
             <h1 style={historyHeaderStyle}>About.</h1>
             <div
