@@ -9,6 +9,7 @@ import { useHistory } from "react-router-dom";
 import { FaThumbsUp } from "react-icons/fa";
 import { FaThumbsDown } from "react-icons/fa";
 import { UserContext } from "../../contexts/UserContext";
+import Likes from "./Likes.js";
 
 export default function PostCard({ postContent }) {
   const { user } = useContext(UserContext);
@@ -66,36 +67,11 @@ export default function PostCard({ postContent }) {
                 )}
               </Col>
               <Col md={2}>
-                {user && (
-                  <div>
-                    <button type="button" class="btn btn-link">
-                      <FaThumbsUp size={20} style={{ color: "#003366" }} />
-                    </button>
-                    <button type="button" class="btn btn-link">
-                      <FaThumbsDown size={20} style={{ color: "#003366" }} />
-                    </button>
-                  </div>
-                )}
-                <Card.Subtitle
-                  style={{
-                    fontSize: "14px",
-                    margin: "auto",
-                    textAlign: "justify",
-                    paddingTop: 7,
-                  }}
-                >
-                  Likes: 300
-                </Card.Subtitle>
-                <Card.Subtitle
-                  style={{
-                    fontSize: "14px",
-                    margin: "auto",
-                    textAlign: "justify",
-                    paddingTop: 7,
-                  }}
-                >
-                  Dislikes: 300
-                </Card.Subtitle>
+                <Likes
+                  postId={postContent.id}
+                  initialLikes={postContent.likes}
+                  initialDislikes={postContent.dislikes}
+                />
               </Col>
             </Row>
             {checkURL(postContent.image) && (
@@ -139,3 +115,34 @@ export default function PostCard({ postContent }) {
     </div>
   );
 }
+
+// {user && (
+//   <div>
+//     <button type="button" class="btn btn-link">
+//       <FaThumbsUp size={20} style={{ color: "#003366" }} />
+//     </button>
+//     <button type="button" class="btn btn-link">
+//       <FaThumbsDown size={20} style={{ color: "#003366" }} />
+//     </button>
+//   </div>
+// )}
+// <Card.Subtitle
+//   style={{
+//     fontSize: "14px",
+//     margin: "auto",
+//     textAlign: "justify",
+//     paddingTop: 7,
+//   }}
+// >
+//   Likes: 300
+// </Card.Subtitle>
+// <Card.Subtitle
+//   style={{
+//     fontSize: "14px",
+//     margin: "auto",
+//     textAlign: "justify",
+//     paddingTop: 7,
+//   }}
+// >
+//   Dislikes: 300
+// </Card.Subtitle>

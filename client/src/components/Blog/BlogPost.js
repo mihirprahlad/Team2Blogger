@@ -6,8 +6,6 @@ import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import "../../App.css";
 import Spinner from "react-bootstrap/Spinner";
-// import { FaThumbsUp } from "react-icons/fa";
-// import { FaThumbsDown } from "react-icons/fa";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useQuill } from "react-quilljs";
