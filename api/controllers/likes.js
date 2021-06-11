@@ -144,7 +144,7 @@ const LikeController = (app, db) => {
       }
     });
     userDoc.update({ forum_likes, forum_dislikes });
-    res.json({ msg: "Success!" });
+    res.json({ likes, dislikes });
   });
 
   // Remove a like or dislike from a post
@@ -190,13 +190,13 @@ const LikeController = (app, db) => {
 
     forumDoc = db.collection("forumpost").doc(post_id);
     let likes, dislikes;
-    forumDoc.get().then((doc) => {
+    await forumDoc.get().then((doc) => {
+      likes = doc.data().likes;
+      dislikes = doc.data().dislikes;
       if (action === "like") {
-        likes = doc.data().likes;
         delete likes[user_id];
         forumDoc.update({ likes });
       } else {
-        dislikes = doc.data().dislikes;
         delete dislikes[user_id];
         forumDoc.update({ dislikes });
       }
@@ -215,9 +215,7 @@ const LikeController = (app, db) => {
         userDoc.update({ forum_dislikes });
       }
     });
-    res.json({
-      msg: `${action === "like" ? "Like" : "Dislike"} successfully removed.`,
-    });
+    res.json({ likes, dislikes });
   });
 };
 
