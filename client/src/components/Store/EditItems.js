@@ -23,8 +23,8 @@ export default function EditItems(props) {
     // ------------------------------------
 
     // Handling edit submission -----------
-    function handleSubmit () {
-      console.log(`http://localhost:5000/items/update/${id}`)
+    function handleSubmit() {
+        console.log(`http://localhost:5000/items/update/${id}`)
         fetch(`http://localhost:5000/items/${id}`, {
             method: "PUT",
             headers: {
@@ -45,9 +45,12 @@ export default function EditItems(props) {
 
 
     return (
-        <div className="Cart" style={{ float: "right", padding: "15px" }}>
+        <div className="Cart" >
             {/* Icon that opens the Edit Modal */}
-            <RiEditBoxLine onClick={handleShow} />
+            <div style={{ float: "right", padding: "15px" }}>
+                <RiEditBoxLine onClick={handleShow} />
+            </div>
+
 
             {/* Edit Modal */}
             <Modal show={show} onHide={handleClose}>
