@@ -17,7 +17,7 @@ const Navigation = (props) => {
               icon={["far", "copyright"]}
             />{" "}
             <h style={{ color: "beige", fontWeight: 800, fontSize: 20 }}>
-              The Camille Corner
+              Camille's Corner
             </h>
           </div>
           <div className="col-md-6 mb-md-0 mb-3">
