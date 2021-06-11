@@ -103,7 +103,7 @@ const LikeController = (app, db) => {
       }
     });
     userDoc.update({ blog_likes, blog_dislikes });
-    res.json({ msg: "Success!" });
+    res.json({ likes, dislikes });
   });
 
   app.post("/forumpost/:post_id/likes", async (req, res) => {
@@ -155,13 +155,13 @@ const LikeController = (app, db) => {
 
     blogDoc = db.collection("blogpost").doc(post_id);
     let likes, dislikes;
-    blogDoc.get().then((doc) => {
+    await blogDoc.get().then((doc) => {
+      likes = doc.data().likes;
+      dislikes = doc.data().dislikes;
       if (action === "like") {
-        likes = doc.data().likes;
         delete likes[user_id];
         blogDoc.update({ likes });
       } else {
-        dislikes = doc.data().dislikes;
         delete dislikes[user_id];
         blogDoc.update({ dislikes });
       }
@@ -180,9 +180,7 @@ const LikeController = (app, db) => {
         userDoc.update({ blog_dislikes });
       }
     });
-    res.json({
-      msg: `${action === "like" ? "Like" : "Dislike"} successfully removed.`,
-    });
+    res.json({ likes, dislikes });
   });
 
   app.delete("/forumpost/:post_id/likes", async (req, res) => {

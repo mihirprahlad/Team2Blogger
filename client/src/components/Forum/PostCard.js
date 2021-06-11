@@ -59,12 +59,12 @@ export default function PostCard({postContent}){
         if(userLikes.includes(i)) {
             console.log("liked")
             liked = true;
-        //     disliked = false;
-        //     setLiked(true);
+            // disliked = false;
+            // setLiked(true);
         }
         if(userDislikes.includes(i)) {
             disliked = true;
-            liked = false;
+            // liked = false;
             // setDisliked(true);
         }
         console.log(id, "\nliked:", liked, "\ndisliked:", disliked)
@@ -239,8 +239,8 @@ export default function PostCard({postContent}){
                             <Col md={8} style={{paddingLeft:"3%"}}>
                                 <h2 style={{fontWeight:"bold"}}>{postContent.title}</h2>
                                 <Card.Subtitle className="mb-2 text-muted">{postContent.user.name}</Card.Subtitle>
-                                <Card.Subtitle className="mb-2 text-muted">{postContent.date}</Card.Subtitle>
-                                {postContent.editDate !== "" && <Card.Subtitle style = {{fontStyle:"italic"}} className="mb-2 text-muted">Updated: {postContent.editDate}</Card.Subtitle>}
+                                <Card.Subtitle className="mb-2 text-muted">{moment(postContent.date).format("dddd, MMMM Do YYYY, h:mm:ss a")}</Card.Subtitle>
+                                {postContent.editDate !== "" && <Card.Subtitle style = {{fontStyle:"italic"}} className="mb-2 text-muted">Updated: {moment(postContent.editDate).format("dddd, MMMM Do YYYY, h:mm:ss a")}</Card.Subtitle>}
                             </Col>
                             <Col md={2}>
                                 {isLoggedIn&&
@@ -260,7 +260,7 @@ export default function PostCard({postContent}){
                         <p style={{textAlign:"left",paddingTop:"2%",fontSize:15}}>{reduceContentLength(postContent.content)}</p>
                     </Row>
                     <Row style={{justifyContent:"center",paddingTop:"10px"}}>
-                        <Button variant="success" onClick={(e)=>{
+                        <Button style={{backgroundColor:"#4C6357",border:"none"}} onClick={(e)=>{
                             history.push("/forumpost/"+postContent.id);
                             e.stopPropagation();
                         }}>{postContent.content.length>=700?"Read More":"Read"}</Button>

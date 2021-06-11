@@ -63,8 +63,8 @@ export default function NewForumPost() {
             </Form.Group>
             <Form.Group className="mb-3" controlId="formContent">
                 <Form.Label>Content</Form.Label>
-                <div style={{height:200}}>
-                    <div ref={quillRef} ></div>
+                <div style={{height:200,backgroundColor:"white"}}>
+                    <div style={{backgroundColor:"white"}} ref={quillRef} ></div>
                 </div>
             </Form.Group>
         </Form>
@@ -81,7 +81,7 @@ export default function NewForumPost() {
                 </span>
             </OverlayTrigger>
             :
-            <Button variant="primary" style={{marginLeft:"20px", marginBottom:"6%"}} onClick={()=>{
+            <Button variant="primary" style={{marginLeft:"20px", marginBottom:"6%",backgroundColor:"#4C6357",border:"none"}} onClick={()=>{
                 createNewPost();
             }}>
                 Publish

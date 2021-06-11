@@ -6,14 +6,14 @@ import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import "../../App.css";
 import Spinner from "react-bootstrap/Spinner";
-import { FaThumbsUp } from "react-icons/fa";
-import { FaThumbsDown } from "react-icons/fa";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useQuill } from "react-quilljs";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext.js";
+import Likes from "./Likes.js";
 import Comments from "../Comments/Comments";
+import moment from 'moment';
 
 export default function BlogPost() {
   const history = useHistory();
@@ -76,10 +76,10 @@ export default function BlogPost() {
             <Col sm={10}>
               <h1 style={{ fontWeight: "bold" }}>{content.title}</h1>
               <h4>Camille Cooper</h4>
-              <h6>{content.date}</h6>
+              <h6>{moment(content.date).format("dddd, MMMM Do YYYY, h:mm:ss a")}</h6>
               {content.editDate && (
                 <h6 style={{ fontStyle: "italic" }}>
-                  Updated: {content.editDate}
+                  Updated: {moment(content.editDate).format("dddd, MMMM Do YYYY, h:mm:ss a")}
                 </h6>
               )}
             </Col>
@@ -89,19 +89,11 @@ export default function BlogPost() {
                 src="https://drive.google.com/thumbnail?id=1wJ0SlPBrq0AQp10LzpcdjqJIijQndLnT"
                 roundedCircle
               />
-              {user && (
-                <div>
-                  <button type="button" class="btn btn-link">
-                    <FaThumbsUp size={20} style={{ color: "#003366" }} />
-                  </button>
-                  <button type="button" class="btn btn-link">
-                    <FaThumbsDown size={20} style={{ color: "#003366" }} />
-                  </button>
-                </div>
-              )}
-              <p style={{ fontSize: "12px", paddingTop: 5 }}>
-                Likes: 300 Dislikes: 25
-              </p>
+              <Likes
+                postId={content.id}
+                initialLikes={content.likes}
+                initialDislikes={content.dislikes}
+              />
             </Col>
           </Row>
           {checkURL(content.image) && (

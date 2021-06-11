@@ -4,6 +4,10 @@ import AddItems from './AddItems';
 import Cart from './Cart';
 import { UserContext } from "../../contexts/UserContext.js";
 
+/**
+ * Driver for the store page. Used in App.js
+ * @returns A store header, admin controls, a cart, and the items
+ */
 export default function Store() {
     // Fetch request to get store items
     const [items, setItems] = useState([]); // array of items
@@ -35,16 +39,17 @@ export default function Store() {
     };
     useEffect(() => {
         getItems();
-    }, []); // add something to this dependency array later
+    }, []);
 
 
     return (
-        <div>
+        <div style={{ marginLeft: "5%", paddingTop: "3vh", paddingBottom: "4vh", marginRight: "5%" }}>
             {/* Header */}
-            <div className="Header">
-                <h1 style={{ padding: "15px" }}>Store</h1>
+            <h1 style={{ textAlign: "left", fontSize: "80px", color: "#4C635", paddingLeft: "150px", marginBottom: "-8px" }}>STORE.</h1>
 
-            </div>
+            {/* Underline */}
+            <div style={{ height: 15, marginLeft: "150px", width: "280px", backgroundColor: "#4C6357" }}></div>
+
 
             {/* Add Items Button - Only visible to admin users */}
             {user.is_admin ? <AddItems /> : null}
@@ -54,7 +59,7 @@ export default function Store() {
             <br />
 
             {/* Item Cards */}
-            <div className="CardContainer" style={{ width: "100%", margin: "auto", display: "flex", flexDirection: "row", flexWrap: "wrap", justifyContent: "center"}}>
+            <div className="CardContainer" style={{ width: "100%", margin: "auto", display: "flex", flexDirection: "row", flexWrap: "wrap", justifyContent: "center" }}>
                 <DisplayItems items={items} />
             </div>
         </div>

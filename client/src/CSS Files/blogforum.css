@@ -1,0 +1,57 @@
+.post-btn{
+    background-color: #4C6357;
+    border: none
+}
+.head-div{
+    padding-bottom: 3%;
+}
+
+.head-card{
+    width: 70vw;
+    height: auto;
+    margin: auto;
+}
+
+.profile-pic{
+    margin-left: 0.5%;
+    width: 5rem;
+}
+
+.second-col{
+    padding-left: 3%;
+}
+
+.title-header{
+    font-weight: bold;
+}
+
+.up-date{
+    font-style: italic;
+}
+
+.like-dislike{
+    font-size: 12px;
+    margin: auto;
+    text-align: justify;
+    padding-top: 7px;
+}
+
+.image-div{
+    justify-content: center;
+}
+
+.image{
+    max-width: 60vw;
+    height: 330px;
+}
+
+.content{
+    padding-top: 2%;
+    font-size: 15px;
+    margin-left: 0.5%;
+}
+
+.final-row{
+    justify-content: center;
+    padding-top: 10px;
+}

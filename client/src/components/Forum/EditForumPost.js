@@ -14,13 +14,15 @@ export default function EditForumPost(){
     const isLoggedIn = true;
     const isAdmin = true;
     const history = useHistory();
-    const {blogID} = useParams();
+    const {forumID} = useParams();
     const [content,setContent] = useState(null);
     const [newPostTitle,setNewPostTitle] = useState("");
     const [newPostImage,setNewPostImage] = useState("");
     const { quill, quillRef } = useQuill();
     const [firstRun,setFirstRun] = useState(true);
     const { user } = useContext(UserContext);
+
+    console.log(content)
 
 
     useEffect(() => {
@@ -29,8 +31,9 @@ export default function EditForumPost(){
                 return(res.json())
             })
             .then((res) => {
+                console.log(res)
                 res.forEach((res) => {
-                    if(res.id === blogID) {
+                    if(res.id === forumID) {
                         console.log(res);
                         setContent(res);
                     }
@@ -54,21 +57,21 @@ export default function EditForumPost(){
         const image = newPostImage;
         const content = quill.container.firstChild.innerHTML
         console.log(JSON.stringify({title,editDate,image,content}))
-        console.log(blogID)
-        fetch("http://localhost:5000/blogpost/" + blogID, {
+        console.log(forumID)
+        fetch("http://localhost:5000/forumpost/" + forumID, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({title,editDate,image,content})
           })
-        .then(()=>{history.push("/blogpost/"+blogID);})
+        .then(()=>{history.push("/forumpost/"+forumID);})
     })
 
     const deletePost=(()=>{
-        fetch("http://localhost:5000/blogpost/"+blogID, {
+        fetch("http://localhost:5000/forumpost/"+forumID, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
           })
-        .then(()=>{history.push("/blog");})
+        .then(()=>{history.push("/forum");})
     })
 
 
@@ -103,12 +106,13 @@ export default function EditForumPost(){
         <div style={{backgroundColor:"white"}} ref={quillRef} ></div>
         </div>
         <div>
-        {user&&
         <div>
-        <Button onClick={()=>{saveChanges();}}style={{marginRight:"5px"}}>Publish Changes</Button>
-        <Button onClick={()=>{deletePost();}}>Delete Post</Button>
+        {content&&user&&user.id===content.user.id&&
+        <Button onClick={()=>{saveChanges();}}style={{marginRight:"5px",backgroundColor:"#4C6357",border:"none"}}>Publish Changes</Button>}
+        {(content&&user&&user.id===content.user.id)||(content&&user&&user.is_admin)?
+        <Button style={{backgroundColor:"#4C6357",border:"none"}} onClick={()=>{deletePost();}}>Delete Post</Button>:<div></div>}
         </div>
-        }
+        
         </div>
     </div>
     )

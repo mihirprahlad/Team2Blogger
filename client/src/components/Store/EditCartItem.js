@@ -6,10 +6,15 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Col } from 'react-bootstrap';
+
+/**
+ * Allows signed in users to edit the quantities of items in their carts. Used in DisplayCart.js
+ * @param {Object} props - Contains itemID and itemQuantity
+ * @returns A button to open the edit modal and the edit modal itself
+ */
 export default function EditCartItem(props) {
     const { user } = useContext(UserContext);
-    const { update, setUpdate } = useContext(CartUpdate);
-    console.log("update before", update)
+    const { setUpdate } = useContext(CartUpdate);
 
     // Controls for Edit Modal ---------------
     const [show, setShow] = useState(false);
@@ -36,8 +41,7 @@ export default function EditCartItem(props) {
                 item_id: id,
                 quantity: quantity,
             }),
-        }).then((obj) => {
-            console.log("deleting", obj);
+        }).then(() => {
             setUpdate(Math.random());
         });
         setShow(false);
@@ -60,7 +64,7 @@ export default function EditCartItem(props) {
 
                         {/* Item Quantity */}
                         <Form.Row>
-                            <Form.Label column="lg" lg={2}>
+                            <Form.Label column="md" lg={2}>
                                 Quantity
                     </Form.Label>
                             <Col>
@@ -69,12 +73,12 @@ export default function EditCartItem(props) {
                         </Form.Row>
                     </Form.Group>
                 </Modal.Body>
-                <br /> <br />
+                <br /> <br /> <br />
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                 </Button>
-                    <Button variant="primary" onClick={handleSubmit}>
+                    <Button style={{ float: "right", backgroundColor:"#4C6357", border:"none" }} variant="primary" onClick={handleSubmit}>
                         Save Changes
                 </Button>
                 </Modal.Footer>

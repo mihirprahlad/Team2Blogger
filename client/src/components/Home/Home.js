@@ -7,25 +7,38 @@ import PostCard from './PostCard';
 import { faFileExcel } from "@fortawesome/free-solid-svg-icons";
 
 const titleStyle = {
-    fontSize: "12rem",
+    fontSize: "12vw",
     color:"#4C6357",
     fontWeight:900
 };
 
 document.body.style='background:#FAF0E6;';
 const aboutTextStyle = {
-    fontSize: 20
+    fontSize: 20 
 };
 
 export default function Home() {
     const history = useHistory();
     const [posts,setPosts] = useState(null);
 
-    useEffect(()=>{
+    useEffect(() => {
         fetch("http://localhost:5000/blogpost")
-            .then((res) => res.json())
-            .then((res) => setPosts(res))
-    },[])
+          .then((res) => res.json())
+          .then((res) => {
+            res.sort(function (a, b) {
+              if (b.editDate && a.editDate) {
+                return new Date(b.editDate) - new Date(a.editDate);
+              } else if (b.editDate) {
+                return new Date(b.editDate) - new Date(a.date);
+              } else if (a.editDate) {
+                return new Date(b.date) - new Date(a.editDate);
+              } else {
+                return new Date(b.date) - new Date(a.date);
+              }
+            });
+            setPosts(res);
+          });
+      }, []);
     
     return (
         <div >
@@ -36,7 +49,7 @@ export default function Home() {
                 <h1 style={{textAlign:"left",fontSize:"50px",color:"#4C635"}}>Featured Posts.</h1>
                 <div style={{height:15,width:365,backgroundColor:"#4C6357"}}></div>
                 <div style={{marginTop:20, display:"flex", flexDirection:"row", justifyContent:'center', alignItems:'center'}}>
-                    {posts?(posts.slice(0,1).concat(posts.slice(2,3)).map((post)=>{return(<PostCard postContent={post}/>)})):(
+                    {posts?(posts.slice(0,1).concat(posts.slice(1,2)).map((post)=>{return(<PostCard postContent={post}/>)})):(
                     <div class="center">
                     <Spinner animation="grow"/>           
                     </div>)}

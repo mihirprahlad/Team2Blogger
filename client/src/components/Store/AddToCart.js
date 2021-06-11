@@ -1,19 +1,23 @@
 import Button from "react-bootstrap/Button";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
-// import Alert from 'react-bootstrap/Alert'
 import { CartContext } from "../../contexts/CartContext.js";
 import { UserContext } from "../../contexts/UserContext.js";
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
+
+/**
+ * Allows a user to add an item to their cart. Used in DisplayItems.js
+ * @param {Object} props - Contains item object
+ * @returns A popover letting the user know that the item was added to their cart
+ */
 export default function AddToCart(props) {
     const { cart, setCart } = useContext(CartContext);
     const { user } = useContext(UserContext);
     const item = props.item; // what is being added to the cart
-    const [show, setShow] = useState(false);
 
+    // Popover which tells user item has been added to cart
     const popover = (
         <Popover id="popover-basic">
-            {/* <Popover.Title as="h3">Popover right</Popover.Title> */}
             <Popover.Content>
                 Added to Cart
           </Popover.Content>
@@ -64,21 +68,14 @@ export default function AddToCart(props) {
                 }),
             });
         }
-        setShow(true);
     }
     return (
         <div>
-            {/* {show ?
-                <Alert variant="success" onClose={() => setShow(false)} dismissible>
-                    <p style={{ textAlign: "center" }}>Added!</p>
-                </Alert>
-                : null} */}
             <OverlayTrigger trigger="focus" placement="right" overlay={popover} >
-                <Button size="sm" onClick={handleSubmit} style={{ float: "right" }}>
+                <Button size="sm" onClick={handleSubmit} style={{ float: "right", backgroundColor:"#4C6357", border:"none" }}>
                     Add to Cart
                 </Button>
             </OverlayTrigger>
-
         </div>
 
     );

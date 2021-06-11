@@ -5,7 +5,13 @@ import { UserContext } from "../../contexts/UserContext.js";
 import { CartContext } from "../../contexts/CartContext.js";
 import { CartUpdate } from "../../contexts/CartUpdate.js";
 import DisplayCart from "./DisplayCart";
-export default function Cart(props) {
+import { RiShoppingCartLine } from "react-icons/ri";
+
+/**
+ * Driver for displaying the user's cart. Used in Store.js
+ * @returns A button to view the cart and a modal that displays the cart info
+ */
+export default function Cart() {
 
     // Stuff for Cart Modal ---------------
     const [show, setShow] = useState(false);
@@ -23,47 +29,45 @@ export default function Cart(props) {
 
     // If someone is signed in, make cart useContext their personal cart
     const getUserCart = () => {
-        if (user){
+        if (user) {
             fetch(`http://localhost:5000/users/${user.id}/shopping-cart`)
-            .then((res) => {
-                return res.json();
-            })
-            .then((obj) => {
-                if (obj != null) {
-                    console.log("User Cart", obj);
-                    setCart(obj);
-                } else {
-                    console.log("Error");
-                }
-            });
+                .then((res) => {
+                    return res.json();
+                })
+                .then((obj) => {
+                    if (obj != null) {
+                        console.log("User Cart", obj);
+                        setCart(obj);
+                    } else {
+                        console.log("Error");
+                    }
+                });
         }
     };
 
     useEffect(() => {
         getUserCart();
     }, [show, update]);
-    
-    
-    return (
-        <div className="Cart" style={{ float: "right", padding: "15px" }}>
-            <Button variant="primary" onClick={handleShow}>
-                View Cart
-                </Button>
 
+
+    return (
+        <div className="Cart" style={{ float: "right", marginRight: "100px", padding: "14px" }}>
+            {/* View Cart button */}
+            <RiShoppingCartLine size={40} onClick={handleShow} />
+
+            {/* Cart Modal */}
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Cart</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {cart.length !== 0 ? <DisplayCart cart={cart}/> : "Nothing in cart."}
+                    {/* If cart is not empty, display cart. Otherwise, display a message. */}
+                    {cart.length !== 0 ? <DisplayCart cart={cart} /> : "Nothing in cart."}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Close
-                        </Button>
-                    {/* <Button variant="primary" onClick={handleClose}>
-                        Save Changes
-                        </Button> */}
+                    </Button>
                 </Modal.Footer>
             </Modal>
         </div>

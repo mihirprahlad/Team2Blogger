@@ -6,6 +6,11 @@ import InputGroup from 'react-bootstrap/InputGroup'
 import { Col } from 'react-bootstrap';
 import { useState } from 'react';
 
+/**
+ * Handles the admin edit items functionality. Used in DisplayItems.js
+ * @param {Object} props - contains name, description, price, image of the item being edited
+ * @returns A button to open the edit modal, and the edit modal itself
+ */
 export default function EditItems(props) {
     // Controls for Edit Modal ---------------
     const [show, setShow] = useState(false);
@@ -47,7 +52,7 @@ export default function EditItems(props) {
     return (
         <div className="Cart" >
             {/* Icon that opens the Edit Modal */}
-            <div style={{ float: "right", padding: "15px" }}>
+            <div style={{ float: "right", paddingRight: "15px" }}>
                 <RiEditBoxLine onClick={handleShow} />
             </div>
 
@@ -118,7 +123,7 @@ export default function EditItems(props) {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                         </Button>
-                    <Button variant="primary" onClick={handleSubmit}>
+                    <Button style={{ float: "right", backgroundColor:"#4C6357", border:"none" }} variant="primary" onClick={handleSubmit}>
                         Save Changes
                         </Button>
                 </Modal.Footer>
