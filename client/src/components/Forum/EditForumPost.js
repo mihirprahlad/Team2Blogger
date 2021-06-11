@@ -108,9 +108,9 @@ export default function EditForumPost(){
         <div>
         <div>
         {content&&user&&user.id===content.user.id&&
-        <Button onClick={()=>{saveChanges();}}style={{marginRight:"5px"}}>Publish Changes</Button>}
+        <Button onClick={()=>{saveChanges();}}style={{marginRight:"5px",backgroundColor:"#4C6357",border:"none"}}>Publish Changes</Button>}
         {(content&&user&&user.id===content.user.id)||(content&&user&&user.is_admin)?
-        <Button onClick={()=>{deletePost();}}>Delete Post</Button>:<div></div>}
+        <Button style={{backgroundColor:"#4C6357",border:"none"}} onClick={()=>{deletePost();}}>Delete Post</Button>:<div></div>}
         </div>
         
         </div>

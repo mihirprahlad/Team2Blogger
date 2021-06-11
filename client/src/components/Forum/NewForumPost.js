@@ -81,7 +81,7 @@ export default function NewForumPost() {
                 </span>
             </OverlayTrigger>
             :
-            <Button variant="primary" style={{marginLeft:"20px", marginBottom:"6%"}} onClick={()=>{
+            <Button variant="primary" style={{marginLeft:"20px", marginBottom:"6%",backgroundColor:"#4C6357",border:"none"}} onClick={()=>{
                 createNewPost();
             }}>
                 Publish
